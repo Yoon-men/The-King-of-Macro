@@ -1,4 +1,4 @@
-# The_Clicker
+# The_King_Of_Macro
 ![image](https://user-images.githubusercontent.com/64591335/144430633-7ae780fe-e669-4eda-af1e-012416ed1fb0.png)
 
 ---
