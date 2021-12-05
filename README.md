@@ -1,4 +1,4 @@
-# The_King_Of_Macro
+# The_King_of_Macro
 ![image](https://user-images.githubusercontent.com/64591335/144430633-7ae780fe-e669-4eda-af1e-012416ed1fb0.png)
 
 ---
@@ -8,4 +8,5 @@
 
 ## Ing
 - [x] 마우스 입력 추가
+- [ ] 실행 간격 설정 추가
 - [ ] 키보드 입력 추가
