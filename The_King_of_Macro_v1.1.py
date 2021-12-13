@@ -199,7 +199,6 @@ class Ui_Form(object):
             """불러온 CSV 읽기"""
             global CSV_data
             CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')
-            # CSV_read = csv.reader(CSV_file)
             CSV_read = csv.reader(CSV_file)
             CSV_data = []
 
