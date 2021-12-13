@@ -366,7 +366,7 @@ class Ui_Form(object):
             macro_Num = len(CSV_data[object + 1]) - 2
             for i in range(self.Start_spinBox.value()) : 
                 for j in range(macro_Num) : 
-                    if str(type(CSV_data[object + 1][j + 2])) == "<class 'str'>" : 
+                    if str(type(CSV_data[object + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
                         """좌표 가공"""
                         CSV_data[object+1][j+2] = CSV_data[object+1][j+2].strip('(')
                         CSV_data[object+1][j+2] = CSV_data[object+1][j+2].strip(')')
