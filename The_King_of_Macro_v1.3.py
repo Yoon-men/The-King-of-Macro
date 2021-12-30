@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.3> - 21.12.23.목 ??:??
+<The_King_of_Macro_v1.3> - 21.12.30.목 AM
 * Made by Yoonmen *
 
 [update] 구조 단순화
