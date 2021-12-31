@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.3> - 21.12.31.금 10:06
+<The_King_of_Macro_v1.3> - 21.12.31.금 10:13
 * Made by Yoonmen *
 
 [update] 구조 단순화
@@ -204,16 +204,16 @@ class KOM(QWidget) :
     def Load_CSV(self) : 
         global Load_status
         global CSV_road
-        CSV_road = str(QFileDialog.getOpenFileName()[0])
-        CSV_name = os.path.basename(CSV_road)
+        CSV_road = str(QFileDialog.getOpenFileName()[0])        # Loaded file's location
+        CSV_name = os.path.basename(CSV_road)       # Loaded file's name
         
         if CSV_name == 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 성공했습니다.')
             # ----------------------------------------------------------------------------------------------------
             """불러온 CSV 읽기"""
             global CSV_data
-            CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')
-            CSV_read = csv.reader(CSV_file)
+            CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')      # Read CSV - STEP 1
+            CSV_read = csv.reader(CSV_file)                                     # Read CSV - STEP 2
             CSV_data = []
 
             for row in CSV_read : 
