@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.3> - 21.12.31.금 10:49
+<The_King_of_Macro_v1.3> - 21.12.31.금 10:52
 * Made by Yoonmen *
 
 [update] 구조 단순화
@@ -345,7 +345,8 @@ class KOM(QWidget) :
             for i in range(self.start_sb.value()) : 
                 for j in range(macro_Num) : 
                     if str(type(CSV_data[object + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
-                        """좌표 가공"""
+
+                        # 좌표 가공
                         CSV_data[object+1][j+2] = CSV_data[object+1][j+2].strip('(')
                         CSV_data[object+1][j+2] = CSV_data[object+1][j+2].strip(')')
                         CSV_data[object+1][j+2] = CSV_data[object+1][j+2].split(', ')
