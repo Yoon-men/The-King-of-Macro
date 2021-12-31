@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.3> - 21.12.31.금 10:13
+<The_King_of_Macro_v1.3> - 21.12.31.금 10:44
 * Made by Yoonmen *
 
 [update] 구조 단순화
@@ -186,7 +186,7 @@ class KOM(QWidget) :
 
         # If Button is clicked
         self.loadButton.clicked.connect(self.Load_CSV)
-        self.addName_bt.clicked.connect(self.Add_MACRO)
+        self.addName_bt.clicked.connect(self.Add_NAME)
         self.addClick_bt.clicked.connect(self.Add_CLICK)
         self.addKeyboard_bt.clicked.connect(self.Add_KEYBOARD)
         self.delete_bt.clicked.connect(self.Delete_MACRO)
@@ -200,53 +200,58 @@ class KOM(QWidget) :
     
 
 
-    # Function -> Load DATA and Save DATA's Location
     def Load_CSV(self) : 
         global Load_status
         global CSV_road
-        CSV_road = str(QFileDialog.getOpenFileName()[0])        # Loaded file's location
-        CSV_name = os.path.basename(CSV_road)       # Loaded file's name
+        CSV_road = str(QFileDialog.getOpenFileName()[0])
+        CSV_name = os.path.basename(CSV_road)
         
         if CSV_name == 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 성공했습니다.')
-            # ----------------------------------------------------------------------------------------------------
-            """불러온 CSV 읽기"""
+            
+
+            # Read CSV
             global CSV_data
-            CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')      # Read CSV - STEP 1
-            CSV_read = csv.reader(CSV_file)                                     # Read CSV - STEP 2
+            CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')
+            CSV_read = csv.reader(CSV_file)
             CSV_data = []
 
+
+            # Data(DATA.csv) -> List(CSV_DATA)
             for row in CSV_read : 
                 CSV_data.append(row)
 
+
+            # Add macro's name in CSV to all of comboBox
             for i in range(1, len(CSV_data)) : 
                 self.addClick_cb.addItem(CSV_data[i][0])
                 self.addKeyboard_cb.addItem(CSV_data[i][0])
                 self.delete_cb.addItem(CSV_data[i][0])
                 self.start_cb.addItem(CSV_data[i][0])
+
             
-            Load_status = True         # CSV 파일을 불러온 상태
-            # ----------------------------------------------------------------------------------------------------
+            Load_status = True 
 
         elif CSV_name != 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 실패했습니다.')
 
 
 
-    # Function -> Add DATA to CSV
-    def Add_MACRO(self) : 
+    def Add_NAME(self) : 
         if Load_status == True : 
-            MACRO_name = [self.addName_le.text()]
+            macroName = [self.addName_le.text()]
             
-            if MACRO_name[0] == '' : 
+            if macroName[0] == '' : 
                 self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
             else : 
-                self.addClick_cb.addItem(MACRO_name[0])
-                self.addKeyboard_cb.addItem(MACRO_name[0])
-                self.delete_cb.addItem(MACRO_name[0])
-                self.start_cb.addItem(MACRO_name[0])
+                # Add macro's name in List to all of comboBox
+                self.addClick_cb.addItem(macroName[0])
+                self.addKeyboard_cb.addItem(macroName[0])
+                self.delete_cb.addItem(macroName[0])
+                self.start_cb.addItem(macroName[0])
 
-                CSV_data.append(MACRO_name)
+
+                CSV_data.append(macroName)
 
                 CSV_file = open(CSV_road, 'w', encoding = 'utf-8', newline='')
                 writer = csv.writer(CSV_file)
@@ -258,7 +263,6 @@ class KOM(QWidget) :
 
 
 
-    # Function -> Add Click's DATA to CSV
     def Add_CLICK(self) : 
         if Load_status == True : 
             object = self.addClick_cb.currentIndex()
@@ -289,8 +293,6 @@ class KOM(QWidget) :
 
 
 
-
-    # Function -> Add Keyboard's DATA to CSV
     def Add_KEYBOARD(self) : 
         if Load_status == True : 
             object = self.addKeyboard_cb.currentIndex()
@@ -315,7 +317,6 @@ class KOM(QWidget) :
 
 
 
-    # Function -> Delete Macro's DATA
     def Delete_MACRO(self) : 
         if Load_status == True : 
             object = self.delete_cb.currentIndex()
@@ -336,7 +337,6 @@ class KOM(QWidget) :
 
 
 
-    # Function -> Start Macro
     def Start_MACRO(self) : 
         if Load_status == True :
             object = self.start_cb.currentIndex()
@@ -368,7 +368,6 @@ class KOM(QWidget) :
 
         else : 
             self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
-
 
 
 
