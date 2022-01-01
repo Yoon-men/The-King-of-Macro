@@ -64,7 +64,6 @@ class KOM(QWidget) :
         self.addName_group.setGeometry(20, 70, 131, 20)
         self.addName_group.setText(_translate("Form", "<Add Macro's Name>"))
 
-
         self.addName_le = QLineEdit(Form)
         self.addName_le.setGeometry(20, 100, 251, 20)
         self.addName_le.setPlaceholderText("ex) 자동사냥")
