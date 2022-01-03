@@ -1,5 +1,4 @@
 # The_King_of_Macro
-![image](https://user-images.githubusercontent.com/64591335/145805756-769290ce-c206-438c-8362-7ff19b7cb967.png)
 ![image](https://user-images.githubusercontent.com/64591335/147938827-bf90691b-9388-4d5d-993e-f983346dd863.png)
 
 ---
@@ -8,6 +7,7 @@
 이 프로그램을 사용하기 위해서는 'DATA.csv' 파일이 필요합니다.
 
 ## How To Use
+![image](https://user-images.githubusercontent.com/64591335/145805756-769290ce-c206-438c-8362-7ff19b7cb967.png)
 1. '불러오기' 버튼을 눌러 DATA.csv를 불러온다.<br>
 2. 설정하고 싶은 매크로의 이름을 적고 '추가' 버튼을 누른다.<br>
 3. 추가하고 싶은 매크로명을 선택하고 딜레이를 설정한 뒤 '클릭'을 눌러 좌표를 설정한다.<br>
