@@ -1,11 +1,11 @@
 """
-<The_King_of_Macro_v1.4> - 22.1.3.월 17:??
+<The_King_of_Macro_v1.4> - 22.1.3.월 17:18
 * Made by Yoonmen *
 
 [update]
 1. 설정 가능한 매크로 동작 횟수 변경 (99 → 99999999)
 2. 매크로 이름 추가 시 입력해놓은 내용을 삭제하는 기능 추가
-3. 매크로 이름 추가할 때 '추가' 버튼을 누르지 않고 Enter키를 눌러서도 추가할 수 있도록 하는 기능 추가
+3. 매크로 이름을 추가할 때 Enter키를 눌러서도 매크로를 추가할 수 있도록 변경
 """
 
 import sys
@@ -190,10 +190,12 @@ class KOM(QWidget) :
         # If Button is clicked
         self.loadButton.clicked.connect(self.Load_CSV)
         self.addName_bt.clicked.connect(self.Add_NAME)
+        self.addName_le.returnPressed.connect(self.Add_NAME)
         self.addClick_bt.clicked.connect(self.Add_CLICK)
         self.addKeyboard_bt.clicked.connect(self.Add_KEYBOARD)
         self.delete_bt.clicked.connect(self.Delete_MACRO)
         self.start_bt.clicked.connect(self.Start_MACRO)
+
 
 
         # When program is started
