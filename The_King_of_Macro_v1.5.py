@@ -2,7 +2,7 @@
 <The_King_of_Macro_v1.5> - 22.1.4.화 03:33
 * Made by Yoonmen *
 
-[update] - 'Form' 삭제
+[update] - 코드 내 'Form' 삭제
 """
 
 import sys
