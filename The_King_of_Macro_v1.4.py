@@ -10,8 +10,7 @@
 
 import sys
 from PyQt5 import *
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import QCoreApplication, QMetaObject, QRect
+from PyQt5.QtCore import QCoreApplication, QMetaObject
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 import os
