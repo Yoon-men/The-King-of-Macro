@@ -1,6 +1,6 @@
 # The_King_of_Macro
 ![image](https://user-images.githubusercontent.com/64591335/147938827-bf90691b-9388-4d5d-993e-f983346dd863.png)
-
+>KOM.ico
 ---
 ## What the fuck is this?
 사용자가 사용할 매크로 동작을 저장하고 이후에 불러와서 쓸 수 있도록 해주는 프로그램입니다. <br><br>
