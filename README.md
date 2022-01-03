@@ -14,6 +14,11 @@
 4. 실행하고 싶은 매크로명을 선택하고 몇 번 실행할지 횟수를 적은 뒤 '실행' 버튼을 누른다.<br>
 5. 삭제하고 싶은 매크로가 있을 경우 그 매크로명을 선택하고 '삭제' 버튼을 누른다.<br>
 
+## Download
+이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
+> <The_King_of_Macro_v1.5>
+>> https://drive.google.com/drive/folders/1TxrHoW7Dy6o-HoeETkW8AgK0rEk0eVuA?usp=sharing
+
 ## Plan
 - [x] 마우스 입력 추가
 - [x] 실행 간격 설정 추가
