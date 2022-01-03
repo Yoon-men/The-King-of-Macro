@@ -28,7 +28,7 @@ class KOM(QWidget) :
         _translate = QCoreApplication.translate
 
         Form.setFixedSize(351, 664)
-        Form.setWindowTitle(_translate("Form", "The_King_of_Macro_v1.3"))
+        Form.setWindowTitle(_translate("Form", "The_King_of_Macro_v1.4"))
 
         self.title = QLabel(Form)
         self.title.setGeometry(60, 10, 241, 71)
