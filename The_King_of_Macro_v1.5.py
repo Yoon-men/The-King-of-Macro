@@ -26,7 +26,6 @@ class KOM(QWidget) :
 
     def initUI(self) : 
         # Default Setting
-
         self.setFixedSize(351, 664)
         self.setWindowTitle("The_King_of_Macro_v1.5")
 
