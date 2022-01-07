@@ -4,7 +4,7 @@
 ---
 ## What the fuck is this?
 사용자가 사용할 매크로 동작을 저장하고 이후에 불러와서 쓸 수 있도록 해주는 프로그램입니다. <br><br>
-이 프로그램을 사용하기 위해서는 'DATA.csv' 파일이 필요합니다.
+이 프로그램을 사용하기 위해서는 'DATA.csv' 파일이 필요합니다.<br>
 
 ## How To Use
 ![image](https://user-images.githubusercontent.com/64591335/147957026-016520f0-7955-4ed0-87ab-55c69d818988.png)
