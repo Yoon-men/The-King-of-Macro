@@ -11,44 +11,20 @@ import pyautogui
 import time
 
 
-class Hello(QThread):
-    def __init__(self) : 
-        super().__init__()
-        
-        self.power = True
-
-    def run(self):
-        self.power = True
-        while self.power == True : 
-            timeUP = time.time() + 10
-            while time.time() <= timeUP : 
-                print("[무한의 정령 케인인] 나는! 장풍을 했다!")
-                time.sleep(1)
-            print("[무한의 정령 케인인] 죄송합니다.")
-            self.power = False
-    
-
-    def stop(self) : 
-        while self.power : 
-            if keyboard.is_pressed('ESC') : 
-                self.power = False
-        print("[유한의 정령 케인인] 멈춰 인마!")
-
-
 class Function(QObject) : 
-    def __init__(self) : 
-        super().__init__()
+    # def __init__(self) : 
+    #     super().__init__()
 
 
     def addClick(self) : 
         self.power = True
-        while self.power == True : 
-            timeUP = time.time() + 10
-            while time.time() <= timeUP : 
-                print("[무한의 정령 케인인] 얘! 클릭 추가 버튼을 눌렀니?!")
-                time.sleep(1)
-            print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
-            self.power = False
+        
+        timeUP = time.time() + 10
+        while time.time() <= timeUP and self.power == True : 
+            print("[무한의 정령 케인인] 얘! 클릭 추가 버튼을 눌렀니?!")
+            time.sleep(1)
+        print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
+        self.power = False
     
 
     def addKeyboard(self) : 
@@ -75,6 +51,7 @@ class Function(QObject) :
 
     def stop(self) : 
         self.power = False
+        print("[귀찮음의 정령 케인인] 꺼져!")
         
  
 class MyWindow(QMainWindow):
@@ -281,9 +258,11 @@ class MyWindow(QMainWindow):
         self.loadButton.clicked.connect(self.loadCSV)
         self.addName_bt.clicked.connect(self.addName)
         self.addName_le.returnPressed.connect(self.addName)
-        # self.addClick_bt.clicked.connect(self.SEMI_addClick)
+        self.addClick_bt.clicked.connect(self.SEMI_addClick)
         self.addClick_bt.clicked.connect(self.function.addClick)
-        self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
+        self.addClick_cc.clicked.connect(self.stopThread)
+        # self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
+        # self.addKeyboard_bt.clicked.conenct(self.function.addKeyboard)
         self.delete_bt.clicked.connect(self.deleteMacro)
         self.start_bt.clicked.connect(self.SEMI_startMacro)
         self.addClick_cc.clicked.connect(self.stopThread)
@@ -302,7 +281,7 @@ class MyWindow(QMainWindow):
             print("[무한의 정령 케인인] 얘! 불러오기 버튼을 눌렀니?!")
             time.sleep(1)
         print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
-
+        
 
     def addName(self) : 
         timeUP = time.time() + 10
@@ -319,7 +298,6 @@ class MyWindow(QMainWindow):
         self.addClick_ds.hide()
         self.addClick_bt.hide()
         self.addClick_cc.show()
-        self.function.addClick()
 
 
     def SEMI_addKeyboard(self) : 
@@ -329,7 +307,7 @@ class MyWindow(QMainWindow):
         self.addKeyboard_lb_2.hide()
         self.addKeyboard_bt.hide()
         self.addKeyboard_cc.show()
-        self.function.addKeyboard()
+        
 
 
     def deleteMacro(self) : 
