@@ -35,7 +35,7 @@ class Hello(QThread):
         print("[유한의 정령 케인인] 멈춰 인마!")
 
 
-class Task(QThread) : 
+class Function(QObject) : 
     def __init__(self) : 
         super().__init__()
 
@@ -83,12 +83,16 @@ class MyWindow(QMainWindow):
 
         self.initUI()
 
-        self.task = Task()
-        self.task.start()
-        # self.hello.stop()
+
 
     
     def initUI(self) : 
+        self.thread = QThread()
+        self.thread.start()
+
+        
+        self.function = Function()
+        self.function.moveToThread(self.thread)
         # Default Setting
         self.setFixedSize(351, 664)
         self.setWindowTitle("The_King_of_Macro_v1.6")
@@ -273,28 +277,24 @@ class MyWindow(QMainWindow):
         self.start_rb_min.setGeometry(260, 480, 51, 16)
         self.start_rb_min.setText("분")
 
-
-        self.task = Task()
-
         # If Button is clicked
         self.loadButton.clicked.connect(self.loadCSV)
         self.addName_bt.clicked.connect(self.addName)
         self.addName_le.returnPressed.connect(self.addName)
-        self.addClick_bt.clicked.connect(self.SEMI_addClick)
+        # self.addClick_bt.clicked.connect(self.SEMI_addClick)
+        self.addClick_bt.clicked.connect(self.function.addClick)
         self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
         self.delete_bt.clicked.connect(self.deleteMacro)
-        self.start_bt.clicked.connect(self.task.startMacro)
-        self.addClick_cc.clicked.connect(self.task.stop)
-        self.addKeyboard_cc.clicked.connect(self.task.stop)
-        self.start_cc.clicked.connect(self.task.stop)
-
+        self.start_bt.clicked.connect(self.SEMI_startMacro)
+        self.addClick_cc.clicked.connect(self.stopThread)
+        self.addKeyboard_cc.clicked.connect(self.stopThread)
+        self.start_cc.clicked.connect(self.stopThread)
 
         # When program is started
         global Load_status
         Load_status = False
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
     
-
 
     def loadCSV(self) : 
         timeUP = time.time() + 10
@@ -319,7 +319,7 @@ class MyWindow(QMainWindow):
         self.addClick_ds.hide()
         self.addClick_bt.hide()
         self.addClick_cc.show()
-        self.task.addClick()
+        self.function.addClick()
 
 
     def SEMI_addKeyboard(self) : 
@@ -329,7 +329,7 @@ class MyWindow(QMainWindow):
         self.addKeyboard_lb_2.hide()
         self.addKeyboard_bt.hide()
         self.addKeyboard_cc.show()
-        self.task.addKeyboard()
+        self.function.addKeyboard()
 
 
     def deleteMacro(self) : 
@@ -347,7 +347,10 @@ class MyWindow(QMainWindow):
         self.start_lb_2.hide()
         self.start_bt.hide()
         self.start_cc.show()
-        self.task.startMacro
+        self.function.startMacro
+
+    def stopThread(self) : 
+        self.function.stop()
         
 
  
