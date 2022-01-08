@@ -57,19 +57,18 @@ class Function(QObject) :
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        self.initUI()
-
-
-
-    
-    def initUI(self) : 
         self.thread = QThread()
         self.thread.start()
 
         
         self.function = Function()
         self.function.moveToThread(self.thread)
+
+        self.initUI()
+
+
+    def initUI(self) : 
+        
         # Default Setting
         self.setFixedSize(351, 664)
         self.setWindowTitle("The_King_of_Macro_v1.6")
@@ -328,7 +327,14 @@ class MyWindow(QMainWindow):
         self.function.startMacro
 
     def stopThread(self) : 
+        self.addClick_cb.show()
+        self.addClick_lb_1.show()
+        self.addClick_lb_2.show()
+        self.addClick_ds.show()
+        self.addClick_bt.show()
+        self.addClick_cc.hide()
         self.function.stop()
+
         
 
  
