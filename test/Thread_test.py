@@ -23,19 +23,19 @@ class Function(QObject) :
         while time.time() <= timeUP and self.power == True : 
             print("[무한의 정령 케인인] 얘! 클릭 추가 버튼을 눌렀니?!")
             time.sleep(1)
-        print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
+        print("[유한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
         self.power = False
     
 
     def addKeyboard(self) : 
         self.power = True
-        while self.power == True : 
-            timeUP = time.time() + 10
-            while time.time() <= timeUP : 
-                print("[무한의 정령 케인인] 얘! 키보드 추가 버튼을 눌렀니?!")
-                time.sleep(1)
-            print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
-            self.power = False
+
+        timeUP = time.time() + 10
+        while time.time() <= timeUP and self.power == True : 
+            print("[무한의 정령 케인인] 얘! 키보드 추가 버튼을 눌렀니?!")
+            time.sleep(1)
+        print("[유한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
+        self.power = False
 
     
     def startMacro(self) : 
@@ -259,14 +259,13 @@ class MyWindow(QMainWindow):
         self.addName_le.returnPressed.connect(self.addName)
         self.addClick_bt.clicked.connect(self.SEMI_addClick)
         self.addClick_bt.clicked.connect(self.function.addClick)
-        self.addClick_cc.clicked.connect(self.stopThread)
-        # self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
-        # self.addKeyboard_bt.clicked.conenct(self.function.addKeyboard)
+        self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
+        self.addKeyboard_bt.clicked.connect(self.function.addKeyboard)
         self.delete_bt.clicked.connect(self.deleteMacro)
         self.start_bt.clicked.connect(self.SEMI_startMacro)
-        self.addClick_cc.clicked.connect(self.stopThread)
-        self.addKeyboard_cc.clicked.connect(self.stopThread)
-        self.start_cc.clicked.connect(self.stopThread)
+        self.addClick_cc.clicked.connect(self.stopClickThread)
+        self.addKeyboard_cc.clicked.connect(self.stopKeyboardThread)
+        # self.start_cc.clicked.connect(self.stopMacroThread)
 
         # When program is started
         global Load_status
@@ -326,7 +325,7 @@ class MyWindow(QMainWindow):
         self.start_cc.show()
         self.function.startMacro
 
-    def stopThread(self) : 
+    def stopClickThread(self) : 
         self.addClick_cb.show()
         self.addClick_lb_1.show()
         self.addClick_lb_2.show()
@@ -334,10 +333,19 @@ class MyWindow(QMainWindow):
         self.addClick_bt.show()
         self.addClick_cc.hide()
         self.function.stop()
+    
+    def stopKeyboardThread(self) : 
+        self.addKeyboard_cb.show()
+        self.addKeyboard_lb_1.show()
+        self.addKeyboard_ds.show()
+        self.addKeyboard_lb_2.show()
+        self.addKeyboard_bt.show()
+        self.addKeyboard_cc.hide()
+        self.function.stop()
+
 
         
 
- 
 app = QApplication(sys.argv)
 mywindow = MyWindow()
 mywindow.show()
