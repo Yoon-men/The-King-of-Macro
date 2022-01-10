@@ -1,5 +1,4 @@
 import sys
-from PyQt5.QtCore import pyqtSignal
 from PySide2 import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -12,8 +11,10 @@ import pyautogui
 import time
 
 
-class Function(QObject) : 
-    addSignal = pyqtSignal(bool)
+class Task(QObject) : 
+    addSignal = Signal(bool)
+    notloadSignal =Signal(bool)
+    emptySignal = Signal(bool)
 
     def addName(self) : 
         if Load_status == True : 
@@ -21,17 +22,17 @@ class Function(QObject) :
             # self.addName_le.setText('')
             
             if macroName[0] == '' : 
-                self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
+                emptySign = True
+                self.emptySignal.emit(emptySign)
             else : 
                 # Add macro's name in List to all of comboBox
-                self.addClick_cb.addItem(macroName[0])
-                self.addKeyboard_cb.addItem(macroName[0])
-                self.delete_cb.addItem(macroName[0])
-                self.start_cb.addItem(macroName[0])
+                addSign = True
+                self.addSignal.emit(addSign)
 
-                self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
+                # self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
         else : 
-            self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+            notloadSign = True
+            self.notloadSignal.emit(notloadSign)
 
     def addClick(self) : 
         self.power = True
@@ -77,8 +78,9 @@ class MyWindow(QMainWindow):
 
         self.thread = QThread()
         self.thread.start()
-        self.function = Function()
-        self.function.moveToThread(self.thread)
+        global task
+        task = Task()
+        task.moveToThread(self.thread)
 
         self.initUI()
 
@@ -269,14 +271,14 @@ class MyWindow(QMainWindow):
         self.start_rb_min.setGeometry(260, 480, 51, 16)
         self.start_rb_min.setText("분")
 
-        # If Button is clicked
+        # If Signal is coming
         self.loadButton.clicked.connect(self.loadCSV)
-        self.addName_bt.clicked.connect(self.SEMI_addName)
-        self.addName_bt.clicked.connect(self.function.addName)
-        self.addName_le.returnPressed.connect(self.SEMI_addName)
-        self.addName_le.returnPressed.connect(self.function.addName)
+        self.addName_bt.clicked.connect(self.SEMI_addName_1)
+        self.addName_bt.clicked.connect(task.addName)
+        self.addName_le.returnPressed.connect(self.SEMI_addName_1)
+        self.addName_le.returnPressed.connect(task.addName)
         self.addClick_bt.clicked.connect(self.SEMI_addClick)
-        self.addClick_bt.clicked.connect(self.function.addClick)
+        self.addClick_bt.clicked.connect(task.addClick)
         self.addClick_cc.clicked.connect(self.stopThread)
         # self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
         # self.addKeyboard_bt.clicked.conenct(self.function.addKeyboard)
@@ -285,10 +287,13 @@ class MyWindow(QMainWindow):
         self.addClick_cc.clicked.connect(self.stopThread)
         self.addKeyboard_cc.clicked.connect(self.stopThread)
         self.start_cc.clicked.connect(self.stopThread)
+        task.addSignal.connect(self.SEMI_addName_2)
+        task.emptySignal.connect(self.emptyName)
+        task.notloadSignal.connect(self.notloadMessage)
 
         # When program is started
         global Load_status
-        Load_status = False
+        Load_status = True
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
     
 
@@ -300,11 +305,28 @@ class MyWindow(QMainWindow):
         print("[무한의 정령 케인인] 얘! 무한한 순환의 굴레에서 벗어난걸 축하한단다!")
         
 
-    def SEMI_addName(self) : 
+    def SEMI_addName_1(self) : 
         global macroName
         macroName = [self.addName_le.text()]
         self.addName_le.setText("")
 
+
+    def SEMI_addName_2(self, addSign) : 
+        if addSign == True : 
+            self.addClick_cb.addItem(macroName[0])
+            self.addKeyboard_cb.addItem(macroName[0])
+            self.delete_cb.addItem(macroName[0])
+            self.start_cb.addItem(macroName[0])
+
+            self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
+    
+    def emptyName(self, emptySign) : 
+        if emptySign == True : 
+            self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
+    
+    def notloadMessage(self, notloadSign) : 
+        if notloadSign == True : 
+            self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
 
 
     def SEMI_addClick(self) : 
@@ -354,8 +376,8 @@ class MyWindow(QMainWindow):
 
         
 
- 
-app = QApplication(sys.argv)
-mywindow = MyWindow()
-mywindow.show()
-app.exec_()
+if __name__ == "__main__" : 
+    app = QApplication(sys.argv)
+    mywindow = MyWindow()
+    mywindow.show()
+    app.exec_()
