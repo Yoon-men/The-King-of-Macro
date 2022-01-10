@@ -12,9 +12,12 @@ import time
 
 
 class Task(QObject) : 
-    addSignal = Signal(bool)
-    notloadSignal =Signal(bool)
-    emptySignal = Signal(bool)
+    # addSignal = Signal(bool)
+    addSignal = Signal()
+    # notloadSignal = Signal(bool)
+    notloadSignal =Signal()
+    # emptySignal = Signal(bool)
+    emptySignal = Signal()
 
     def addName(self) : 
         if Load_status == True : 
@@ -23,16 +26,19 @@ class Task(QObject) :
             
             if macroName[0] == '' : 
                 emptySign = True
-                self.emptySignal.emit(emptySign)
+                # self.emptySignal.emit(emptySign)
+                self.emptySignal.emit()
             else : 
                 # Add macro's name in List to all of comboBox
                 addSign = True
-                self.addSignal.emit(addSign)
+                # self.addSignal.emit(addSign)
+                self.addSignal.emit()
 
                 # self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
         else : 
             notloadSign = True
-            self.notloadSignal.emit(notloadSign)
+            # self.notloadSignal.emit(notloadSign)
+            self.notloadSignal.emit()
 
     def addClick(self) : 
         self.power = True
@@ -311,8 +317,8 @@ class MyWindow(QMainWindow):
         self.addName_le.setText("")
 
 
-    def SEMI_addName_2(self, addSign) : 
-        if addSign == True : 
+    def SEMI_addName_2(self) : 
+        # if addSign == True : 
             self.addClick_cb.addItem(macroName[0])
             self.addKeyboard_cb.addItem(macroName[0])
             self.delete_cb.addItem(macroName[0])
@@ -320,12 +326,12 @@ class MyWindow(QMainWindow):
 
             self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
     
-    def emptyName(self, emptySign) : 
-        if emptySign == True : 
+    def emptyName(self) : 
+        # if emptySign == True : 
             self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
     
-    def notloadMessage(self, notloadSign) : 
-        if notloadSign == True : 
+    def notloadMessage(self) : 
+        # if notloadSign == True : 
             self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
 
 
