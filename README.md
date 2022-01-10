@@ -3,8 +3,13 @@
 >KOM.ico (made with Mouse)
 ---
 ## What the fuck is this?
-사용자가 사용할 매크로 동작을 저장하고 이후에 불러와서 쓸 수 있도록 해주는 프로그램입니다. <br><br>
-이 프로그램을 사용하기 위해서는 'DATA.csv' 파일이 필요합니다.<br>
+사용자 설정 매크로 프로그램입니다.
+
+마우스 클릭, 키보드 입력을 저장하고 불러와서 사용하는 것이 가능합니다.
+
+이 프로그램을 사용하기 위해서는 매크로 데이터를 저장해두는 'DATA.csv' 파일이 필요합니다.
+
+<br>
 
 ## How To Use
 ![image](https://user-images.githubusercontent.com/64591335/147957026-016520f0-7955-4ed0-87ab-55c69d818988.png)
@@ -14,10 +19,14 @@
 4. 실행하고 싶은 매크로명을 선택하고 몇 번 실행할지 횟수를 적은 뒤 '실행' 버튼을 누른다.<br>
 5. 삭제하고 싶은 매크로가 있을 경우 그 매크로명을 선택하고 '삭제' 버튼을 누른다.<br>
 
+<br>
+
 ## Download
 이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
 > <The_King_of_Macro_v1.5>
 >> https://drive.google.com/drive/folders/1TxrHoW7Dy6o-HoeETkW8AgK0rEk0eVuA?usp=sharing
+
+<br>
 
 ## Plan
 - [x] 마우스 입력 추가
@@ -32,6 +41,8 @@
 - [ ] 각 매크로별 이름 설정 기능 추가
 - [ ] 매크로 상세 보기 기능 추가
 - [ ] 특정 매크로키 삭제 기능 추가
+
+<br>
 
 ## Update History
 ◇ 2021.12.6.월 11:46 // v1.0
