@@ -129,7 +129,7 @@ class KOM(QWidget) :
 
         self.addKeyboard_lb_3 = QLabel(self)
         self.addKeyboard_lb_3.setGeometry(80, 300, 191, 20)
-        self.addKeyboard_lb_3.setText("(순서에 맞게 클릭을 진행하세요.)")
+        self.addKeyboard_lb_3.setText("(순서에 맞게 입력을 진행하세요.)")
 
         self.addLine = QFrame(self)
         self.addLine.setGeometry(110, 350, 118, 3)
