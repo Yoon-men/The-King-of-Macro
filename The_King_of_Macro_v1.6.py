@@ -9,7 +9,6 @@
 """
 
 import sys
-from tracemalloc import stop
 from PySide2 import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -36,14 +35,11 @@ class Task(QObject) :
     # 마우스 입력 취소(ESC키 입력)를 기다리는 상태
     detectKeySignal = Signal()
 
-    # For startMacro_typeTime
-    decreaseSignal = Signal(int)
-
     # 사용자 요청 작업이 완료된 상태
     noticeClickSignal = Signal()
     noticeKeyboardSignal = Signal()
-    noticeMacroSignal_1 = Signal()      # startMacro_typeNum
-    noticeMacroSignal_2 = Signal()      # startMacro_typeTime
+    noticeMacroSignal_typeNum = Signal()
+    noticeMacroSignal_typeTime = Signal()
 
     def addClick(self) : 
         self.power = True
@@ -103,8 +99,7 @@ class Task(QObject) :
 
 
 
-    # When Macro's Type is 'Num'
-    def startMacro_1(self) : 
+    def startMacro_typeNum(self) : 
         self.power = True
         if Load_status == True :
             while self.power == True : 
@@ -135,26 +130,49 @@ class Task(QObject) :
                             pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
                             time.sleep(delay)
 
-                self.noticeMacroSignal_1.emit()
+                self.noticeMacroSignal_typeNum.emit()
                 self.power = False
 
         else : 
             self.notLoadSignal.emit()
 
 
-    
-    # When Macro's Type is 'Time'
-    def startMacro_2(self) : 
+
+    def startMacro_typeTime(self) : 
         self.power = True
         if Load_status == True : 
-            run_time = runTime
+            CSV_data_copy = copy.deepcopy(CSV_data)
+            delay = float(CSV_data_copy[startObject + 1][1])
+            macro_Num = len(CSV_data_copy[startObject + 1]) - 2
             while self.power == True and run_time > 0 : 
-                time.sleep(1)
-                run_time -= 1
-                print('[줄임의 망령 케인인] 얘! 줄어드는게 보이지 않니?!')
-                self.decreaseSignal.emit(run_time)
+                for j in range(macro_Num) : 
+                    if str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
+
+                        # 좌표 가공
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].split(', ')
+                        
+                        if str(type(CSV_data_copy[startObject+1][j+2])) == "<class 'list'>" :         # 가공된 좌표일 경우
+                            pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(0.05)
+                            pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(delay)
+                        else :      # 키보드 입력일 경우
+                            pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(delay)
+
+                    else :      # 방금 막 저장한 매크로의 경우
+                        pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                        time.sleep(0.05)
+                        pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
+                        time.sleep(delay)
+
+            self.noticeMacroSignal_typeNum.emit()
+            self.power = False
+                
             
-            self.noticeMacroSignal_2.emit()
+            self.noticeMacroSignal_typeTime.emit()
             self.power = False
         
         else : 
@@ -164,11 +182,28 @@ class Task(QObject) :
 
     def stop(self) : 
         self.power = False
-        
+
+
 
 
 class Task2(QObject) : 
+    # For startMacro_typeTime
+    decreaseSignal = Signal(int)
+
+    def timer(self) : 
+        global run_time
+        run_time = runTime
+        while run_time > 0 : 
+            time.sleep(1)
+            run_time -= 1
+            print('[줄임의 정령 케인인] 얘! 줄어드는게 보이지 않니?!')
+            self.decreaseSignal.emit(run_time)
+
+
+
+class Task3(QObject) : 
     ESC_isPressedSignal = Signal()
+    
     def detectKey(self) : 
         print("ESC키 입력을 기다립니다.")
         while True : 
@@ -194,6 +229,12 @@ class KOM(QMainWindow) :
         global task2
         task2 = Task2()
         task2.moveToThread(self.task2)
+
+        self.task3 = QThread()
+        self.task3.start()
+        global task3
+        task3 = Task3()
+        task3.moveToThread(self.task3)
 
 
         self.initUI()
@@ -407,12 +448,13 @@ class KOM(QMainWindow) :
 
         self.delete_bt.clicked.connect(self.deleteMacro)
 
-        self.start_bt_1.clicked.connect(self.SEMI_startMacro_1)
-        self.start_bt_1.clicked.connect(task.startMacro_1)
+        self.start_bt_1.clicked.connect(self.SEMI_startMacro_typeNum)
+        self.start_bt_1.clicked.connect(task.startMacro_typeNum)
         self.start_cc.clicked.connect(self.stopMacroThread)
 
-        self.start_bt_2.clicked.connect(self.SEMI_startMacro_2)
-        self.start_bt_2.clicked.connect(task.startMacro_2)
+        self.start_bt_2.clicked.connect(self.SEMI_startMacro_typeTime)
+        self.start_bt_2.clicked.connect(task.startMacro_typeTime)
+        self.start_bt_2.clicked.connect(task2.timer)
 
         task.notLoadSignal.connect(self.notLoadMessage)
 
@@ -425,13 +467,13 @@ class KOM(QMainWindow) :
         self.start_rb_min.clicked.connect(self.typeTime)
 
         task.decreaseSignal.connect(self.start_sb_2.setValue)
-        task.detectKeySignal.connect(task2.detectKey)
-        # task2.ESC_isPressedSignal.connect(self.stopClickThread)
+        task.detectKeySignal.connect(task3.detectKey)
+        # task3.ESC_isPressedSignal.connect(self.stopClickThread)
 
         task.noticeClickSignal.connect(self.noticeClick)
         task.noticeKeyboardSignal.connect(self.noticeKeyboard)
-        task.noticeMacroSignal_1.connect(self.noticeMacro_1)        # startMacro_typeNum
-        task.noticeMacroSignal_2.connect(self.noticeMacro_2)        # startMacro_typeTime
+        task.noticeMacroSignal_typeNum.connect(self.noticeMacro_typeNum)
+        task.noticeMacroSignal_typeTime.connect(self.noticeMacro_typeTime)
         
 
         # When program is started
@@ -571,7 +613,7 @@ class KOM(QMainWindow) :
 
 
 
-    def SEMI_startMacro_1(self) : 
+    def SEMI_startMacro_typeNum(self) : 
         if Load_status == True : 
             global startObject
             startObject = self.start_cb.currentIndex()
@@ -588,7 +630,7 @@ class KOM(QMainWindow) :
 
 
     
-    def SEMI_startMacro_2(self) : 
+    def SEMI_startMacro_typeTime(self) : 
         if Load_status == True : 
             global startObject
             startObject = self.start_cb.currentIndex()
@@ -648,7 +690,7 @@ class KOM(QMainWindow) :
         self.addKeyboard_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] 키보드 입력이 설정되었습니다.')
     
-    def noticeMacro_1(self) : 
+    def noticeMacro_typeNum(self) : 
         self.start_cb.show()
         self.start_lb_1.show()
         self.start_sb_1.show()
@@ -657,7 +699,7 @@ class KOM(QMainWindow) :
         self.start_cc.hide()
         self.noticeBoard.addItem('[system] 매크로 작동이 완료되었습니다.')
 
-    def noticeMacro_2(self) : 
+    def noticeMacro_typeTime(self) : 
         self.start_cb.setEnabled(True)
         self.start_lb_1.setEnabled(True)
         self.start_sb_2.setEnabled(True)
