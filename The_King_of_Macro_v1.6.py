@@ -5,7 +5,7 @@
 [update]
 1. 이전 버전에서 나타난 버그 해결
 2. 매크로 실행 타입 변경 기능 추가(1. 횟수 / 2. 시간)
-3. 매크로 동작 중 종료 예약 기능 추가
+3. 매크로 동작 중 종료 예약 기능 추가(매크로 동작 중 ESC키 클릭)
 """
 
 import sys
@@ -21,7 +21,7 @@ import pyautogui
 import time
 import copy
 
-class Task(QObject) : 
+class Task1(QObject) : 
     # DATA.csv를 불러오지 않은 상태
     notLoadSignal = Signal()
 
@@ -32,8 +32,12 @@ class Task(QObject) :
     addDelaySignal_K1 = Signal()
     addDelaySignal_K2 = Signal()
 
-    # 마우스 입력 취소(ESC키 입력)를 기다리는 상태
-    detectKeySignal = Signal()
+    # 키보드 입력 중 ESC가 입력된 상태
+    ESCis_pressedSignal = Signal()
+
+    # 매크로가 몇 번 더 동작해야 하는지를 카운트
+    # (For startMacro_typeNum)
+    decreaseSignal_typeNum = Signal(int)
 
     # 사용자 요청 작업이 완료된 상태
     noticeClickSignal = Signal()
@@ -79,20 +83,25 @@ class Task(QObject) :
             while self.power == True : 
                 if len(CSV_data[keyboardObject + 1]) == 1 : 
                     self.addDelaySignal_K1.emit()
-                    
+
                 else : 
                     self.addDelaySignal_K2.emit()
 
+
                 key = keyboard.read_hotkey(suppress=False)
-                CSV_data[keyboardObject + 1].append(key)
+                if key == "ESC" : 
+                    self.ESCis_pressedSignal.emit()
+                    self.power = False
 
-                CSV_file = open(CSV_road, 'w', encoding = 'utf-8', newline='')
-                writer = csv.writer(CSV_file)
-                writer.writerows(CSV_data)
+                else : 
+                    CSV_data[keyboardObject + 1].append(key)
 
+                    CSV_file = open(CSV_road, 'w', encoding = 'utf-8', newline='')
+                    writer = csv.writer(CSV_file)
+                    writer.writerows(CSV_data)
 
-                self.noticeKeyboardSignal.emit()
-                self.power = False
+                    self.noticeKeyboardSignal.emit()
+                    self.power = False
 
         else : 
             self.notLoadSignal.emit()
@@ -100,54 +109,19 @@ class Task(QObject) :
 
 
     def startMacro_typeNum(self) : 
+        global run_num
+        run_num = runNum
         self.power = True
         if Load_status == True :
-            while self.power == True : 
-                CSV_data_copy = copy.deepcopy(CSV_data)
-                delay = float(CSV_data_copy[startObject + 1][1])
-                macro_Num = len(CSV_data_copy[startObject + 1]) - 2
-                for i in range(runNum) : 
-                    for j in range(macro_Num) : 
-                        if str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
-
-                            # 좌표 가공
-                            CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
-                            CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
-                            CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].split(', ')
-                            
-                            if str(type(CSV_data_copy[startObject+1][j+2])) == "<class 'list'>" :         # 가공된 좌표일 경우
-                                pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(0.05)
-                                pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-                            else :      # 키보드 입력일 경우
-                                pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-
-                        else :      # 방금 막 저장한 매크로의 경우
-                            pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
-                            time.sleep(0.05)
-                            pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                            time.sleep(delay)
-
-                self.noticeMacroSignal_typeNum.emit()
-                self.power = False
-
-        else : 
-            self.notLoadSignal.emit()
-
-
-
-    def startMacro_typeTime(self) : 
-        self.power = True
-        if Load_status == True : 
             CSV_data_copy = copy.deepcopy(CSV_data)
             delay = float(CSV_data_copy[startObject + 1][1])
             macro_Num = len(CSV_data_copy[startObject + 1]) - 2
-            while self.power == True and run_time > 0 : 
+            while self.power == True and run_num != 0 : 
                 for j in range(macro_Num) : 
-                    if str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
+                    if self.power == False or run_num == 0 : 
+                        break
 
+                    elif str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
                         # 좌표 가공
                         CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
                         CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
@@ -162,18 +136,59 @@ class Task(QObject) :
                             pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
                             time.sleep(delay)
 
-                    else :      # 방금 막 저장한 매크로의 경우
+                    else :      # 방금 막 저장한 마우스 매크로의 경우
                         pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
                         time.sleep(0.05)
                         pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
                         time.sleep(delay)
+                    
+                run_num -= 1
+                self.decreaseSignal_typeNum.emit(run_num)
 
             self.noticeMacroSignal_typeNum.emit()
-            self.power = False
-                
+            global detectPower
+            detectPower = False
+
+        else : 
+            self.notLoadSignal.emit()
+
+
+
+    def startMacro_typeTime(self) : 
+        self.power = True
+        if Load_status == True : 
+            CSV_data_copy = copy.deepcopy(CSV_data)
+            delay = float(CSV_data_copy[startObject + 1][1])
+            macro_Num = len(CSV_data_copy[startObject + 1]) - 2
+            while self.power == True : 
+                for j in range(macro_Num) : 
+                    if self.power == False : 
+                        break
+
+                    elif str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
+                        # 좌표 가공
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
+                        CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].split(', ')
+                        
+                        if str(type(CSV_data_copy[startObject+1][j+2])) == "<class 'list'>" :         # 가공된 좌표일 경우
+                            pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(0.05)
+                            pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(delay)
+                        else :      # 키보드 입력일 경우
+                            pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
+                            time.sleep(delay)
+
+                    else :      # 방금 막 저장한 마우스 매크로의 경우
+                        pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                        time.sleep(0.05)
+                        pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
+                        time.sleep(delay)
             
             self.noticeMacroSignal_typeTime.emit()
-            self.power = False
+            global detectPower
+            detectPower = False
         
         else : 
             self.notLoadSignal.emit()
@@ -185,10 +200,9 @@ class Task(QObject) :
 
 
 
-
 class Task2(QObject) : 
     # For startMacro_typeTime
-    decreaseSignal = Signal(int)
+    decreaseSignal_typeTime = Signal(int)
 
     def timer(self) : 
         global run_time
@@ -196,20 +210,18 @@ class Task2(QObject) :
         while run_time > 0 : 
             time.sleep(1)
             run_time -= 1
-            print('[줄임의 정령 케인인] 얘! 줄어드는게 보이지 않니?!')
-            self.decreaseSignal.emit(run_time)
+            self.decreaseSignal_typeTime.emit(run_time)
+        task1.stop()
 
 
 
 class Task3(QObject) : 
-    ESC_isPressedSignal = Signal()
-    
     def detectKey(self) : 
-        print("ESC키 입력을 기다립니다.")
-        while True : 
+        global detectPower
+        detectPower = True
+        while detectPower == True : 
             if keyboard.is_pressed("ESC") : 
-                print("ESC키를 감지했습니다.")
-                self.ESC_isPressedSignal.emit()
+                task1.stop()
                 break
 
 
@@ -218,11 +230,11 @@ class KOM(QMainWindow) :
     def __init__(self) :
         super().__init__()
         
-        self.task = QThread()
-        self.task.start()
-        global task
-        task = Task()
-        task.moveToThread(self.task)
+        self.task1 = QThread()
+        self.task1.start()
+        global task1
+        task1 = Task1()
+        task1.moveToThread(self.task1)
 
         self.task2 = QThread()
         self.task2.start()
@@ -415,11 +427,6 @@ class KOM(QMainWindow) :
         self.start_bt_2.setText("실행")
         self.start_bt_2.hide()
 
-        self.start_cc = QPushButton(self)
-        self.start_cc.setGeometry(20, 510, 311, 21)
-        self.start_cc.setText("종료 예약")
-        self.start_cc.hide()
-
         self.start_lb_type = QLabel(self)
         self.start_lb_type.setGeometry(110, 480, 211, 20)
         self.start_lb_type.setText("-   [ Type :                                 ]")
@@ -441,44 +448,49 @@ class KOM(QMainWindow) :
         self.addName_le.returnPressed.connect(self.addName)
 
         self.addClick_bt.clicked.connect(self.SEMI_addClick)
-        self.addClick_bt.clicked.connect(task.addClick)
+        self.addClick_bt.clicked.connect(task1.addClick)
 
         self.addKeyboard_bt.clicked.connect(self.SEMI_addKeyboard)
-        self.addKeyboard_bt.clicked.connect(task.addKeyboard)
+        self.addKeyboard_bt.clicked.connect(task1.addKeyboard)
 
         self.delete_bt.clicked.connect(self.deleteMacro)
 
         self.start_bt_1.clicked.connect(self.SEMI_startMacro_typeNum)
-        self.start_bt_1.clicked.connect(task.startMacro_typeNum)
-        self.start_cc.clicked.connect(self.stopMacroThread)
+        self.start_bt_1.clicked.connect(task1.startMacro_typeNum)
+        self.start_bt_1.clicked.connect(task3.detectKey)
 
         self.start_bt_2.clicked.connect(self.SEMI_startMacro_typeTime)
-        self.start_bt_2.clicked.connect(task.startMacro_typeTime)
+        self.start_bt_2.clicked.connect(task1.startMacro_typeTime)
         self.start_bt_2.clicked.connect(task2.timer)
+        self.start_bt_2.clicked.connect(task3.detectKey)
 
-        task.notLoadSignal.connect(self.notLoadMessage)
+        task1.notLoadSignal.connect(self.notLoadMessage)
 
-        task.addDelaySignal_C1.connect(self.addDelay_C1)
-        task.addDelaySignal_C2.connect(self.addDelay_C2)
-        task.addDelaySignal_K1.connect(self.addDelay_K1)
-        task.addDelaySignal_K2.connect(self.addDelay_K2)
+        task1.addDelaySignal_C1.connect(self.addDelay_C1)
+        task1.addDelaySignal_C2.connect(self.addDelay_C2)
+        task1.addDelaySignal_K1.connect(self.addDelay_K1)
+        task1.addDelaySignal_K2.connect(self.addDelay_K2)
 
         self.start_rb_num.clicked.connect(self.typeNum)
         self.start_rb_min.clicked.connect(self.typeTime)
 
-        task.decreaseSignal.connect(self.start_sb_2.setValue)
-        task.detectKeySignal.connect(task3.detectKey)
-        # task3.ESC_isPressedSignal.connect(self.stopClickThread)
+        task1.decreaseSignal_typeNum.connect(self.start_sb_1.setValue)
+        task2.decreaseSignal_typeTime.connect(self.start_sb_2.setValue)
 
-        task.noticeClickSignal.connect(self.noticeClick)
-        task.noticeKeyboardSignal.connect(self.noticeKeyboard)
-        task.noticeMacroSignal_typeNum.connect(self.noticeMacro_typeNum)
-        task.noticeMacroSignal_typeTime.connect(self.noticeMacro_typeTime)
+        task1.noticeClickSignal.connect(self.noticeClick)
+        task1.noticeKeyboardSignal.connect(self.noticeKeyboard)
+        task1.ESCis_pressedSignal.connect(self.noticeNotESC)
+        task1.noticeMacroSignal_typeNum.connect(self.noticeMacro_typeNum)
+        task1.noticeMacroSignal_typeTime.connect(self.noticeMacro_typeTime)
         
 
-        # When program is started
+        # When program is started(DEFAULT)
         global Load_status
         Load_status = False
+
+        global macroType
+        macroType = "typeNum"
+
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
 
@@ -590,6 +602,9 @@ class KOM(QMainWindow) :
 
 
     def typeNum(self) : 
+        global macroType
+        macroType = "typeNum"
+
         self.start_cb.setGeometry(20, 510, 141, 22)
         self.start_lb_1.setGeometry(170, 510, 41, 20)
         self.start_sb_2.hide()
@@ -602,6 +617,9 @@ class KOM(QMainWindow) :
     
 
     def typeTime(self) : 
+        global macroType
+        macroType = "typeTime"
+
         self.start_cb.setGeometry(20, 510, 111, 22)
         self.start_lb_1.setGeometry(140, 510, 41, 20)
         self.start_sb_1.hide()
@@ -621,12 +639,12 @@ class KOM(QMainWindow) :
             global runNum
             runNum = self.start_sb_1.value()
 
-            self.start_cb.hide()
-            self.start_lb_1.hide()
-            self.start_sb_1.hide()
-            self.start_lb_2.hide()
-            self.start_bt_1.hide()
-            self.start_cc.show()
+            self.start_cb.setEnabled(False)
+            self.start_lb_1.setEnabled(False)
+            self.start_sb_1.setEnabled(False)
+            self.start_lb_2.setEnabled(False)
+            self.start_bt_1.setEnabled(False)
+
 
 
     
@@ -643,18 +661,6 @@ class KOM(QMainWindow) :
             self.start_sb_2.setEnabled(False)
             self.start_lb_3.setEnabled(False)
             self.start_bt_2.setEnabled(False)
-
-
-
-    def stopMacroThread(self) : 
-        self.start_cb.show()
-        self.start_lb_1.show()
-        self.start_sb_1.show()
-        self.start_lb_2.show()
-        self.start_bt_1.show()
-        self.start_cc.hide()
-        task.stop()
-        self.noticeBoard.addItem("[system] 사용자 요청 작업이 취소되었습니다.")
 
 
 
@@ -689,14 +695,16 @@ class KOM(QMainWindow) :
         self.addKeyboard_lb_2.setEnabled(True)
         self.addKeyboard_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] 키보드 입력이 설정되었습니다.')
-    
+
+    def noticeNotESC(self) : 
+        self.noticeBoard.addItem('[system] ESC키는 매크로로 추가할 수 없습니다.')
+
     def noticeMacro_typeNum(self) : 
-        self.start_cb.show()
-        self.start_lb_1.show()
-        self.start_sb_1.show()
-        self.start_lb_2.show()
-        self.start_bt_1.show()
-        self.start_cc.hide()
+        self.start_cb.setEnabled(True)
+        self.start_lb_1.setEnabled(True)
+        self.start_sb_1.setEnabled(True)
+        self.start_lb_2.setEnabled(True)
+        self.start_bt_1.setEnabled(True)
         self.noticeBoard.addItem('[system] 매크로 작동이 완료되었습니다.')
 
     def noticeMacro_typeTime(self) : 
