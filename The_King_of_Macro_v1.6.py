@@ -109,10 +109,11 @@ class Task1(QObject) :
 
 
     def startMacro_typeNum(self) : 
-        global run_num
-        run_num = runNum
         self.power = True
-        if Load_status == True :
+
+        if Load_status == True : 
+            global run_num
+            run_num = runNum
             CSV_data_copy = copy.deepcopy(CSV_data)
             delay = float(CSV_data_copy[startObject + 1][1])
             macro_Num = len(CSV_data_copy[startObject + 1]) - 2
@@ -146,6 +147,7 @@ class Task1(QObject) :
                 self.decreaseSignal_typeNum.emit(run_num)
 
             self.noticeMacroSignal_typeNum.emit()
+            
             global detectPower
             detectPower = False
 
@@ -156,6 +158,7 @@ class Task1(QObject) :
 
     def startMacro_typeTime(self) : 
         self.power = True
+
         if Load_status == True : 
             CSV_data_copy = copy.deepcopy(CSV_data)
             delay = float(CSV_data_copy[startObject + 1][1])
@@ -187,6 +190,10 @@ class Task1(QObject) :
                         time.sleep(delay)
             
             self.noticeMacroSignal_typeTime.emit()
+
+            global timerPower
+            timerPower = False
+
             global detectPower
             detectPower = False
         
@@ -207,7 +214,10 @@ class Task2(QObject) :
     def timer(self) : 
         global run_time
         run_time = runTime
-        while run_time > 0 : 
+
+        global timerPower
+        timerPower = True
+        while run_time > 0 and timerPower == True : 
             time.sleep(1)
             run_time -= 1
             self.decreaseSignal_typeTime.emit(run_time)
