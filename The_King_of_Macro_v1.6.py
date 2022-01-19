@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.6> - 22.1.??. (???) ??:??
+<The_King_of_Macro_v1.6> - 22.1.19. (WED) 17:56
 * Made by Yoonmen *
 
 [update]
@@ -89,7 +89,7 @@ class Task1(QObject) :
 
 
                 key = keyboard.read_hotkey(suppress=False)
-                if key == "ESC" : 
+                if key == "esc" : 
                     self.ESCis_pressedSignal.emit()
                     self.power = False
 
@@ -688,6 +688,11 @@ class KOM(QMainWindow) :
         self.noticeBoard.addItem('[system] 키보드 입력이 설정되었습니다.')
 
     def noticeNotESC(self) : 
+        self.addKeyboard_cb.setEnabled(True)
+        self.addKeyboard_lb_1.setEnabled(True)
+        self.addKeyboard_ds.setEnabled(True)
+        self.addKeyboard_lb_2.setEnabled(True)
+        self.addKeyboard_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] ESC키는 매크로로 추가할 수 없습니다.')
 
     def noticeMacro_typeNum(self) : 
