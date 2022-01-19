@@ -488,9 +488,6 @@ class KOM(QMainWindow) :
         global Load_status
         Load_status = False
 
-        global macroType
-        macroType = "typeNum"
-
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
 
@@ -602,9 +599,6 @@ class KOM(QMainWindow) :
 
 
     def typeNum(self) : 
-        global macroType
-        macroType = "typeNum"
-
         self.start_cb.setGeometry(20, 510, 141, 22)
         self.start_lb_1.setGeometry(170, 510, 41, 20)
         self.start_sb_2.hide()
@@ -617,9 +611,6 @@ class KOM(QMainWindow) :
     
 
     def typeTime(self) : 
-        global macroType
-        macroType = "typeTime"
-
         self.start_cb.setGeometry(20, 510, 111, 22)
         self.start_lb_1.setGeometry(140, 510, 41, 20)
         self.start_sb_1.hide()
