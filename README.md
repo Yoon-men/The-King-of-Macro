@@ -1,4 +1,4 @@
-![title](/IMG/KOM_header.png)
+![title](/img/KOM_header.png)
 
 # What the fuck is this?
 사용자 설정 매크로 프로그램입니다.
