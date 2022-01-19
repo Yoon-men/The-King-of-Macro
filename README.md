@@ -1,6 +1,4 @@
-# The_King_of_Macro
-![image](https://user-images.githubusercontent.com/64591335/147938827-bf90691b-9388-4d5d-993e-f983346dd863.png)
->KOM.ico (made with Mouse)
+![title](/IMG/KOM_header.png)
 ---
 ## What the fuck is this?
 사용자 설정 매크로 프로그램입니다.
@@ -65,7 +63,7 @@
 ◇ 2022.1.4.(TUE) 03:33 // v1.5
 - 코드 내 'Form' 항목 삭제
 
-◇ 2022.1.19.(WED) 17:59 // v1.6
+◇ 2022.1.19.(WED) 17:56 // v1.6
 - 이전 버전에서 나타난 버그 해결
 - 매크로 실행 타입 변경 기능 추가(1. 횟수 / 2. 시간)
 - 매크로 동작 중 종료 예약 기능 추가(매크로 동작 중 ESC키 클릭)
