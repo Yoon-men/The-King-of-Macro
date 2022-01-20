@@ -23,8 +23,8 @@
 
 # Download
 이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
-> <The_King_of_Macro_v1.5>
->> https://drive.google.com/drive/folders/1TxrHoW7Dy6o-HoeETkW8AgK0rEk0eVuA?usp=sharing
+> <The_King_of_Macro_v1.6>
+>> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/KOM_v1.6" target="_blank">Download</a>
 
 <br>
 
@@ -36,7 +36,7 @@
 - [x] 매크로 동작 중 중지 기능 추가
 - [x] 매크로 실행 방법 선택지 추가 ex) 몇 분 동안 실행 or 몇 번 실행
 - [ ] 키보드 동시 입력 기능 
-- [ ] 매크롣 동작 중 중지 방법 선택 기능 추가(Example : ESC키 입력, 특정 버튼 클릭 등)
+- [ ] 매크로 동작 중 중지 키 사용자 설정 기능 추가
 - [ ] 각 매크로별 이름 설정 기능 추가
 - [ ] 매크로 상세 보기 기능 추가
 - [ ] 각 매크로 사이사이 딜레이 설정 가능토록(상세 보기 창에서)
