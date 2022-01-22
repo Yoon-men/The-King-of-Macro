@@ -548,6 +548,9 @@ class KOM(QMainWindow) :
         self.stopKey_lw = QListWidget(self)
         self.stopKey_lw.setGeometry(120, 70, 101, 20)
 
+        self.stopKey_bt = QPushButton(self)
+        self.stopKey_bt.setGeometry(190, 70, 51, 21)
+        self.stopKey_bt.setText("입력")
 
 
 
