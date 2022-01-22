@@ -4,9 +4,10 @@
 
 [update]
 1. 키보드 동시 입력 기능 추가
-2. 매크로 중단 버튼 사용자 설정 기능 추가
+2. 매크로 중단 버튼 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
 """
 
+from re import S
 import sys
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -286,11 +287,11 @@ class KOM(QMainWindow) :
 
     def initUI(self) : 
         # Default Setting
-        self.setFixedSize(351, 664)
+        self.setFixedSize(351, 673)
         self.setWindowTitle("The_King_of_Macro_v1.7")
 
         self.title = QLabel(self)
-        self.title.setGeometry(60, 10, 241, 71)
+        self.title.setGeometry(60, 20, 231, 71)
         font = QFont()
         font.setFamily("휴먼옛체")
         font.setPointSize(20)
@@ -309,11 +310,15 @@ class KOM(QMainWindow) :
         self.loadButton.setGeometry(280, 10, 61, 20)
         self.loadButton.setText("불러오기")
 
+        self.settingButton = QToolButton(self)
+        self.settingButton.setGeometry(210, 10, 61, 20)
+        self.settingButton.setText("설정")
+
         self.noticeBoard = QListWidget(self)
-        self.noticeBoard.setGeometry(20, 550, 311, 81)
+        self.noticeBoard.setGeometry(20, 560, 311, 81)
 
         self.dev = QLabel(self)
-        self.dev.setGeometry(130, 640, 101, 16)
+        self.dev.setGeometry(130, 650, 101, 16)
         font.setFamily("맑은 고딕")
         font.setPointSize(11)
         font.setBold(True)
@@ -323,152 +328,152 @@ class KOM(QMainWindow) :
 
         # addName_group
         self.addName_group = QLabel(self)
-        self.addName_group.setGeometry(20, 70, 131, 20)
+        self.addName_group.setGeometry(20, 80, 131, 20)
         self.addName_group.setText("<Add Macro's Name>")
 
         self.addName_le = QLineEdit(self)
-        self.addName_le.setGeometry(20, 100, 251, 20)
+        self.addName_le.setGeometry(20, 110, 251, 20)
         self.addName_le.setPlaceholderText("ex) 자동사냥")
         self.addName_le.setClearButtonEnabled(True)
 
         self.addName_bt = QPushButton(self)
-        self.addName_bt.setGeometry(280, 100, 51, 21)
+        self.addName_bt.setGeometry(280, 110, 51, 21)
         self.addName_bt.setText("추가")
 
 
         # addClick_group
         self.addClick_group = QLabel(self)
-        self.addClick_group.setGeometry(20, 140, 101, 20)
+        self.addClick_group.setGeometry(20, 150, 101, 20)
         self.addClick_group.setText("<Add Click>")
 
         self.addClick_cb = QComboBox(self)
-        self.addClick_cb.setGeometry(20, 170, 101, 22)
+        self.addClick_cb.setGeometry(20, 180, 101, 22)
 
         self.addClick_lb_1 = QLabel(self)
-        self.addClick_lb_1.setGeometry(130, 170, 16, 20)
+        self.addClick_lb_1.setGeometry(130, 180, 16, 20)
         self.addClick_lb_1.setText("에")
 
         self.addClick_lb_2 = QLabel(self)
-        self.addClick_lb_2.setGeometry(210, 170, 71, 20)
+        self.addClick_lb_2.setGeometry(210, 180, 71, 20)
         self.addClick_lb_2.setText("초 간격으로")
 
         self.addClick_ds = QDoubleSpinBox(self)
-        self.addClick_ds.setGeometry(150, 170, 51, 22)
+        self.addClick_ds.setGeometry(150, 180, 51, 22)
         
         self.addClick_bt = QPushButton(self)
-        self.addClick_bt.setGeometry(280, 170, 51, 21)
+        self.addClick_bt.setGeometry(280, 180, 51, 21)
         self.addClick_bt.setText("클릭")
 
         self.addClick_lb_3 = QLabel(self)
-        self.addClick_lb_3.setGeometry(80, 200, 191, 20)
+        self.addClick_lb_3.setGeometry(80, 210, 191, 20)
         self.addClick_lb_3.setText("(순서에 맞게 클릭을 진행하세요.)")
 
         
         # addKeyboard_group
         self.addKeyboard_group = QLabel(self)
-        self.addKeyboard_group.setGeometry(20, 240, 101, 20)
+        self.addKeyboard_group.setGeometry(20, 250, 101, 20)
         self.addKeyboard_group.setText("<Add Keyboard>")
 
         self.addKeyboard_cb = QComboBox(self)
-        self.addKeyboard_cb.setGeometry(20, 270, 101, 22)
+        self.addKeyboard_cb.setGeometry(20, 280, 101, 22)
 
         self.addKeyboard_lb_1 = QLabel(self)
-        self.addKeyboard_lb_1.setGeometry(130, 270, 16, 20)
+        self.addKeyboard_lb_1.setGeometry(130, 280, 16, 20)
         self.addKeyboard_lb_1.setText("에")
 
         self.addKeyboard_ds = QDoubleSpinBox(self)
-        self.addKeyboard_ds.setGeometry(150, 270, 51, 22)
+        self.addKeyboard_ds.setGeometry(150, 280, 51, 22)
 
         self.addKeyboard_lb_2 = QLabel(self)
-        self.addKeyboard_lb_2.setGeometry(210, 270, 71, 20)
+        self.addKeyboard_lb_2.setGeometry(210, 280, 71, 20)
         self.addKeyboard_lb_2.setText("초 간격으로")
 
         self.addKeyboard_bt = QPushButton(self)
-        self.addKeyboard_bt.setGeometry(280, 270, 51, 21)
+        self.addKeyboard_bt.setGeometry(280, 280, 51, 21)
         self.addKeyboard_bt.setText("입력")
 
         self.addKeyboard_lb_3 = QLabel(self)
-        self.addKeyboard_lb_3.setGeometry(80, 300, 191, 20)
+        self.addKeyboard_lb_3.setGeometry(80, 310, 191, 20)
         self.addKeyboard_lb_3.setText("(순서에 맞게 입력을 진행하세요.)")
 
         self.addLine = QFrame(self)
-        self.addLine.setGeometry(110, 350, 118, 3)
+        self.addLine.setGeometry(110, 360, 118, 3)
         self.addLine.setFrameShape(QFrame.HLine)
         self.addLine.setFrameShadow(QFrame.Sunken)
         
 
         # delete_group
         self.delete_group = QLabel(self)
-        self.delete_group.setGeometry(20, 370, 101, 20)
+        self.delete_group.setGeometry(20, 380, 101, 20)
         self.delete_group.setText("<Delete Macro>")
 
         self.delete_cb = QComboBox(self)
-        self.delete_cb.setGeometry(20, 400, 211, 22)
+        self.delete_cb.setGeometry(20, 410, 211, 22)
 
         self.delete_lb_1 = QLabel(self)
-        self.delete_lb_1.setGeometry(240, 400, 41, 20)
+        self.delete_lb_1.setGeometry(240, 410, 41, 20)
         self.delete_lb_1.setText("을(를)")
 
         self.delete_bt = QPushButton(self)
-        self.delete_bt.setGeometry(280, 400, 51, 21)
+        self.delete_bt.setGeometry(280, 410, 51, 21)
         self.delete_bt.setText("삭제")
 
         self.deleteLine = QFrame(self)
-        self.deleteLine.setGeometry(110, 460, 118, 3)
+        self.deleteLine.setGeometry(110, 470, 118, 3)
         self.deleteLine.setFrameShape(QFrame.HLine)
         self.deleteLine.setFrameShadow(QFrame.Sunken)
 
 
         # start_group
         self.start_group = QLabel(self)
-        self.start_group.setGeometry(20, 480, 101, 20)
+        self.start_group.setGeometry(20, 490, 101, 20)
         self.start_group.setText("<Start Macro>")
 
         self.start_cb = QComboBox(self)
-        self.start_cb.setGeometry(20, 510, 141, 22)
+        self.start_cb.setGeometry(20, 520, 141, 22)
 
         self.start_lb_1 = QLabel(self)
-        self.start_lb_1.setGeometry(170, 510, 41, 20)
+        self.start_lb_1.setGeometry(170, 520, 41, 20)
         self.start_lb_1.setText("을(를)")
 
         self.start_sb_1 = QSpinBox(self)
-        self.start_sb_1.setGeometry(210, 510, 42, 22)
+        self.start_sb_1.setGeometry(210, 520, 42, 22)
         self.start_sb_1.setMaximum(999999999)
 
         self.start_sb_2 = QSpinBox(self)
-        self.start_sb_2.setGeometry(180, 510, 42, 22)
+        self.start_sb_2.setGeometry(180, 520, 42, 22)
         self.start_sb_2.setMaximum(999999999)
         self.start_sb_2.hide()
 
         self.start_lb_2 = QLabel(self)
-        self.start_lb_2.setGeometry(260, 510, 16, 20)
+        self.start_lb_2.setGeometry(260, 520, 16, 20)
         self.start_lb_2.setText("번")
 
         self.start_lb_3 = QLabel(self)
-        self.start_lb_3.setGeometry(230, 510, 41, 20)
+        self.start_lb_3.setGeometry(230, 520, 41, 20)
         self.start_lb_3.setText("초 동안")
         self.start_lb_3.hide()
 
         self.start_bt_1 = QPushButton(self)
-        self.start_bt_1.setGeometry(280, 510, 51, 21)
+        self.start_bt_1.setGeometry(280, 520, 51, 21)
         self.start_bt_1.setText("실행")
 
         self.start_bt_2 = QPushButton(self)
-        self.start_bt_2.setGeometry(280, 510, 51, 21)
+        self.start_bt_2.setGeometry(280, 520, 51, 21)
         self.start_bt_2.setText("실행")
         self.start_bt_2.hide()
 
         self.start_lb_type = QLabel(self)
-        self.start_lb_type.setGeometry(110, 480, 211, 20)
+        self.start_lb_type.setGeometry(110, 490, 211, 20)
         self.start_lb_type.setText("-   [ Type :                                 ]")
 
         self.start_rb_num = QRadioButton(self)
-        self.start_rb_num.setGeometry(190, 480, 51, 16)
+        self.start_rb_num.setGeometry(190, 490, 51, 16)
         self.start_rb_num.setText("횟수")
         self.start_rb_num.setChecked(True)
 
         self.start_rb_min = QRadioButton(self)
-        self.start_rb_min.setGeometry(260, 480, 51, 16)
+        self.start_rb_min.setGeometry(260, 490, 51, 16)
         self.start_rb_min.setText("시간")
 
 
@@ -520,6 +525,32 @@ class KOM(QMainWindow) :
         Load_status = False
 
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
+
+
+
+    def settingUI(self) : 
+        # Default Setting
+        self.setFixedSize(255, 172)
+        self.setWindowTitle("KOM_setting")
+
+        self.title = QLabel(self)
+        self.title.setGeometry(80, 0, 101, 41)
+        font = QFont()
+        font.setFamily("Bodoni MT Black")
+        font.setPointSize(20)
+        self.title.setFont(font)
+        self.title.setText("Setting")
+
+        self.stopKey_lb = QLabel(self)
+        self.stopKey_lb.setGeometry(10, 70, 101, 20)
+        self.stopKey_lb.setText("- 매크로 중단 키 : ")
+
+        self.stopKey_lw = QListWidget(self)
+        self.stopKey_lw.setGeometry(120, 70, 101, 20)
+
+
+
+
 
 
 
