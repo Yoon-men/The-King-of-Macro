@@ -7,7 +7,6 @@
 2. 매크로 중단 버튼 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
 """
 
-from re import S
 import sys
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -258,7 +257,44 @@ class Task3(QObject) :
 
 
 
-class KOM(QMainWindow) : 
+class Setting(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+        self.settingUI()
+
+    def settingUI(self) : 
+        # Default Setting
+        self.setFixedSize(255, 172)
+        self.setWindowTitle("Setting Room")
+
+        self.title = QLabel(self)
+        self.title.setGeometry(80, 0, 101, 41)
+        font = QFont()
+        font.setFamily("Bodoni MT Black")
+        font.setPointSize(20)
+        self.title.setFont(font)
+        self.title.setText("Setting")
+
+
+        # stopKey_group
+        self.stopKey_lb = QLabel(self)
+        self.stopKey_lb.setGeometry(10, 70, 101, 20)
+        self.stopKey_lb.setText("- 매크로 중단 키 : ")
+
+        self.stopKey_lw = QListWidget(self)
+        self.stopKey_lw.setGeometry(120, 70, 101, 20)
+
+        self.stopKey_bt = QPushButton(self)
+        self.stopKey_bt.setGeometry(190, 70, 51, 21)
+        self.stopKey_bt.setText("입력")
+
+
+        # If Signal is coming
+        # self.stopKey_bt.clicked.connect()
+
+
+
+class Main(QMainWindow) : 
     def __init__(self) :
         super().__init__()
         
@@ -281,13 +317,13 @@ class KOM(QMainWindow) :
         task3.moveToThread(self.task3)
 
 
-        self.initUI()
+        self.mainUI()
 
 
 
-    def initUI(self) : 
+    def mainUI(self) : 
         # Default Setting
-        self.setFixedSize(351, 673)
+        self.setFixedSize(351, 685)
         self.setWindowTitle("The_King_of_Macro_v1.7")
 
         self.title = QLabel(self)
@@ -426,59 +462,61 @@ class KOM(QMainWindow) :
 
         # start_group
         self.start_group = QLabel(self)
-        self.start_group.setGeometry(20, 490, 101, 20)
+        self.start_group.setGeometry(20, 500, 101, 20)
         self.start_group.setText("<Start Macro>")
 
         self.start_cb = QComboBox(self)
-        self.start_cb.setGeometry(20, 520, 141, 22)
+        self.start_cb.setGeometry(20, 530, 141, 22)
 
         self.start_lb_1 = QLabel(self)
-        self.start_lb_1.setGeometry(170, 520, 41, 20)
+        self.start_lb_1.setGeometry(170, 530, 41, 20)
         self.start_lb_1.setText("을(를)")
 
         self.start_sb_1 = QSpinBox(self)
-        self.start_sb_1.setGeometry(210, 520, 42, 22)
+        self.start_sb_1.setGeometry(210, 530, 42, 22)
         self.start_sb_1.setMaximum(999999999)
 
         self.start_sb_2 = QSpinBox(self)
-        self.start_sb_2.setGeometry(180, 520, 42, 22)
+        self.start_sb_2.setGeometry(180, 530, 42, 22)
         self.start_sb_2.setMaximum(999999999)
         self.start_sb_2.hide()
 
         self.start_lb_2 = QLabel(self)
-        self.start_lb_2.setGeometry(260, 520, 16, 20)
+        self.start_lb_2.setGeometry(260, 530, 16, 20)
         self.start_lb_2.setText("번")
 
         self.start_lb_3 = QLabel(self)
-        self.start_lb_3.setGeometry(230, 520, 41, 20)
+        self.start_lb_3.setGeometry(230, 530, 41, 20)
         self.start_lb_3.setText("초 동안")
         self.start_lb_3.hide()
 
         self.start_bt_1 = QPushButton(self)
-        self.start_bt_1.setGeometry(280, 520, 51, 21)
+        self.start_bt_1.setGeometry(280, 530, 51, 21)
         self.start_bt_1.setText("실행")
 
         self.start_bt_2 = QPushButton(self)
-        self.start_bt_2.setGeometry(280, 520, 51, 21)
+        self.start_bt_2.setGeometry(280, 530, 51, 21)
         self.start_bt_2.setText("실행")
         self.start_bt_2.hide()
 
         self.start_lb_type = QLabel(self)
-        self.start_lb_type.setGeometry(110, 490, 211, 20)
+        self.start_lb_type.setGeometry(110, 500, 211, 20)
         self.start_lb_type.setText("-   [ Type :                                 ]")
 
         self.start_rb_num = QRadioButton(self)
-        self.start_rb_num.setGeometry(190, 490, 51, 16)
+        self.start_rb_num.setGeometry(190, 500, 51, 16)
         self.start_rb_num.setText("횟수")
         self.start_rb_num.setChecked(True)
 
         self.start_rb_min = QRadioButton(self)
-        self.start_rb_min.setGeometry(260, 490, 51, 16)
+        self.start_rb_min.setGeometry(260, 500, 51, 16)
         self.start_rb_min.setText("시간")
 
 
         # If Signal is coming
         self.loadButton.clicked.connect(self.loadCSV)
+
+        self.settingButton.clicked.connect(self.openSetting)
 
         self.addName_bt.clicked.connect(self.addName)
         self.addName_le.returnPressed.connect(self.addName)
@@ -528,35 +566,6 @@ class KOM(QMainWindow) :
 
 
 
-    def settingUI(self) : 
-        # Default Setting
-        self.setFixedSize(255, 172)
-        self.setWindowTitle("KOM_setting")
-
-        self.title = QLabel(self)
-        self.title.setGeometry(80, 0, 101, 41)
-        font = QFont()
-        font.setFamily("Bodoni MT Black")
-        font.setPointSize(20)
-        self.title.setFont(font)
-        self.title.setText("Setting")
-
-        self.stopKey_lb = QLabel(self)
-        self.stopKey_lb.setGeometry(10, 70, 101, 20)
-        self.stopKey_lb.setText("- 매크로 중단 키 : ")
-
-        self.stopKey_lw = QListWidget(self)
-        self.stopKey_lw.setGeometry(120, 70, 101, 20)
-
-        self.stopKey_bt = QPushButton(self)
-        self.stopKey_bt.setGeometry(190, 70, 51, 21)
-        self.stopKey_bt.setText("입력")
-
-
-
-
-
-
     def loadCSV(self) : 
         global Load_status
         global CSV_road
@@ -587,6 +596,12 @@ class KOM(QMainWindow) :
 
         elif CSV_name != 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 실패했습니다.')
+
+
+
+    def openSetting(self) : 
+        setting = Setting()
+        setting.exec_()
 
 
 
@@ -780,6 +795,6 @@ class KOM(QMainWindow) :
 
 if __name__ == '__main__' : 
     app = QApplication(sys.argv)
-    kom = KOM()
-    kom.show()
+    main = Main()
+    main.show()
     sys.exit(app.exec_())
