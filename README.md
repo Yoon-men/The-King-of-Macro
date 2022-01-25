@@ -34,8 +34,8 @@
 
 # Download
 이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
-> <The_King_of_Macro_v1.6>
->> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.6" target="_blank">Download Link</a>
+> <The_King_of_Macro_v1.7>
+>> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.7" target="_blank">Download Link</a>
 
 <br>
 
