@@ -5,7 +5,7 @@
 [update]
 1. 이전 버전에서 나타난 버그 해결
 2. 키보드 동시 입력이 가능해짐
-3. 매크로 중단 버튼 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
+3. 매크로 중단 키 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
 """
 
 import sys
@@ -31,8 +31,8 @@ class Task1(QObject) :
     addDelaySignal_K1 = Signal()
     addDelaySignal_K2 = Signal()
 
-    # 키보드 입력 중 ESC가 입력된 상태
-    ESCis_pressedSignal = Signal()
+    # 키보드 입력 중 매크로 중단 키가 입력된 상태
+    stopKeyis_pressedSignal = Signal()
 
     # 매크로가 몇 번 더 동작해야 하는지를 카운트
     # (For startMacro_typeNum)
@@ -88,9 +88,9 @@ class Task1(QObject) :
 
 
                 key = keyboard.read_hotkey(suppress = False)
-                if key == "esc" : 
-                    self.ESCis_pressedSignal.emit()
-                    self.power = False
+                if key == stopKey : 
+                    self.stopKeyis_pressedSignal.emit()
+                    self.power = False  
 
                 else : 
                     CSV_data[keyboardObject + 1].append(key)
@@ -599,7 +599,7 @@ class Main(QMainWindow) :
 
         task1.noticeClickSignal.connect(self.noticeClick)
         task1.noticeKeyboardSignal.connect(self.noticeKeyboard)
-        task1.ESCis_pressedSignal.connect(self.noticeNotESC)
+        task1.stopKeyis_pressedSignal.connect(self.noticeNotstopKey)
         task1.noticeMacroSignal_typeNum.connect(self.noticeMacro_typeNum)
         task1.noticeMacroSignal_typeTime.connect(self.noticeMacro_typeTime)
         
@@ -826,13 +826,13 @@ class Main(QMainWindow) :
         self.noticeBoard.addItem('[system] 키보드 입력이 설정되었습니다.')
         self.noticeBoard.scrollToBottom()
 
-    def noticeNotESC(self) : 
+    def noticeNotstopKey(self) : 
         self.addKeyboard_cb.setEnabled(True)
         self.addKeyboard_lb_1.setEnabled(True)
         self.addKeyboard_ds.setEnabled(True)
         self.addKeyboard_lb_2.setEnabled(True)
         self.addKeyboard_bt.setEnabled(True)
-        self.noticeBoard.addItem('[system] ESC키는 매크로로 추가할 수 없습니다.')
+        self.noticeBoard.addItem('[system] 중단 키는 매크로로 추가할 수 없습니다.')
         self.noticeBoard.scrollToBottom()
 
     def noticeMacro_typeNum(self) : 
