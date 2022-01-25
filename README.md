@@ -12,7 +12,7 @@
 <br>
 
 # How To Use
-![image](/img/KOM_demo.png)
+![image](/img/KOM_v1.7_demo.png)
 
 【 기본 】
 - '불러오기' 버튼을 눌러 DATA.csv를 불러온다.
