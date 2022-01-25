@@ -1,10 +1,11 @@
 """
-<The_King_of_Macro_v1.7> - 22.1.??. (???) ??:??
+<The_King_of_Macro_v1.7> - 22.1.25. (TUE) 09:51
 * Made by Yoonmen *
 
 [update]
-1. 키보드 동시 입력 기능 추가
-2. 매크로 중단 버튼 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
+1. 이전 버전에서 나타난 버그 해결
+2. 키보드 동시 입력이 가능해짐
+3. 매크로 중단 버튼 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
 """
 
 import sys
@@ -86,7 +87,7 @@ class Task1(QObject) :
                     self.addDelaySignal_K2.emit()
 
 
-                key = keyboard.read_hotkey(suppress=False)
+                key = keyboard.read_hotkey(suppress = False)
                 if key == "esc" : 
                     self.ESCis_pressedSignal.emit()
                     self.power = False
@@ -228,6 +229,7 @@ class Task1(QObject) :
 
 
 
+
 class Task2(QObject) : 
     # For startMacro_typeTime
     decreaseSignal_typeTime = Signal(int)
@@ -246,21 +248,26 @@ class Task2(QObject) :
 
 
 
+
 class Task3(QObject) : 
     def detectKey(self) : 
         global detectPower
         detectPower = True
         while detectPower == True : 
-            if keyboard.is_pressed("ESC") : 
+            if keyboard.is_pressed(stopKey) : 
                 task1.stop()
                 break
+
 
 
 
 class Setting(QDialog) : 
     def __init__(self) : 
         super().__init__()
+
         self.settingUI()
+
+
 
     def settingUI(self) : 
         # Default Setting
@@ -274,7 +281,7 @@ class Setting(QDialog) :
         font.setPointSize(20)
         self.title.setFont(font)
         self.title.setText("Setting")
-
+        
 
         # stopKey_group
         self.stopKey_lb = QLabel(self)
@@ -282,15 +289,48 @@ class Setting(QDialog) :
         self.stopKey_lb.setText("- 매크로 중단 키 : ")
 
         self.stopKey_lw = QListWidget(self)
-        self.stopKey_lw.setGeometry(120, 70, 101, 20)
+        self.stopKey_lw.setGeometry(120, 70, 61, 21)
+        item = QListWidgetItem(stopKey)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.stopKey_lw.addItem(item)
 
         self.stopKey_bt = QPushButton(self)
         self.stopKey_bt.setGeometry(190, 70, 51, 21)
         self.stopKey_bt.setText("입력")
-
+        
 
         # If Signal is coming
-        # self.stopKey_bt.clicked.connect()
+        self.stopKey_bt.clicked.connect(self.SEMI_setKey)
+        self.stopKey_bt.clicked.connect(task4.setKey)
+
+        task4.noticeSetKeySignal.connect(self.noticeSetKey)
+
+
+
+    def SEMI_setKey(self) : 
+        self.stopKey_bt.setEnabled(False)
+
+    def noticeSetKey(self) : 
+        self.stopKey_lw.clear()
+        item = QListWidgetItem(stopKey)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.stopKey_lw.addItem(item)
+
+        self.stopKey_bt.setEnabled(True)
+
+
+
+
+class Task4(QObject) : 
+    # 사용자 요청 작업이 완료된 상태
+    noticeSetKeySignal = Signal()
+
+    def setKey(self) : 
+        global stopKey
+        stopKey = keyboard.read_hotkey(suppress = False)
+        
+        self.noticeSetKeySignal.emit()
+
 
 
 
@@ -316,13 +356,19 @@ class Main(QMainWindow) :
         task3 = Task3()
         task3.moveToThread(self.task3)
 
+        self.task4 = QThread()
+        self.task4.start()
+        global task4
+        task4 = Task4()
+        task4.moveToThread(self.task4)
+
 
         self.mainUI()
 
 
 
     def mainUI(self) : 
-        # Default Setting
+        # basic_group
         self.setFixedSize(351, 685)
         self.setWindowTitle("The_King_of_Macro_v1.7")
 
@@ -351,10 +397,10 @@ class Main(QMainWindow) :
         self.settingButton.setText("설정")
 
         self.noticeBoard = QListWidget(self)
-        self.noticeBoard.setGeometry(20, 560, 311, 81)
+        self.noticeBoard.setGeometry(20, 570, 311, 81)
 
         self.dev = QLabel(self)
-        self.dev.setGeometry(130, 650, 101, 16)
+        self.dev.setGeometry(130, 660, 101, 16)
         font.setFamily("맑은 고딕")
         font.setPointSize(11)
         font.setBold(True)
@@ -562,6 +608,9 @@ class Main(QMainWindow) :
         global Load_status
         Load_status = False
 
+        global stopKey
+        stopKey = 'esc'
+
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
 
@@ -574,6 +623,7 @@ class Main(QMainWindow) :
         
         if CSV_name == 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 성공했습니다.')
+            self.noticeBoard.scrollToBottom()
             
             # Read CSV
             global CSV_data
@@ -596,6 +646,7 @@ class Main(QMainWindow) :
 
         elif CSV_name != 'DATA.csv' : 
             self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 실패했습니다.')
+            self.noticeBoard.scrollToBottom()
 
 
 
@@ -612,6 +663,7 @@ class Main(QMainWindow) :
             
             if macroName[0] == '' : 
                 self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
+                self.noticeBoard.scrollToBottom()
             else : 
                 # Add macro's name in List to all of comboBox
                 self.addClick_cb.addItem(macroName[0])
@@ -626,9 +678,11 @@ class Main(QMainWindow) :
                 writer.writerows(CSV_data)
 
                 self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
+                self.noticeBoard.scrollToBottom()
 
         else : 
             self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+            self.noticeBoard.scrollToBottom()
 
 
 
@@ -673,14 +727,16 @@ class Main(QMainWindow) :
             writer.writerows(CSV_data)
 
             self.noticeBoard.addItem('[system] 매크로를 삭제했습니다.')
+            self.noticeBoard.scrollToBottom()
         else : 
             self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+            self.noticeBoard.scrollToBottom()
 
 
 
     def typeNum(self) : 
-        self.start_cb.setGeometry(20, 510, 141, 22)
-        self.start_lb_1.setGeometry(170, 510, 41, 20)
+        self.start_cb.setGeometry(20, 530, 141, 22)
+        self.start_lb_1.setGeometry(170, 530, 41, 20)
         self.start_sb_2.hide()
         self.start_sb_1.show()
         self.start_lb_3.hide()
@@ -691,8 +747,8 @@ class Main(QMainWindow) :
     
 
     def typeTime(self) : 
-        self.start_cb.setGeometry(20, 510, 111, 22)
-        self.start_lb_1.setGeometry(140, 510, 41, 20)
+        self.start_cb.setGeometry(20, 530, 111, 22)
+        self.start_lb_1.setGeometry(140, 530, 41, 20)
         self.start_sb_1.hide()
         self.start_sb_2.show()
         self.start_lb_2.hide()
@@ -738,6 +794,7 @@ class Main(QMainWindow) :
     # taskClass's Signal
     def notLoadMessage(self) : 
         self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+        self.noticeBoard.scrollToBottom()
 
     def addDelay_C1(self) : 
         CSV_data[clickObject + 1].append(self.addClick_ds.value())
@@ -758,6 +815,7 @@ class Main(QMainWindow) :
         self.addClick_ds.setEnabled(True)
         self.addClick_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] 클릭한 좌표가 저장되었습니다.')
+        self.noticeBoard.scrollToBottom()
 
     def noticeKeyboard(self) : 
         self.addKeyboard_cb.setEnabled(True)
@@ -766,6 +824,7 @@ class Main(QMainWindow) :
         self.addKeyboard_lb_2.setEnabled(True)
         self.addKeyboard_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] 키보드 입력이 설정되었습니다.')
+        self.noticeBoard.scrollToBottom()
 
     def noticeNotESC(self) : 
         self.addKeyboard_cb.setEnabled(True)
@@ -774,6 +833,7 @@ class Main(QMainWindow) :
         self.addKeyboard_lb_2.setEnabled(True)
         self.addKeyboard_bt.setEnabled(True)
         self.noticeBoard.addItem('[system] ESC키는 매크로로 추가할 수 없습니다.')
+        self.noticeBoard.scrollToBottom()
 
     def noticeMacro_typeNum(self) : 
         self.start_cb.setEnabled(True)
@@ -782,6 +842,7 @@ class Main(QMainWindow) :
         self.start_lb_2.setEnabled(True)
         self.start_bt_1.setEnabled(True)
         self.noticeBoard.addItem('[system] 매크로 작동이 완료되었습니다.')
+        self.noticeBoard.scrollToBottom()
 
     def noticeMacro_typeTime(self) : 
         self.start_cb.setEnabled(True)
@@ -790,6 +851,7 @@ class Main(QMainWindow) :
         self.start_lb_3.setEnabled(True)
         self.start_bt_2.setEnabled(True)
         self.noticeBoard.addItem('[system] 매크로 작동이 완료되었습니다.')
+        self.noticeBoard.scrollToBottom()
 
 
 
