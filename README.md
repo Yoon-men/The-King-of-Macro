@@ -1,6 +1,6 @@
 ![title](/img/KOM_header.png)
 
-<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/KOM_v1.6" target="_blank"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
+<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.6"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
 # What the fuck is this?
 사용자 설정 매크로 프로그램입니다.
@@ -35,7 +35,7 @@
 # Download
 이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
 > <The_King_of_Macro_v1.6>
->> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/KOM_v1.6" target="_blank">Download Link</a>
+>> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.6" target="_blank">Download Link</a>
 
 <br>
 
@@ -84,4 +84,4 @@
 ◇ 2022.1.25. (TUE) 09:51 // v1.7
 - 이전 버전에서 나타난 버그 해결
 - 키보드 동시 입력이 가능해짐
-- 매크로 중단  사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
+- 매크로 중단 키 사용자 설정 기능 추가 (설정 창 안에서 설정 가능)
