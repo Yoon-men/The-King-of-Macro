@@ -48,6 +48,7 @@ class Task1(QObject) :
             while True : 
                 if mouse.is_pressed("left") : 
                     x, y = pyautogui.position()
+                    CSV_data[obj + 1].append("L")
                     CSV_data[obj + 1].append((x, y))
 
                     CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
@@ -59,6 +60,7 @@ class Task1(QObject) :
 
                 if mouse.is_pressed("right") : 
                     x, y = pyautogui.position()
+                    CSV_data[obj + 1].append("R")
                     CSV_data[obj + 1].append((x, y))
 
                     CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
@@ -79,7 +81,7 @@ class Task1(QObject) :
                 self.power = False  
 
             else : 
-                CSV_data[obj + 1]
+                CSV_data[obj + 1].append("K")
                 CSV_data[obj + 1].append(key)
 
                 CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
@@ -88,6 +90,15 @@ class Task1(QObject) :
 
                 self.noticeKeyboardSignal.emit()
 
+        else : 
+            self.notLoadSignal.emit()
+
+
+
+    def addDelay(self) : 
+        if Load_status == True : 
+            print('아이고난!')      # Test code
+        
         else : 
             self.notLoadSignal.emit()
 
@@ -327,9 +338,12 @@ class Task4(QObject) :
 
 
 class Edit(QDialog) : 
+    # DATA.csv를 불러오지 않은 상태
+    notLoadSignal = Signal()
+
     def __init__(self) : 
         super().__init__()
-
+        
         self.editUI()
 
 
@@ -355,6 +369,9 @@ class Edit(QDialog) :
 
         self.setMacro_cb = QComboBox(self)
         self.setMacro_cb.setGeometry(130, 60, 211, 22)
+        if Load_status == True : 
+            for i in range(1, len(CSV_data)) : 
+                self.setMacro_cb.addItem(CSV_data[i][0])
 
 
         # editMacro_group
@@ -397,8 +414,6 @@ class Edit(QDialog) :
 
 
         # If Signal is coming
-        main.addNamesSignal.connect(self.addNames)
-
         self.editMacro_bt_addClick.clicked.connect(self.SEMI_addClick)
         self.editMacro_bt_addClick.clicked.connect(task1.addClick)
         task1.noticeClickSignal.connect(self.noticeClick)
@@ -407,7 +422,8 @@ class Edit(QDialog) :
         self.editMacro_bt_addKeyboard.clicked.connect(task1.addKeyboard)
         task1.noticeKeyboardSignal.connect(self.noticeKeyboard)
 
-        self.editMacro_bt_addDelay.clicked.connect(self.SEMI_addDelay)
+        # self.editMacro_bt_addDelay.clicked.connect(self.SEMI_addDelay)
+        self.editMacro_bt_addDelay.clicked.connect(self.addDelay)
         # self.editMacro_bt_addDelay.clicked.connect(task1.addDelay)
         # task1.noticeDelaySignal.connect(self.noticeDelay)
 
@@ -415,12 +431,6 @@ class Edit(QDialog) :
 
         # self.editMacro_bt_UP.clicked.connect(self.UP)
         # self.editMacro_bt_DOWN.clicked.connect(self.DOWN)
-
-
-
-    def addNames(self) : 
-        for i in range(1, len(CSV_data)) : 
-            self.setMacro_cb.addItem(CSV_data[i][0])
 
 
 
@@ -446,11 +456,29 @@ class Edit(QDialog) :
 
 
 
-    def SEMI_addDelay(self) : 
+    # def SEMI_addDelay(self) : 
+    #     if Load_status == True : 
+    #         global obj
+    #         obj = self.setMacro_cb.currentIndex()
+    #         self.editMacro_bt_addDelay.setEnabled(False)
+    
+    def addDelay(self) : 
         if Load_status == True : 
             global obj
             obj = self.setMacro_cb.currentIndex()
             self.editMacro_bt_addDelay.setEnabled(False)
+
+            delay, add = QInputDialog.getDouble(self, '딜레이 추가', '딜레이 : ')
+            if add : 
+                print('오케이!')
+                self.editMacro_bt_addDelay.setEnabled(True)
+
+            else : 
+                print('아니요')
+        
+        else : 
+            self.notLoadSignal.emit()
+
     
     def noticeDelay(self) : 
         self.editMacro_bt_addDelay.setEnabled(True)
@@ -465,11 +493,7 @@ class Edit(QDialog) :
 
 
 class Main(QMainWindow) : 
-    # DATA.csv를 불러왔을 때 편집 창에 내용 전송
-    addNamesSignal = Signal()
-    addMacrosSignal = Signal()
-
-    def __init__(self) :
+    def __init__(self) : 
         super().__init__()
         
         self.task1 = QThread()
@@ -495,7 +519,6 @@ class Main(QMainWindow) :
         global task4
         task4 = Task4()
         task4.moveToThread(self.task4)
-
 
         self.mainUI()
 
@@ -652,6 +675,22 @@ class Main(QMainWindow) :
         self.start_rb_min.setText("시간")
 
 
+        # When program is started(DEFAULT)
+        global Load_status
+        Load_status = False
+
+        global stopKey
+        stopKey = 'esc'
+
+        global setting
+        setting = Setting()
+
+        global edit
+        edit = Edit()
+
+        self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
+
+
         # If Signal is coming
         self.load_bt.clicked.connect(self.loadCSV)
 
@@ -674,6 +713,7 @@ class Main(QMainWindow) :
         self.start_bt_2.clicked.connect(task3.detectKey)
 
         task1.notLoadSignal.connect(self.notLoadMessage)
+        edit.notLoadSignal.connect(self.notLoadMessage)
 
         task1.addDelaySignal_C1.connect(self.addDelay_C1)
         task1.addDelaySignal_C2.connect(self.addDelay_C2)
@@ -691,16 +731,6 @@ class Main(QMainWindow) :
         task1.stopKeyis_pressedSignal.connect(self.noticeNotstopKey)
         task1.noticeMacroSignal_typeNum.connect(self.noticeMacro_typeNum)
         task1.noticeMacroSignal_typeTime.connect(self.noticeMacro_typeTime)
-        
-
-        # When program is started(DEFAULT)
-        global Load_status
-        Load_status = False
-
-        global stopKey
-        stopKey = 'esc'
-
-        self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
 
 
@@ -725,14 +755,9 @@ class Main(QMainWindow) :
                 CSV_data.append(row)
 
             # Add macro's name in CSV to all of comboBox
-            
             for i in range(1, len(CSV_data)) : 
-                # self.addClick_cb.addItem(CSV_data[i][0])
-                # self.addKeyboard_cb.addItem(CSV_data[i][0])    
                 self.delete_cb.addItem(CSV_data[i][0])
                 self.start_cb.addItem(CSV_data[i][0])
-
-            self.addNamesSignal.emit()
 
             Load_status = True
 
@@ -743,21 +768,20 @@ class Main(QMainWindow) :
 
 
     def openSetting(self) : 
-        global setting
-        setting = Setting()
+        
         setting.exec_()
 
 
 
     def openEdit(self) : 
-        global edit
-        edit = Edit()
+        
         edit.exec_()
 
 
 
     def addName(self) : 
         if Load_status == True : 
+            global macroName
             macroName = [self.addName_le.text()]
             self.addName_le.setText('')
             
@@ -766,8 +790,6 @@ class Main(QMainWindow) :
                 self.noticeBoard.scrollToBottom()
             else : 
                 # Add macro's name in List to all of comboBox
-                self.addClick_cb.addItem(macroName[0])
-                self.addKeyboard_cb.addItem(macroName[0])
                 self.delete_cb.addItem(macroName[0])
                 self.start_cb.addItem(macroName[0])
 
