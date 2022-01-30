@@ -48,10 +48,10 @@ class Task1(QObject) :
             while True : 
                 if mouse.is_pressed("left") : 
                     x, y = pyautogui.position()
-                    CSV_data[obj + 1].append("L")
+                    CSV_data[obj + 1].append("<L>")
                     CSV_data[obj + 1].append((x, y))
 
-                    CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
+                    CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
                     writer = csv.writer(CSV_file)
                     writer.writerows(CSV_data)
 
@@ -60,12 +60,14 @@ class Task1(QObject) :
 
                 if mouse.is_pressed("right") : 
                     x, y = pyautogui.position()
-                    CSV_data[obj + 1].append("R")
+                    CSV_data[obj + 1].append("<R>")
                     CSV_data[obj + 1].append((x, y))
 
-                    CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
+                    CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
                     writer = csv.writer(CSV_file)
                     writer.writerows(CSV_data)
+
+                    self.noticeClickSignal.emit()
                     break
 
         else : 
@@ -81,24 +83,15 @@ class Task1(QObject) :
                 self.power = False  
 
             else : 
-                CSV_data[obj + 1].append("K")
+                CSV_data[obj + 1].append("<K>")
                 CSV_data[obj + 1].append(key)
 
-                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
+                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
                 writer = csv.writer(CSV_file)
                 writer.writerows(CSV_data)
 
                 self.noticeKeyboardSignal.emit()
 
-        else : 
-            self.notLoadSignal.emit()
-
-
-
-    def addDelay(self) : 
-        if Load_status == True : 
-            print('아이고난!')      # Test code
-        
         else : 
             self.notLoadSignal.emit()
 
@@ -338,9 +331,6 @@ class Task4(QObject) :
 
 
 class Edit(QDialog) : 
-    # DATA.csv를 불러오지 않은 상태
-    notLoadSignal = Signal()
-
     def __init__(self) : 
         super().__init__()
         
@@ -422,10 +412,7 @@ class Edit(QDialog) :
         self.editMacro_bt_addKeyboard.clicked.connect(task1.addKeyboard)
         task1.noticeKeyboardSignal.connect(self.noticeKeyboard)
 
-        # self.editMacro_bt_addDelay.clicked.connect(self.SEMI_addDelay)
         self.editMacro_bt_addDelay.clicked.connect(self.addDelay)
-        # self.editMacro_bt_addDelay.clicked.connect(task1.addDelay)
-        # task1.noticeDelaySignal.connect(self.noticeDelay)
 
         # self.editMacro_bt_delete.clicked.connect(self.delete)
 
@@ -455,12 +442,6 @@ class Edit(QDialog) :
         self.editMacro_bt_addKeyboard.setEnabled(True)
 
 
-
-    # def SEMI_addDelay(self) : 
-    #     if Load_status == True : 
-    #         global obj
-    #         obj = self.setMacro_cb.currentIndex()
-    #         self.editMacro_bt_addDelay.setEnabled(False)
     
     def addDelay(self) : 
         if Load_status == True : 
@@ -470,14 +451,19 @@ class Edit(QDialog) :
 
             delay, add = QInputDialog.getDouble(self, '딜레이 추가', '딜레이 : ')
             if add : 
-                print('오케이!')
-                self.editMacro_bt_addDelay.setEnabled(True)
+                CSV_data[obj + 1].append("<D>")
+                CSV_data[obj + 1].append(delay)
 
+                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline="")
+                writer = csv.writer(CSV_file)
+                writer.writerows(CSV_data)
+
+                self.editMacro_bt_addDelay.setEnabled(True)
             else : 
-                print('아니요')
+                self.editMacro_bt_addDelay.setEnabled(True)
         
         else : 
-            self.notLoadSignal.emit()
+            task1.notLoadSignal.emit()
 
     
     def noticeDelay(self) : 
@@ -519,6 +505,7 @@ class Main(QMainWindow) :
         global task4
         task4 = Task4()
         task4.moveToThread(self.task4)
+        
 
         self.mainUI()
 
@@ -675,18 +662,12 @@ class Main(QMainWindow) :
         self.start_rb_min.setText("시간")
 
 
-        # When program is started(DEFAULT)
+        # When program is started (DEFAULT)
         global Load_status
         Load_status = False
 
         global stopKey
-        stopKey = 'esc'
-
-        global setting
-        setting = Setting()
-
-        global edit
-        edit = Edit()
+        stopKey = "esc"
 
         self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
@@ -713,7 +694,6 @@ class Main(QMainWindow) :
         self.start_bt_2.clicked.connect(task3.detectKey)
 
         task1.notLoadSignal.connect(self.notLoadMessage)
-        edit.notLoadSignal.connect(self.notLoadMessage)
 
         task1.addDelaySignal_C1.connect(self.addDelay_C1)
         task1.addDelaySignal_C2.connect(self.addDelay_C2)
@@ -768,13 +748,15 @@ class Main(QMainWindow) :
 
 
     def openSetting(self) : 
-        
+        global setting
+        setting = Setting()
         setting.exec_()
 
 
 
     def openEdit(self) : 
-        
+        global edit
+        edit = Edit()
         edit.exec_()
 
 
