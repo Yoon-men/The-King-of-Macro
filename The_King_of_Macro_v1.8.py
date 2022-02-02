@@ -13,6 +13,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 import os
 import csv
+from cmdstanpy import CmdStanVB
 import keyboard
 import mouse
 import pyautogui
@@ -101,7 +102,6 @@ class Task1(QObject) :
         self.power = True
 
         if Load_status == True : 
-            global run_num
             run_num = runNum
             CSV_data_copy = copy.deepcopy(CSV_data)
             delay = float(CSV_data_copy[startObject + 1][1])
@@ -367,6 +367,10 @@ class Edit(QDialog) :
         # editMacro_group
         self.editMacro_lw = QListWidget(self)
         self.editMacro_lw.setGeometry(10, 110, 271, 341)
+        if Load_status == True : 
+            obj = self.setMacro_cb.currentIndex()
+            for i in range(1, len(CSV_data[obj + 1])) : 
+                self.editMacro_lw.addItem(CSV_data[obj + 1][i])
 
         self.editMacro_bt_addClick = QPushButton(self)
         self.editMacro_bt_addClick.setGeometry(290, 110, 81, 21)
@@ -404,6 +408,8 @@ class Edit(QDialog) :
 
 
         # If Signal is coming
+        self.setMacro_cb.currentIndexChanged.connect(self.setMacro)
+
         self.editMacro_bt_addClick.clicked.connect(self.SEMI_addClick)
         self.editMacro_bt_addClick.clicked.connect(task1.addClick)
         task1.noticeClickSignal.connect(self.noticeClick)
@@ -419,6 +425,13 @@ class Edit(QDialog) :
         # self.editMacro_bt_UP.clicked.connect(self.UP)
         # self.editMacro_bt_DOWN.clicked.connect(self.DOWN)
 
+
+
+    def setMacro(self) : 
+        self.editMacro_lw.clear()
+        obj = self.setMacro_cb.currentIndex()
+        for i in range(1, len(CSV_data[obj + 1])) : 
+            self.editMacro_lw.addItem(CSV_data[obj + 1][i])
 
 
     def SEMI_addClick(self) : 
@@ -445,7 +458,6 @@ class Edit(QDialog) :
     
     def addDelay(self) : 
         if Load_status == True : 
-            global obj
             obj = self.setMacro_cb.currentIndex()
             self.editMacro_bt_addDelay.setEnabled(False)
 
@@ -720,13 +732,13 @@ class Main(QMainWindow) :
         CSV_road = str(QFileDialog.getOpenFileName()[0])
         CSV_name = os.path.basename(CSV_road)
         
-        if CSV_name == 'DATA.csv' : 
-            self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 성공했습니다.')
+        if CSV_name == "DATA.csv" : 
+            self.noticeBoard.addItem("[system] DATA.csv를 불러오는데 성공했습니다.")
             self.noticeBoard.scrollToBottom()
             
             # Read CSV
             global CSV_data
-            CSV_file = open(CSV_road, 'r', encoding = 'utf-8', newline='')
+            CSV_file = open(CSV_road, "r", encoding = "utf-8", newline = "")
             CSV_read = csv.reader(CSV_file)
             CSV_data = []
 
@@ -741,8 +753,8 @@ class Main(QMainWindow) :
 
             Load_status = True
 
-        elif CSV_name != 'DATA.csv' : 
-            self.noticeBoard.addItem('[system] DATA.csv를 불러오는데 실패했습니다.')
+        elif CSV_name != "DATA.csv" : 
+            self.noticeBoard.addItem("[system] DATA.csv를 불러오는데 실패했습니다.")
             self.noticeBoard.scrollToBottom()
 
 
@@ -765,10 +777,10 @@ class Main(QMainWindow) :
         if Load_status == True : 
             global macroName
             macroName = [self.addName_le.text()]
-            self.addName_le.setText('')
+            self.addName_le.setText("")
             
-            if macroName[0] == '' : 
-                self.noticeBoard.addItem('[system] 공백을 이름으로 사용할 수 없습니다.')
+            if macroName[0] == "" : 
+                self.noticeBoard.addItem("[system] 공백을 이름으로 사용할 수 없습니다.")
                 self.noticeBoard.scrollToBottom()
             else : 
                 # Add macro's name in List to all of comboBox
@@ -777,37 +789,35 @@ class Main(QMainWindow) :
 
                 CSV_data.append(macroName)
 
-                CSV_file = open(CSV_road, 'w', encoding = 'utf-8', newline='')
+                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
                 writer = csv.writer(CSV_file)
                 writer.writerows(CSV_data)
 
-                self.noticeBoard.addItem('[system] 매크로를 추가했습니다.')
+                self.noticeBoard.addItem("[system] 매크로를 추가했습니다.")
                 self.noticeBoard.scrollToBottom()
 
         else : 
-            self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+            self.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
             self.noticeBoard.scrollToBottom()
 
 
 
     def deleteMacro(self) : 
         if Load_status == True : 
-            object = self.delete_cb.currentIndex()
+            deleteObj = self.delete_cb.currentIndex()
 
-            self.addClick_cb.removeItem(object)
-            self.addKeyboard_cb.removeItem(object)
-            self.start_cb.removeItem(object)
-            self.delete_cb.removeItem(object)
-            del CSV_data[object + 1]
+            self.start_cb.removeItem(deleteObj)
+            self.delete_cb.removeItem(deleteObj)
+            del CSV_data[deleteObj + 1]
 
-            CSV_file = open(CSV_road, 'w', encoding = 'utf-8', newline='')
+            CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
             writer = csv.writer(CSV_file)
             writer.writerows(CSV_data)
 
-            self.noticeBoard.addItem('[system] 매크로를 삭제했습니다.')
+            self.noticeBoard.addItem("[system] 매크로를 삭제했습니다.")
             self.noticeBoard.scrollToBottom()
         else : 
-            self.noticeBoard.addItem('[system] 아직 DATA.csv를 불러오지 않았습니다.')
+            self.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
             self.noticeBoard.scrollToBottom()
 
 
