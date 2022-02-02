@@ -419,7 +419,7 @@ class Edit(QDialog) :
 
         self.editMacro_bt_addDelay.clicked.connect(self.addDelay)
 
-        # self.editMacro_bt_delete.clicked.connect(self.delete)
+        self.editMacro_bt_delete.clicked.connect(self.delete)
 
         # self.editMacro_bt_UP.clicked.connect(self.UP)
         # self.editMacro_bt_DOWN.clicked.connect(self.DOWN)
@@ -495,7 +495,28 @@ class Edit(QDialog) :
                     self.editMacro_bt_addDelay.setEnabled(True)
             else : 
                 task1.notSelectSignal.emit()
-        
+
+
+        else : 
+            task1.notLoadSignal.emit()
+
+
+
+    def delete(self) : 
+        if Load_status == True : 
+            del_obj = self.editMacro_lw.currentRow()
+            if del_obj != -1 : 
+                obj = self.setMacro_cb.currentIndex()
+                self.editMacro_lw.takeItem(del_obj)
+
+                del CSV_data[obj + 1][(del_obj+1)*2 - 1 : (del_obj+1)*2 + 1]
+                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+                writer = csv.writer(CSV_file)
+                writer.writerows(CSV_data)
+            else : 
+                task1.notSelectSignal.emit()
+
+
         else : 
             task1.notLoadSignal.emit()
 
