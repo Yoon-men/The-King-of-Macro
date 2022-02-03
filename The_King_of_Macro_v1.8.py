@@ -7,6 +7,7 @@
 2. 설정 창에서 ESC키를 눌러도 나가지지 않도록 변경
 """
 
+from shutil import move
 import sys
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -409,6 +410,8 @@ class Edit(QDialog) :
         task1.notSelectSignal.connect(self.notSelect)
         self.setMacro_cb.currentIndexChanged.connect(self.setMacro)
 
+        self.editMacro_lw.itemClicked.connect(self.checkNum)
+
         self.editMacro_bt_addClick.clicked.connect(self.SEMI_addClick)
         self.editMacro_bt_addClick.clicked.connect(task1.addClick)
         task1.noticeClickSignal.connect(self.noticeClick)
@@ -421,8 +424,8 @@ class Edit(QDialog) :
 
         self.editMacro_bt_delete.clicked.connect(self.delete)
 
-        # self.editMacro_bt_UP.clicked.connect(self.UP)
-        # self.editMacro_bt_DOWN.clicked.connect(self.DOWN)
+        self.editMacro_bt_UP.clicked.connect(self.UP)
+        self.editMacro_bt_DOWN.clicked.connect(self.DOWN)
 
 
 
@@ -448,6 +451,21 @@ class Edit(QDialog) :
             elif CSV_data[obj + 1][(i+1)*2 - 1] == "<D>" : 
                 self.editMacro_lw.addItem(f"딜레이 < {CSV_data[obj + 1][(i+1) * 2]} 초 >")
 
+
+
+    def checkNum(self) : 
+        obj = self.setMacro_cb.currentIndex()
+        check_obj = self.editMacro_lw.currentRow()
+        if check_obj == 0 : 
+            self.editMacro_bt_UP.setEnabled(False)
+            self.editMacro_bt_DOWN.setEnabled(True)
+        elif check_obj == int((len(CSV_data[obj + 1])-3)/2) : 
+            self.editMacro_bt_DOWN.setEnabled(False)
+            self.editMacro_bt_UP.setEnabled(True)
+        else : 
+            self.editMacro_bt_UP.setEnabled(True)
+            self.editMacro_bt_DOWN.setEnabled(True)
+        
 
 
     def SEMI_addClick(self) : 
@@ -507,18 +525,55 @@ class Edit(QDialog) :
             del_obj = self.editMacro_lw.currentRow()
             if del_obj != -1 : 
                 obj = self.setMacro_cb.currentIndex()
-                self.editMacro_lw.takeItem(del_obj)
-
                 del CSV_data[obj + 1][(del_obj+1)*2 - 1 : (del_obj+1)*2 + 1]
+
                 CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
                 writer = csv.writer(CSV_file)
                 writer.writerows(CSV_data)
+
+                self.setMacro()
+
+
             else : 
                 task1.notSelectSignal.emit()
 
 
         else : 
             task1.notLoadSignal.emit()
+    
+
+
+    def UP(self) : 
+        obj = self.setMacro_cb.currentIndex()
+        move_obj = self.editMacro_lw.currentRow()
+
+        # 타입 스웹
+        CSV_data[obj + 1][move_obj*2 + 1], CSV_data[obj + 1][move_obj*2 - 1] = CSV_data[obj + 1][move_obj*2 - 1], CSV_data[obj + 1][move_obj*2 + 1]
+        # 스킬 스웹
+        CSV_data[obj + 1][move_obj*2 + 2], CSV_data[obj + 1][move_obj * 2] = CSV_data[obj + 1][move_obj * 2], CSV_data[obj + 1][move_obj*2 + 2]
+
+        CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+        writer = csv.writer(CSV_file)
+        writer.writerows(CSV_data)
+
+        self.setMacro()
+
+
+
+    def DOWN(self) : 
+        obj = self.setMacro_cb.currentIndex()
+        move_obj = self.editMacro_lw.currentRow()
+
+        # 타입 스웹
+        CSV_data[obj + 1][(move_obj+1)*2 - 1], CSV_data[obj + 1][(move_obj+1)*2 + 1] = CSV_data[obj + 1][(move_obj+1)*2 + 1], CSV_data[obj + 1][(move_obj+1)*2 - 1]
+        # 스킬 스웹
+        CSV_data[obj + 1][(move_obj+1) * 2], CSV_data[obj + 1][(move_obj+2) * 2] = CSV_data[obj + 1][(move_obj+2) * 2], CSV_data[obj + 1][(move_obj+1) * 2]
+
+        CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+        writer = csv.writer(CSV_file)
+        writer.writerows(CSV_data)
+
+        self.setMacro()
 
 
 
