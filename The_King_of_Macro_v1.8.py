@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v1.8> - 22.2.??. (???) ??:??
+<The_King_of_Macro_v1.8> - 22.2.4. (FRI) 22:38
 * Made by Yoonmen *
 
 [update]
@@ -7,7 +7,6 @@
 2. 설정 창에서 ESC키를 눌러도 나가지지 않도록 변경
 """
 
-from shutil import move
 import sys
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -99,47 +98,57 @@ class Task1(QObject) :
             if len(CSV_data) != 1 : 
                 run_num = runNum
                 CSV_data_copy = copy.deepcopy(CSV_data)
-                delay = float(CSV_data_copy[startObject + 1][1])
-                macro_Num = len(CSV_data_copy[startObject + 1]) - 2
+                macro_Num = int((len(CSV_data_copy[start_obj + 1])-1) / 2)
                 while self.power == True and run_num != 0 : 
                     for j in range(macro_Num) : 
                         if self.power == False or run_num == 0 : 
                             break
                         
-                        # 가공되지 않은 좌표 or 키보드 입력
-                        elif str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" : 
-                            
+                        # 마우스 좌클릭
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<L>" : 
                             # 가공되지 않은 좌표 감지
-                            mouseDetector = "(" in CSV_data_copy[startObject + 1][j + 2]
-                            if mouseDetector == True : 
+                            unprocessDetector = "(" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if unprocessDetector == True : 
                                 # 좌표 가공
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].split(', ')
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip("(")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip(")")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].split(", ")
                             
-                            if str(type(CSV_data_copy[startObject+1][j+2])) == "<class 'list'>" :           # 가공된 좌표일 경우
-                                pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(0.05)
-                                pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-
-                            else :      # 키보드 입력일 경우
-                                # 동시 입력 감지
-                                simultaneityDetector = "+" in CSV_data_copy[startObject + 1][j + 2]
-
-                                # 동시 입력이 감지되면 키보딩 가공
-                                if simultaneityDetector == True  :
-                                    CSV_data_copy[startObject + 1][j + 2] = CSV_data_copy[startObject + 1][j + 2].split("+")
-
-                                pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-
-                        else :      # 방금 막 저장한 마우스 매크로의 경우
-                            pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                            pyautogui.moveTo(CSV_data_copy[start_obj + 1][(j+1) * 2])
                             time.sleep(0.05)
-                            pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                            time.sleep(delay)
+                            pyautogui.click(CSV_data_copy[start_obj + 1][(j+1) * 2])
                         
+
+                        # 마우스 우클릭
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<R>" : 
+                            # 가공되지 않은 좌표 감지
+                            unprocessDetector = "(" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if unprocessDetector == True : 
+                                # 좌표 가공
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip("(")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip(")")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].split(", ")
+                            
+                            pyautogui.moveTo(CSV_data_copy[start_obj + 1][(j+1) * 2])
+                            time.sleep(0.05)
+                            pyautogui.rightClick(CSV_data_copy[start_obj + 1][(j+1) * 2])
+
+                        
+                        # 키보드 입력
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<K>" : 
+                            # 동시 입력 감지
+                            simultaneityDetector = "+" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if simultaneityDetector == True : 
+                                CSV_data_copy[start_obj + 1][(j+1) * 2].split("+")
+                            
+                            pyautogui.press(CSV_data_copy[start_obj + 1][(j+1) * 2])
+                        
+
+                        # 딜레이
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<D>" : 
+                            time.sleep(float(CSV_data_copy[start_obj + 1][(j+1) * 2]))
+
+
                     run_num -= 1
                     self.decreaseSignal_typeNum.emit(run_num)
 
@@ -147,8 +156,10 @@ class Task1(QObject) :
 
                 global detectPower
                 detectPower = False
+
             else : 
                 self.notSelectSignal.emit()
+
 
         else : 
             self.notLoadSignal.emit()
@@ -161,43 +172,56 @@ class Task1(QObject) :
         if Load_status == True : 
             if len(CSV_data) != 1 : 
                 CSV_data_copy = copy.deepcopy(CSV_data)
-                delay = float(CSV_data_copy[startObject + 1][1])
-                macro_Num = len(CSV_data_copy[startObject + 1]) - 2
+                macro_Num = int((len(CSV_data_copy[start_obj + 1])-1) / 2)
                 while self.power == True : 
                     for j in range(macro_Num) : 
                         if self.power == False : 
                             break
-
-                        elif str(type(CSV_data_copy[startObject + 1][j + 2])) == "<class 'str'>" :          # 가공되지 않은 좌표 or 키보드 입력
+                        
+                        # 마우스 좌클릭
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<L>" : 
                             # 가공되지 않은 좌표 감지
-                            mouseDetector = "(" in CSV_data_copy[startObject + 1][j + 2]
-                            if mouseDetector == True : 
+                            unprocessDetector = "(" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if unprocessDetector == True : 
                                 # 좌표 가공
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip('(')
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].strip(')')
-                                CSV_data_copy[startObject+1][j+2] = CSV_data_copy[startObject+1][j+2].split(', ')
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip("(")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip(")")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].split(", ")
                             
-                            if str(type(CSV_data_copy[startObject+1][j+2])) == "<class 'list'>" :         # 가공된 좌표일 경우
-                                pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(0.05)
-                                pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-
-                            else :      # 키보드 입력일 경우
-                                # 동시 입력 감지
-                                simultaneityDetector = "+" in CSV_data_copy[startObject + 1][j + 2]
-                                # 동시 입력이 감지되면 키보딩 가공
-                                if simultaneityDetector == True  :
-                                    CSV_data_copy[startObject + 1][j + 2] = CSV_data_copy[startObject + 1][j + 2].split("+")
-
-                                pyautogui.press(CSV_data_copy[startObject + 1][j + 2])
-                                time.sleep(delay)
-
-                        else :      # 방금 막 저장한 마우스 매크로의 경우
-                            pyautogui.moveTo(CSV_data_copy[startObject + 1][j + 2])
+                            pyautogui.moveTo(CSV_data_copy[start_obj + 1][(j+1) * 2])
                             time.sleep(0.05)
-                            pyautogui.click(CSV_data_copy[startObject + 1][j + 2])
-                            time.sleep(delay)
+                            pyautogui.click(CSV_data_copy[start_obj + 1][(j+1) * 2])
+                        
+
+                        # 마우스 우클릭
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<R>" : 
+                            # 가공되지 않은 좌표 감지
+                            unprocessDetector = "(" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if unprocessDetector == True : 
+                                # 좌표 가공
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip("(")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].strip(")")
+                                CSV_data_copy[start_obj + 1][(j+1) * 2] = CSV_data_copy[start_obj + 1][(j+1) * 2].split(", ")
+                            
+                            pyautogui.moveTo(CSV_data_copy[start_obj + 1][(j+1) * 2])
+                            time.sleep(0.05)
+                            pyautogui.rightClick(CSV_data_copy[start_obj + 1][(j+1) * 2])
+
+                        
+                        # 키보드 입력
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<K>" : 
+                            # 동시 입력 감지
+                            simultaneityDetector = "+" in CSV_data_copy[start_obj + 1][(j+1) * 2]
+                            if simultaneityDetector == True : 
+                                CSV_data_copy[start_obj + 1][(j+1) * 2].split("+")
+                            
+                            pyautogui.press(CSV_data_copy[start_obj + 1][(j+1) * 2])
+                        
+
+                        # 딜레이
+                        elif CSV_data_copy[start_obj + 1][(j+1)*2 - 1] == "<D>" : 
+                            time.sleep(float(CSV_data_copy[start_obj + 1][(j+1) * 2]))
+                
                 
                 self.noticeMacroSignal_typeTime.emit()
 
@@ -206,9 +230,11 @@ class Task1(QObject) :
 
                 global detectPower
                 detectPower = False
+
             else : 
                 self.notSelectSignal.emit()
-        
+
+
         else : 
             self.notLoadSignal.emit()
 
@@ -511,7 +537,7 @@ class Edit(QDialog) :
                     self.setMacro()
                 else : 
                     self.editMacro_bt_addDelay.setEnabled(True)
-            else : 
+            else :  
                 task1.notSelectSignal.emit()
 
 
@@ -937,8 +963,8 @@ class Main(QMainWindow) :
 
     def SEMI_startMacro_typeNum(self) : 
         if Load_status == True : 
-            global startObject
-            startObject = self.start_cb.currentIndex()
+            global start_obj
+            start_obj = self.start_cb.currentIndex()
 
             global runNum
             runNum = self.start_sb_1.value()
@@ -954,8 +980,8 @@ class Main(QMainWindow) :
     
     def SEMI_startMacro_typeTime(self) : 
         if Load_status == True : 
-            global startObject
-            startObject = self.start_cb.currentIndex()
+            global start_obj
+            start_obj = self.start_cb.currentIndex()
 
             global runTime
             runTime = self.start_sb_2.value()
