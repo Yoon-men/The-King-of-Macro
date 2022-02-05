@@ -1,6 +1,6 @@
 ![title](/img/KOM_header.png)
 
-<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.7"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
+<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.8"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
 # What the fuck is this?
 사용자 설정 매크로 프로그램입니다.
