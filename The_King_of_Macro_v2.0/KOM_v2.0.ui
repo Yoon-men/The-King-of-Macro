@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>853</height>
+    <width>414</width>
+    <height>705</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>4</x>
       <y>3</y>
-      <width>361</width>
-      <height>711</height>
+      <width>406</width>
+      <height>666</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -40,8 +40,8 @@ border-radius: 10px;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>360</width>
-       <height>37</height>
+       <width>406</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -59,10 +59,10 @@ border-radius: 10px;
      <widget class="QPushButton" name="exit_btn_2">
       <property name="geometry">
        <rect>
-        <x>334</x>
+        <x>377</x>
         <y>10</y>
-        <width>20</width>
-        <height>20</height>
+        <width>22</width>
+        <height>22</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -73,8 +73,8 @@ border-radius: 10px;
       </property>
       <property name="maximumSize">
        <size>
-        <width>20</width>
-        <height>20</height>
+        <width>30</width>
+        <height>30</height>
        </size>
       </property>
       <property name="focusPolicy">
@@ -109,9 +109,9 @@ QPushButton:hover{
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>87</x>
-        <y>10</y>
-        <width>181</width>
+        <x>117</x>
+        <y>13</y>
+        <width>171</width>
         <height>21</height>
        </rect>
       </property>
@@ -128,10 +128,10 @@ QPushButton:hover{
      <widget class="QPushButton" name="exit_btn_4">
       <property name="geometry">
        <rect>
-        <x>304</x>
+        <x>346</x>
         <y>10</y>
-        <width>20</width>
-        <height>20</height>
+        <width>22</width>
+        <height>22</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -142,8 +142,8 @@ QPushButton:hover{
       </property>
       <property name="maximumSize">
        <size>
-        <width>20</width>
-        <height>20</height>
+        <width>23</width>
+        <height>23</height>
        </size>
       </property>
       <property name="focusPolicy">
@@ -180,8 +180,8 @@ QPushButton:hover{
      </property>
      <property name="geometry">
       <rect>
-       <x>43</x>
-       <y>143</y>
+       <x>65</x>
+       <y>160</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -209,7 +209,7 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>59</y>
+       <y>76</y>
        <width>141</width>
        <height>21</height>
       </rect>
@@ -237,11 +237,17 @@ QPushButton:hover{
     <widget class="QPushButton" name="exit_btn_3">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>46</y>
-       <width>20</width>
-       <height>20</height>
+       <x>374</x>
+       <y>48</y>
+       <width>24</width>
+       <height>24</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="minimumSize">
       <size>
@@ -251,8 +257,8 @@ QPushButton:hover{
      </property>
      <property name="maximumSize">
       <size>
-       <width>20</width>
-       <height>20</height>
+       <width>30</width>
+       <height>30</height>
       </size>
      </property>
      <property name="focusPolicy">
@@ -277,8 +283,8 @@ QPushButton:hover{
      </property>
      <property name="iconSize">
       <size>
-       <width>28</width>
-       <height>28</height>
+       <width>30</width>
+       <height>30</height>
       </size>
      </property>
     </widget>
@@ -286,8 +292,8 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>90</y>
-       <width>249</width>
+       <y>107</y>
+       <width>300</width>
        <height>24</height>
       </rect>
      </property>
@@ -324,8 +330,8 @@ QLineEdit::focus{
     <widget class="QPushButton" name="Add_Button">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>90</y>
+       <x>328</x>
+       <y>107</y>
        <width>60</width>
        <height>24</height>
       </rect>
@@ -353,8 +359,8 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>217</y>
-       <width>320</width>
+       <y>227</y>
+       <width>369</width>
        <height>24</height>
       </rect>
      </property>
@@ -381,7 +387,7 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>183</y>
+       <y>193</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -412,8 +418,8 @@ QPushButton:hover{
      </property>
      <property name="geometry">
       <rect>
-       <x>43</x>
-       <y>270</y>
+       <x>65</x>
+       <y>280</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -440,7 +446,7 @@ QPushButton:hover{
     <widget class="QPushButton" name="Add_Button_3">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>328</x>
        <y>347</y>
        <width>60</width>
        <height>24</height>
@@ -468,7 +474,7 @@ QPushButton:hover{
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>17</x>
+       <x>20</x>
        <y>313</y>
        <width>101</width>
        <height>21</height>
@@ -500,8 +506,8 @@ QPushButton:hover{
      </property>
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>400</y>
+       <x>62</x>
+       <y>407</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -530,7 +536,7 @@ QPushButton:hover{
       <rect>
        <x>20</x>
        <y>347</y>
-       <width>249</width>
+       <width>300</width>
        <height>24</height>
       </rect>
      </property>
@@ -607,8 +613,8 @@ QComboBox::drop-down{
     <widget class="QPushButton" name="Add_Button_7">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>474</y>
+       <x>328</x>
+       <y>477</y>
        <width>60</width>
        <height>24</height>
       </rect>
@@ -636,8 +642,8 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>474</y>
-       <width>140</width>
+       <y>477</y>
+       <width>163</width>
        <height>24</height>
       </rect>
      </property>
@@ -690,8 +696,8 @@ QComboBox::drop-down{
     <widget class="QLabel" name="label_18">
      <property name="geometry">
       <rect>
-       <x>17</x>
-       <y>440</y>
+       <x>20</x>
+       <y>442</y>
        <width>101</width>
        <height>21</height>
       </rect>
@@ -719,8 +725,8 @@ QComboBox::drop-down{
     <widget class="QLabel" name="label_19">
      <property name="geometry">
       <rect>
-       <x>169</x>
-       <y>475</y>
+       <x>192</x>
+       <y>477</y>
        <width>41</width>
        <height>21</height>
       </rect>
@@ -748,9 +754,9 @@ QComboBox::drop-down{
     <widget class="QSpinBox" name="Start_spinBox">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>475</y>
-       <width>42</width>
+       <x>235</x>
+       <y>478</y>
+       <width>60</width>
        <height>22</height>
       </rect>
      </property>
@@ -781,8 +787,8 @@ QSpinBox::focus{
     <widget class="QLabel" name="label_20">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>475</y>
+       <x>304</x>
+       <y>477</y>
        <width>16</width>
        <height>21</height>
       </rect>
@@ -807,6 +813,182 @@ QSpinBox::focus{
       <string>번</string>
      </property>
     </widget>
+    <widget class="QFrame" name="frame_6">
+     <property name="geometry">
+      <rect>
+       <x>198</x>
+       <y>443</y>
+       <width>191</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background-color: #4d4d4d;
+border-radius: 5px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QRadioButton" name="radioButton">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>0</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QRadioButton{
+	color : #dddddd;
+	font-family : 나눔고딕;
+	font-weight : bold;
+	font-size : 10pt;
+}</string>
+      </property>
+      <property name="text">
+       <string>Num_type</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="geometry">
+       <rect>
+        <x>102</x>
+        <y>0</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QRadioButton{
+	color : #dddddd;
+	font-family : 나눔고딕;
+	font-weight : bold;
+	font-size : 10pt;
+}</string>
+      </property>
+      <property name="text">
+       <string>Time_type</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>534</y>
+      <width>370</width>
+      <height>118</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QListWidget{
+	background-color : #4d4d4d;
+	border-radius : 8px;
+	color : #dddddd;
+	font-family : 나눔고딕;
+	font-weight : bold;
+	font-size : 9pt;
+	padding-left : 3px;
+}
+
+QListWidget::item{
+	margin : 1.5px;
+}
+
+QListWidget QScrollBar{
+	background : #aaaaaa;
+}
+
+QListWidget::item::selected{
+	background : #2b2b2b;
+	color : #dddddd;
+}
+
+QListWidget::item::hover {
+	background : #434343;
+}</string>
+    </property>
+    <property name="autoScroll">
+     <bool>true</bool>
+    </property>
+    <property name="showDropIndicator" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>[system] &lt;The King of Macro_v2.0&gt; - Made by. Yoonmen</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>[system] 환영합니다. DATA.csv를 불러와주세요.</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -814,7 +996,7 @@ QSpinBox::focus{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>368</width>
+     <width>414</width>
      <height>21</height>
     </rect>
    </property>
