@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame">
+   <widget class="QFrame" name="body_frm">
     <property name="geometry">
      <rect>
       <x>4</x>
@@ -35,7 +35,7 @@ border-radius: 10px;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="title_frm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -56,7 +56,7 @@ border-radius: 10px;
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="exit_btn_2">
+     <widget class="QPushButton" name="exit_bt">
       <property name="geometry">
        <rect>
         <x>377</x>
@@ -106,7 +106,7 @@ QPushButton:hover{
        <number>300</number>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="title_lb">
       <property name="geometry">
        <rect>
         <x>117</x>
@@ -125,7 +125,7 @@ QPushButton:hover{
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="exit_btn_4">
+     <widget class="QPushButton" name="keep_bt">
       <property name="geometry">
        <rect>
         <x>346</x>
@@ -174,7 +174,7 @@ QPushButton:hover{
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="line_1">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -205,7 +205,7 @@ QPushButton:hover{
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="addName_lb_title">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -234,7 +234,7 @@ QPushButton:hover{
       <string>Add Macro's Name</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="exit_btn_3">
+    <widget class="QPushButton" name="setting_bt">
      <property name="geometry">
       <rect>
        <x>374</x>
@@ -288,7 +288,7 @@ QPushButton:hover{
       </size>
      </property>
     </widget>
-    <widget class="QLineEdit" name="red">
+    <widget class="QLineEdit" name="addName_le">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -327,7 +327,7 @@ QLineEdit::focus{
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="Add_Button">
+    <widget class="QPushButton" name="addName_bt">
      <property name="geometry">
       <rect>
        <x>328</x>
@@ -355,7 +355,7 @@ QPushButton:hover{
       <string>추가</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="Add_Button_2">
+    <widget class="QPushButton" name="edit_bt">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -383,7 +383,7 @@ QPushButton:hover{
       <string>편집</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="edit_lb_title">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -412,7 +412,7 @@ QPushButton:hover{
       <string>Edit Macro</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="line_2">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -443,7 +443,7 @@ QPushButton:hover{
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="Add_Button_3">
+    <widget class="QPushButton" name="delete_bt">
      <property name="geometry">
       <rect>
        <x>328</x>
@@ -471,7 +471,7 @@ QPushButton:hover{
       <string>삭제</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QLabel" name="delete_lb_title">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -500,7 +500,7 @@ QPushButton:hover{
       <string>Delete Macro</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_10">
+    <widget class="QLabel" name="line_3">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -531,7 +531,7 @@ QPushButton:hover{
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QComboBox" name="Delete_comboBox">
+    <widget class="QComboBox" name="delete_cb">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -610,7 +610,7 @@ QComboBox::drop-down{
       </property>
      </item>
     </widget>
-    <widget class="QPushButton" name="Add_Button_7">
+    <widget class="QPushButton" name="start_bt">
      <property name="geometry">
       <rect>
        <x>328</x>
@@ -638,7 +638,7 @@ QPushButton:hover{
       <string>실행</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="Delete_comboBox_3">
+    <widget class="QComboBox" name="start_cb">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -693,7 +693,7 @@ QComboBox::drop-down{
       </property>
      </item>
     </widget>
-    <widget class="QLabel" name="label_18">
+    <widget class="QLabel" name="start_lb_title">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -722,7 +722,7 @@ QComboBox::drop-down{
       <string>Start Macro</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_19">
+    <widget class="QLabel" name="start_lb_1">
      <property name="geometry">
       <rect>
        <x>192</x>
@@ -751,7 +751,7 @@ QComboBox::drop-down{
       <string>을(를)</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="Start_spinBox">
+    <widget class="QSpinBox" name="start_sb_1">
      <property name="geometry">
       <rect>
        <x>235</x>
@@ -784,7 +784,7 @@ QSpinBox::focus{
       <number>999999999</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label_20">
+    <widget class="QLabel" name="start_lb_2">
      <property name="geometry">
       <rect>
        <x>304</x>
@@ -813,7 +813,7 @@ QSpinBox::focus{
       <string>번</string>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_6">
+    <widget class="QFrame" name="start_frm">
      <property name="geometry">
       <rect>
        <x>198</x>
@@ -834,7 +834,7 @@ border-radius: 5px;
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QRadioButton" name="start_rb_num">
       <property name="geometry">
        <rect>
         <x>6</x>
@@ -855,7 +855,7 @@ border-radius: 5px;
        <string>Num_type</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="start_rb_time">
       <property name="geometry">
        <rect>
         <x>102</x>
@@ -878,7 +878,7 @@ border-radius: 5px;
      </widget>
     </widget>
    </widget>
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="noticeBoard">
     <property name="geometry">
      <rect>
       <x>22</x>
@@ -932,61 +932,6 @@ QListWidget::item::hover {
     <item>
      <property name="text">
       <string>[system] 환영합니다. DATA.csv를 불러와주세요.</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>New Item</string>
      </property>
     </item>
    </widget>
