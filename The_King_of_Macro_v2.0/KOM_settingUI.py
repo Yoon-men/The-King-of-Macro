@@ -4,7 +4,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 
-class SettingUI(QMainWindow) : 
+class SettingUI(QDialog) : 
     def __init__(self) : 
         super().__init__()
 
@@ -13,14 +13,14 @@ class SettingUI(QMainWindow) :
 
 
     def settingUI(self) : 
-        # basic_group
+        # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(370, 295)
         self.setWindowTitle("Setting")
 
 
-        # body_group
+        # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(10, 10, 351, 261)
         self.body_frm.setStyleSheet("QFrame{\n"
@@ -38,7 +38,7 @@ class SettingUI(QMainWindow) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(130, 11, 91, 24)
+        self.title_lb.setGeometry(137, 13, 81, 21)
         self.title_lb.setPixmap(":/img/Logo_setting.png")
         self.title_lb.setScaledContents(True)
 
@@ -62,7 +62,7 @@ class SettingUI(QMainWindow) :
         self.line.setScaledContents(True)
 
 
-        # load_group
+        # load_part
         self.load_bt = QPushButton(self.body_frm)
         self.load_bt.setGeometry(20, 63, 311, 24)
         self.load_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
@@ -78,7 +78,7 @@ class SettingUI(QMainWindow) :
         self.load_bt.setText("불러오기")
 
         
-        # stopKey_group
+        # stopKey_part
         self.stopKey_lb = QLabel(self.body_frm)
         self.stopKey_lb.setGeometry(70, 169, 111, 21)
         self.stopKey_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
@@ -91,14 +91,14 @@ class SettingUI(QMainWindow) :
         self.stopKey_bt.setGeometry(190, 170, 91, 21)
         self.stopKey_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.stopKey_bt.setStyleSheet("QPushButton{\n"
-                                            "background-color : #303030;\n"
-                                            "border : 2px solid #303030;\n"
-                                            "border-radius : 6px;\n"
-                                            "color : #dddddd;\n"
-                                        "}\n"
-                                        "QPushButton:focus{\n"
-                                            "border-color : #aaaaaa;\n"
-                                        "}")
+                                        "border : 2px solid #aaaaaa;\n"
+                                        "border-radius : 5px;\n"
+                                        "color : #cccccc;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "color : #222222;\n"
+                                        "background-color : #aaaaaa;\n"
+                                    "}")
         self.stopKey_bt.setText("esc")
 
 
@@ -122,11 +122,17 @@ class SettingUI(QMainWindow) :
 
 
 
+    # ignoreESC_group
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : 
+            pass
+
+
+
 
 
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
-    global setting
-    setting = SettingUI()
-    setting.show()
-    sys.exit(app.exec_())
+    global settingUI
+    settingUI = SettingUI()
+    settingUI.exec_()
