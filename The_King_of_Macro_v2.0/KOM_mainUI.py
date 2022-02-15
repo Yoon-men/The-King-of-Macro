@@ -4,6 +4,9 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 
+global startType
+startType = "typeNum"
+
 class MainUI(QMainWindow) : 
     def __init__(self) : 
         super().__init__()
@@ -13,14 +16,14 @@ class MainUI(QMainWindow) :
 
 
     def mainUI(self) : 
-        # basic_group
+        # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(414, 695)
         self.setWindowTitle("The_King_of_Macro_v2.0")
 
 
-        # body_group
+        # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(4, 3, 406, 666)
         self.body_frm.setStyleSheet("QFrame{\n"
@@ -102,7 +105,9 @@ class MainUI(QMainWindow) :
 
         self.noticeBoard = QListWidget(self.body_frm)
         self.noticeBoard.setGeometry(18, 529, 370, 118)
+        self.noticeBoard.setFocusPolicy(Qt.NoFocus)
         self.noticeBoard.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+
         self.noticeBoard.setStyleSheet("QListWidget{\n"
                                             "background-color : #4d4d4d;\n"
                                             "border-radius : 8px;\n"
@@ -122,11 +127,11 @@ class MainUI(QMainWindow) :
                                         "QListWidget::item::hover{\n"
                                             "background : #434343;\n"
                                         "}")
-        self.noticeBoard.addItem("[system] <The King of Macro_v2.0> - Made by. Yoonmen")        # Test code / please delete this line.
-        self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")                 # Test code / please delete this line.
+        self.noticeBoard.addItem("[system] <The King of Macro_v2.0> - Made by. Yoonmen")
+        self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
 
 
-        #addName_group
+        #addName_part
         self.addName_lb_title = QLabel(self.body_frm)
         self.addName_lb_title.setGeometry(20, 76, 151, 21)
         self.addName_lb_title.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
@@ -165,7 +170,7 @@ class MainUI(QMainWindow) :
         self.addName_bt.setText("추가")
 
 
-        # edit_group
+        # edit_part
         self.edit_lb_title = QLabel(self.body_frm)
         self.edit_lb_title.setGeometry(20, 193, 81, 21)
         self.edit_lb_title.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
@@ -189,7 +194,7 @@ class MainUI(QMainWindow) :
         self.edit_bt.setText("편집")
 
 
-        # delete_group
+        # delete_part
         self.delete_lb_title = QLabel(self.body_frm)
         self.delete_lb_title.setGeometry(20, 313, 101, 21)
         self.delete_lb_title.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
@@ -225,9 +230,6 @@ class MainUI(QMainWindow) :
                                         "border-color : #b1b1b1;\n"
                                         "padding-right : 10px;\n"
                                     "}")
-        self.delete_cb.addItem("테스트 매크로 1")       # Test code / please delete this line.
-        self.delete_cb.addItem("테스트 매크로 2")       # Test code / please delete this line.
-        self.delete_cb.addItem("테스트 매크로 3")       # Test code / please delete this line.
 
         self.delete_bt = QPushButton(self.body_frm)
         self.delete_bt.setGeometry(328, 347, 60, 24)
@@ -244,7 +246,7 @@ class MainUI(QMainWindow) :
         self.delete_bt.setText("삭제")
 
 
-        # start_group
+        # start_part
         self.start_lb_title = QLabel(self.body_frm)
         self.start_lb_title.setGeometry(20, 442, 101, 21)
         self.start_lb_title.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
@@ -303,9 +305,6 @@ class MainUI(QMainWindow) :
                                         "border-color : #b1b1b1;\n"
                                         "padding-right : 10px;\n"
                                     "}")
-        self.start_cb.addItem("테스트 매크로 1")        # Test code / please delete this line.
-        self.start_cb.addItem("테스트 매크로 2")        # Test code / please delete this line.
-        self.start_cb.addItem("테스트 매크로 3")        # Test code / please delete this line.
 
         self.start_lb_1 = QLabel(self.body_frm)
         self.start_lb_1.setGeometry(192, 477, 41, 21)
@@ -316,7 +315,7 @@ class MainUI(QMainWindow) :
         self.start_lb_1.setText("을(를)")
 
         self.start_sb = QSpinBox(self.body_frm)
-        self.start_sb.setGeometry(235, 478, 60, 22)
+        self.start_sb.setGeometry(235, 479, 60, 22)
         self.start_sb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
         self.start_sb.setStyleSheet("QSpinBox{\n"
                                             "color : #dddddd;\n"
@@ -374,8 +373,33 @@ class MainUI(QMainWindow) :
 
 
 
+    # typeChange_group
+    def typeNum(self) : 
+        global startType
+        startType = "typeNum"
 
-if __name__ == '__main__' : 
+        self.start_cb.setGeometry(20, 477, 163, 24)
+        self.start_lb_1.setGeometry(192, 477, 41, 21)
+        self.start_sb.setGeometry(235, 479, 60, 22)
+        self.start_lb_2.setGeometry(304, 477, 16, 21)
+        self.start_lb_2.setText("번")
+        
+
+    def typeTime(self) : 
+        global startType
+        startType = "typeTime"
+        
+        self.start_cb.setGeometry(20, 477, 137, 24)
+        self.start_lb_1.setGeometry(166, 477, 41, 21)
+        self.start_sb.setGeometry(210, 479, 60, 22)
+        self.start_lb_2.setGeometry(280, 477, 41, 21)
+        self.start_lb_2.setText("초 동안")
+
+
+
+
+
+if __name__ == "__main__" : 
     app = QApplication(sys.argv)
     global main
     main = MainUI()
