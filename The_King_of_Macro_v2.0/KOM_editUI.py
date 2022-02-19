@@ -109,7 +109,7 @@ class EditUI(QDialog) :
                                             "border-radius : 8px;\n"
                                             "color : #dddddd;\n"
                                             "padding-left : 3px;\n"
-                                            "padding-top;\n"
+                                            "padding-top : 3px;\n"
                                         "}\n"
                                         "QListWidget::item{\n"
                                             "margin : 1.3px;\n"
@@ -128,29 +128,13 @@ class EditUI(QDialog) :
         self.addClick_bt = QPushButton(self.body_frm)
         self.addClick_bt.setGeometry(326, 159, 100, 24)
         self.addClick_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.addClick_bt.setStyleSheet("QPushButton{\n"
-                                            "border : 2px solid #aaaaaa;\n"
-                                            "border-radius : 5px;\n"
-                                            "color : #cccccc;\n"
-                                        "}\n"
-                                        "QPushButton:hover{\n"
-                                            "color : #222222;\n"
-                                            "background-color : #aaaaaa;\n"
-                                        "}")
+        self.addClick_bt_inactive()
         self.addClick_bt.setText("클릭 추가")
 
         self.addKeyboard_bt = QPushButton(self.body_frm)
         self.addKeyboard_bt.setGeometry(326, 200, 100, 24)
         self.addKeyboard_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.addKeyboard_bt.setStyleSheet("QPushButton{\n"
-                                                "border : 2px solid #aaaaaa;\n"
-                                                "border-radius : 5px;\n"
-                                                "color : #cccccc;\n"
-                                            "}\n"
-                                            "QPushButton:hover{\n"
-                                                "color : #222222;\n"
-                                                "background-color : #aaaaaa;\n"
-                                            "}")
+        self.addKeyboard_bt_inactive()
         self.addKeyboard_bt.setText("키보드 추가")
 
         self.addDelay_bt = QPushButton(self.body_frm)
@@ -222,6 +206,183 @@ class EditUI(QDialog) :
                                                 "background-color : #aaaaaa;\n"
                                             "}")
         self.down_bt.setText("▼")
+
+
+        # dropShadow_group
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(18)
+        self.shadow.setOffset(0, 0)
+        self.body_frm.setGraphicsEffect(self.shadow)
+
+
+
+    # move_group
+    def setCenterPoint(self, event) : 
+        self.centerPoint = event.globalPos()
+
+
+    def moveWindow(self, event) : 
+        if event.buttons() == Qt.LeftButton : 
+            self.move(self.pos() + event.globalPos() - self.centerPoint)
+            self.centerPoint = event.globalPos()
+
+
+
+    # ignoreESC_group
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : 
+            pass
+
+
+
+    # activatedCondition_group
+    ## << addClick_bt (1/2) >> --------------------
+    def addClick_bt_inactive(self) : 
+        self.addClick_bt.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "color : #cccccc;\n"
+                                        "}\n"
+                                        "QPushButton:hover{\n"
+                                            "color : #222222;\n"
+                                            "background-color : #aaaaaa;\n"
+                                        "}")
+
+    def addClick_bt_active(self) : 
+        self.addClick_bt.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
+
+
+    ## << addKeyboard_bt (2/2) >> --------------------
+    def addKeyboard_bt_inactive(self) : 
+        self.addKeyboard_bt.setStyleSheet("QPushButton{\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "color : #cccccc;\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                                "color : #222222;\n"
+                                                "background-color : #aaaaaa;\n"
+                                            "}")
+
+    def addKeyboard_bt_active(self) : 
+        self.addKeyboard_bt.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
+
+
+
+
+class AddDelayUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__(self)
+
+        self.addDelayUI()
+
+
+
+    def addDelayUI(self) : 
+        # basic_part
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(302, 201)
+        self.setWindowTitle("Add Delay")
+
+
+        # body_part
+        self.body_frm = QFrame(self)
+        self.body_frm.setGeometry(10, 10, 290, 173)
+        self.body_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #202020;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+
+        self.title_frm = QFrame(self.body_frm)
+        self.title_frm.setGeometry(0, 0, 290, 41)
+        self.title_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #464646;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        self.title_frm.mousePressEvent = self.setCenterPoint
+        self.title_frm.mouseMoveEvent = self.moveWindow
+
+        self.title_lb = QLabel(self.title_frm)
+        self.title_lb.setGeometry(96, 13, 101, 21)
+        self.title_lb.setPixmap(":/img/Logo_addDelay.png")
+        self.title_lb.setScaledContents(True)
+
+        self.exit_bt = QPushButton(self.title_frm)
+        self.exit_bt.setGeometry(260, 10, 22, 22)
+        self.exit_bt.setStyleSheet("QPushButton{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "border-radius : 10px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #666666;\n"
+                                    "}")
+        icon = QIcon()
+        icon.addPixmap(":/img/exit.png")
+        self.exit_bt.setIcon(icon)
+        self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # addDelay_part
+        self.addDelay_lb = QLabel(self.body_frm)
+        self.addDelay_lb.setGeometry(18, 60, 61, 21)
+        self.addDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.addDelay_lb.setStyleSheet("QLabel{\n"
+                                            "color : #b1b1b1;\n"
+                                        "}")
+        self.addDelay_lb.setText("딜레이 : ")
+
+        self.addDelay_ds = QDoubleSpinBox(self.body_frm)
+        self.addDelay_ds.setGeometry(19, 90, 251, 22)
+        self.addDelay_ds.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.addDelay_ds.setStyleSheet("QDoubleSpinBox{\n"
+                                            "color : #dddddd;\n"
+                                            "background-color : #303030;\n"
+                                            "border : 2px solid #303030;\n"
+                                            "border-radius : 5px;\n"
+                                            "selection-color : #000000;\n"
+                                            "selection-background-color : #ffffff;\n"
+                                            "}\n"
+                                            "QDoubleSpinBox::focus{\n"
+                                                "border-color : #aaaaaa;\n"
+                                            "}")
+        self.addDelay_ds.setMaximum(999999999)
+
+        self.add_bt = QPushButton(self.body_frm)
+        self.add_bt.setGeometry(58, 133, 81, 24)
+        self.add_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.add_bt.setStyleSheet("QPushButton{\n"
+                                        "border : 2px solid #aaaaaa;\n"
+                                        "border-radius : 5px;\n"
+                                        "color : #cccccc;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "color : #222222;\n"
+                                        "background-color : #aaaaaa;\n"
+                                    "}")
+
+        self.cancel_bt = QPushButton(self.body_frm)
+        self.cancel_bt.setGeometry(148, 133, 81, 24)
+        self.cancel_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.cancel_bt.setStyleSheet("QPushButton{\n"
+                                        "border : 2px solid #aaaaaa;\n"
+                                        "border-radius : 5px;\n"
+                                        "color : #cccccc;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "color : #222222;\n"
+                                        "background-color : #aaaaaa;\n"
+                                    "}")
 
 
         # dropShadow_group
