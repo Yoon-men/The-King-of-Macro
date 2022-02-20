@@ -57,7 +57,7 @@
 - [x] 각 매크로 사이사이 딜레이 설정 가능토록(편집 창에서)
 - [x] 특정 매크로키 삭제 기능 추가(편집 창에서)
 - [x] 불러오기 기능 setting UI 내부로 이동
-- [x] 자체 UI 변경(mainUI, settingUI, editUI 총 3종)
+- [x] 자체 UI 변경(mainUI, settingUI, editUI, addDelayUI 총 4종)
 - [x] 선택한 매크로가 없을 때 Up, Down 버튼이 동작하지 않도록 조치
 - [ ] 칼라 체커 기능 추가(색깔 비교 체크)
 - [ ] (설정 창에서) '매크로 프로그램을 가장 위로' 선택 기능 추가
@@ -100,9 +100,9 @@
 - 설정 창에서 ESC키를 눌러도 나가지지 않도록 변경
 
 ◇ 2022.?.??. (???) ??:?? // v2.0 **(Will)**
-- 자체 UI 변경(mainUI, settingUI, editUI 총 3종)
+- 이전 버전에서 나타난 버그 해결
+- 자체 UI 변경(mainUI, settingUI, editUI, addDelayUI 총 4종)
 - '불러오기' 기능이 settingUI 안으로 들어감.
-- 선택한 매크로가 없을 때 Up, Down 버튼이 동작하지 않도록 조치함. (editUI)
 
 ◇ 2022.?.??. (???) ??:?? // v2.1 **(Will)**
 - 칼라 체커 기능 추가
