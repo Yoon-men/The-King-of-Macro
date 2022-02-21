@@ -1,4 +1,4 @@
-![title](/img/KOM_header.png)
+![KOM_header](https://user-images.githubusercontent.com/64591335/155003398-f30bfcc2-39b7-48e3-b4b2-e9b18a357fe2.png)
 
 <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.8"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
@@ -12,7 +12,7 @@
 <br>
 
 # How To Use
-![image](/img/KOM_v1.8_Guide.png)
+![KOM_v1 8_Guide](https://user-images.githubusercontent.com/64591335/155003461-7f9b343c-fe7d-4d24-b108-f236a35ce99e.png)
 
 【 기본 】
 - '불러오기' 버튼을 눌러 DATA.csv를 불러온다.
