@@ -174,7 +174,7 @@ class Main() :
         thread_basicFn.quit()
         thread_additionalFn_1.quit()
         thread_additionalFn_2.quit()
-        quit()
+        QCoreApplication.instance().quit()
 
 
 
@@ -230,6 +230,7 @@ class BasicFn(QObject) :
             if macroName[0] == "" : 
                 mainUI.noticeBoard.addItem("[system] 공백을 이름으로 사용할 수 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
+
             else : 
                 # Write DATA in subList to comboBoxes
                 mainUI.delete_cb.addItem(macroName[0])
@@ -309,7 +310,8 @@ class BasicFn(QObject) :
                         # Apply the update to editMacro_lw
                         self.setMacro()
                         break
-            
+
+
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
@@ -348,7 +350,8 @@ class BasicFn(QObject) :
                     self.setMacro()
                 
                 editUI.addKeyboard_bt_inactive()
-            
+
+
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
@@ -378,6 +381,7 @@ class BasicFn(QObject) :
                 editUI.addDelay_bt_inactive()
                 # Apply the update to editMacro_lw
                 self.setMacro()
+
 
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
@@ -492,20 +496,26 @@ class BasicFn(QObject) :
 
     def delete(self) : 
         if Load_status == True : 
-            delObj = mainUI.delete_cb.currentIndex()
-            # Remove DATA in ComboBoxes
-            mainUI.delete_cb.removeItem(delObj)
-            mainUI.start_cb.removeItem(delObj)
-            editUI.setMacro_cb.removeItem(delObj)
-            # Delete DATA in List
-            del CSV_data[delObj + 1]
-            # Write DATA in List to CSV
-            CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
-            writer = csv.writer(CSV_file)
-            writer.writerows(CSV_data)
+            if len(CSV_data) != 1 : 
+                delObj = mainUI.delete_cb.currentIndex()
+                # Remove DATA in ComboBoxes
+                mainUI.delete_cb.removeItem(delObj)
+                mainUI.start_cb.removeItem(delObj)
+                editUI.setMacro_cb.removeItem(delObj)
+                # Delete DATA in List
+                del CSV_data[delObj + 1]
+                # Write DATA in List to CSV
+                CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+                writer = csv.writer(CSV_file)
+                writer.writerows(CSV_data)
 
-            mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
-            mainUI.noticeBoard.scrollToBottom()
+                mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
+                mainUI.noticeBoard.scrollToBottom()
+
+
+            else : 
+                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
+                mainUI.noticeBoard.scrollToBottom()
 
 
         else : 
@@ -606,6 +616,11 @@ class BasicFn(QObject) :
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
+        
+
+        else : 
+            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.scrollToBottom()
 
 
             
