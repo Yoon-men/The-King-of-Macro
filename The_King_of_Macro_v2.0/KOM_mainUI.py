@@ -107,7 +107,6 @@ class MainUI(QMainWindow) :
         self.noticeBoard.setGeometry(18, 529, 370, 118)
         self.noticeBoard.setFocusPolicy(Qt.NoFocus)
         self.noticeBoard.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-
         self.noticeBoard.setStyleSheet("QListWidget{\n"
                                             "background-color : #4d4d4d;\n"
                                             "border-radius : 8px;\n"
@@ -182,15 +181,7 @@ class MainUI(QMainWindow) :
         self.edit_bt = QPushButton(self.body_frm)
         self.edit_bt.setGeometry(20, 227, 369, 24)
         self.edit_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.edit_bt.setStyleSheet("QPushButton{\n"
-                                        "border : 2px solid #aaaaaa;\n"
-                                        "border-radius : 5px;\n"
-                                        "color : #cccccc;\n"
-                                    "}\n"
-                                    "QPushButton:hover{\n"
-                                        "background-color : #aaaaaa;\n"
-                                        "color : #222222;\n"
-                                    "}")
+        self.edit_bt_inactive()
         self.edit_bt.setText("편집")
 
 
@@ -338,19 +329,18 @@ class MainUI(QMainWindow) :
                                 "}")
         self.start_lb_2.setText("번")
 
-        self.start_bt = QPushButton(self.body_frm)
-        self.start_bt.setGeometry(328, 477, 60, 24)
-        self.start_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.start_bt.setStyleSheet("QPushButton{\n"
-                                            "border : 2px solid #aaaaaa;\n"
-                                            "border-radius : 5px;\n"
-                                            "color : #cccccc;\n"
-                                        "}\n"
-                                        "QPushButton:hover{\n"
-                                            "color : #222222;\n"
-                                            "background-color : #aaaaaa;\n"
-                                        "}")
-        self.start_bt.setText("실행")
+        self.start_bt_typeNum = QPushButton(self.body_frm)
+        self.start_bt_typeNum.setGeometry(328, 477, 60, 24)
+        self.start_bt_typeNum.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.start_bt_typeNum_inactive()
+        self.start_bt_typeNum.setText("실행")
+
+        self.start_bt_typeTime = QPushButton(self.body_frm)
+        self.start_bt_typeTime.setGeometry(328, 477, 60, 24)
+        self.start_bt_typeTime.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.start_bt_typeTime_inactive()
+        self.start_bt_typeTime.setText("실행")
+        self.start_bt_typeTime.hide()
 
 
         # dropShadow_group
@@ -383,6 +373,8 @@ class MainUI(QMainWindow) :
         self.start_sb.setGeometry(235, 479, 60, 22)
         self.start_lb_2.setGeometry(304, 477, 16, 21)
         self.start_lb_2.setText("번")
+        self.start_bt_typeTime.hide()
+        self.start_bt_typeNum.show()
         
 
     def typeTime(self) : 
@@ -394,6 +386,73 @@ class MainUI(QMainWindow) :
         self.start_sb.setGeometry(210, 479, 60, 22)
         self.start_lb_2.setGeometry(280, 477, 41, 21)
         self.start_lb_2.setText("초 동안")
+        self.start_bt_typeNum.hide()
+        self.start_bt_typeTime.show()
+
+
+
+    # activatedCondition_group
+    ## << edit_bt (1/3) >> --------------------
+    def edit_bt_inactive(self) : 
+        self.edit_bt.setStyleSheet("QPushButton{\n"
+                                        "border : 2px solid #aaaaaa;\n"
+                                        "border-radius : 5px;\n"
+                                        "color : #cccccc;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "color : #222222;\n"
+                                    "}")
+
+    def edit_bt_active(self) : 
+        self.edit_bt.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
+
+
+    ## << start_bt_typeNum (2/3) >> --------------------
+    def start_bt_typeNum_inactive(self) : 
+        self.start_bt_typeNum.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "color : #cccccc;\n"
+                                        "}\n"
+                                        "QPushButton:hover{\n"
+                                            "color : #222222;\n"
+                                            "background-color : #aaaaaa;\n"
+                                        "}")
+
+    def start_bt_typeNum_active(self) : 
+        self.start_bt_typeNum.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
+
+
+    ## << start_bt_typeTime (3/3) >> --------------------
+    def start_bt_typeTime_inactive(self) : 
+        self.start_bt_typeTime.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "color : #cccccc;\n"
+                                        "}\n"
+                                        "QPushButton:hover{\n"
+                                            "color : #222222;\n"
+                                            "background-color : #aaaaaa;\n"
+                                        "}")
+
+    def start_bt_typeTime_active(self) : 
+        self.start_bt_typeTime.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
 
 
 
