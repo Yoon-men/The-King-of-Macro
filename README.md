@@ -1,6 +1,6 @@
 ![KOM_header](https://user-images.githubusercontent.com/64591335/155003398-f30bfcc2-39b7-48e3-b4b2-e9b18a357fe2.png)
 
-<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.8"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
+<a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
 # What the fuck is this?
 사용자 설정 매크로 프로그램입니다.
