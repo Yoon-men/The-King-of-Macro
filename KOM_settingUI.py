@@ -80,7 +80,7 @@ class SettingUI(QDialog) :
         
         # stopKey_part
         self.stopKey_lb = QLabel(self.body_frm)
-        self.stopKey_lb.setGeometry(70, 169, 111, 21)
+        self.stopKey_lb.setGeometry(70, 158, 111, 21)
         self.stopKey_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
         self.stopKey_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
@@ -88,7 +88,7 @@ class SettingUI(QDialog) :
         self.stopKey_lb.setText("매크로 중단 키 : ")
 
         self.stopKey_bt = QPushButton(self.body_frm)
-        self.stopKey_bt.setGeometry(190, 170, 91, 21)
+        self.stopKey_bt.setGeometry(190, 159, 91, 21)
         self.stopKey_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.stopKey_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
@@ -100,6 +100,18 @@ class SettingUI(QDialog) :
                                         "background-color : #aaaaaa;\n"
                                     "}")
         self.stopKey_bt.setText("esc")
+
+
+        # icon_part
+        self.github_bt = QPushButton(self.body_frm)
+        self.github_bt.setGeometry(163, 211, 30, 30)
+        self.github_bt.setStyleSheet("QPushButton{\n"
+                                        "border-radius : 10px;\n"
+                                        "image : url(:/img/github_0.png);\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "image : url(:/img/github_1.png);\n"
+                                    "}")
 
 
         # dropShadow_group
