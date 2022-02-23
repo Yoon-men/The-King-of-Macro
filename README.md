@@ -3,25 +3,26 @@
 <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
 # What the fuck is this?
-사용자 설정 매크로 프로그램입니다.
-
-마우스 클릭, 키보드 입력을 저장하고 불러와서 사용하는 것이 가능합니다.
+사용자 설정 매크로 프로그램입니다. (마우스 클릭, 키보드 입력)
 
 이 프로그램을 사용하기 위해서는 매크로 데이터를 저장해두는 'DATA.csv' 파일이 필요합니다.
 
 <br>
 
 # How To Use
-![KOM_v1 8_Guide](https://user-images.githubusercontent.com/64591335/155003461-7f9b343c-fe7d-4d24-b108-f236a35ce99e.png)
+![KOM_mockUp](https://user-images.githubusercontent.com/64591335/155266387-04482c94-ce93-49eb-83f8-11f6b8a8db5b.png)
 
 【 기본 】
-- '불러오기' 버튼을 눌러 DATA.csv를 불러온다.
+- 설정 창에서 '불러오기' 버튼을 눌러 DATA.csv를 불러온다.
 
 【 추가 】
-- 원하는 매크로 이름을 적고 '추가' 버튼을 누른다.
+- 메인 창에서 원하는 매크로 이름을 적고 '추가' 버튼을 누른다.
 
 【 편집 】
-- (가이드 이미지 참고)
+- 마우스 좌표 입력 : '클릭 추가' 버튼을 누르고 마우스 좌클릭 or 우클릭을 한다.
+- 키보드 입력 : '키보드 추가' 버튼을 누르고 키보드 입력을 한다.
+- 딜레이 추가 : '딜레이 추가' 버튼을 누르고 열린 딜레이 추가 창에서 원하는 딜레이 초를 입력하고 '추가' 버튼을 클릭한다.
+- 삭제 / ▲ / ▼ : 원하는 매크로 부분을 누른 다음에 버튼을 클릭한다.
 
 【 삭제 】
 - 삭제하고 싶은 매크로가 있을 경우 그 매크로명을 선택하고 '삭제' 버튼을 누른다.
