@@ -37,8 +37,8 @@
 
 # Download
 이미 DATA.csv 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
-> <The_King_of_Macro_v1.8>
->> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v1.8">Download Link</a>
+> <The_King_of_Macro_v2.0>
+>> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0">Download Link</a>
 
 <br>
 
@@ -99,7 +99,7 @@
 - 매크로 편집 기능('마우스 클릭 추가, 키보드 입력 추가, 딜레이 추가' 통합) 추가
 - 설정 창에서 ESC키를 눌러도 나가지지 않도록 변경
 
-◇ 2022.2.22. (TUE) ??:?? // v2.0 **(Will)**
+◇ 2022.2.22. (TUE) 21:37 // v2.0 **(Will)**
 - 이전 버전에서 나타난 버그 해결
 - 자체 UI 변경(mainUI, settingUI, editUI, addDelayUI 총 4종)
 - '불러오기' 기능이 settingUI 안으로 들어감.
