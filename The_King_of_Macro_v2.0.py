@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v2.0> - 22.2.22. (TUE) 01:28
+<The_King_of_Macro_v2.0> - 22.2.22. (TUE) 21:37
 * Made by Yoonmen *
 
 [update]
@@ -18,6 +18,7 @@ import mouse
 import pyautogui
 import time
 import copy
+import webbrowser
 
 from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
@@ -113,6 +114,9 @@ class Main() :
         ## stopKey_part
         settingUI.stopKey_bt.clicked.connect(BasicFn.setStopKey)
 
+        ## icon_part
+        settingUI.github_bt.clicked.connect(self.openGithub)
+
 
         # << editUI (3/4) >> --------------------
 
@@ -149,6 +153,9 @@ class Main() :
 
     def openSetting(self) : 
         settingUI.exec_()
+    
+    def openGithub(self) : 
+        webbrowser.open("https://github.com/Yoon-men/The_King_of_Macro")
 
 
     def openEdit(self) : 
