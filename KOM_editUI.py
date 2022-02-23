@@ -350,7 +350,7 @@ class AddDelayUI(QDialog) :
         # addDelay_part
         self.addDelay_lb = QLabel(self.body_frm)
         self.addDelay_lb.setGeometry(18, 60, 61, 21)
-        self.addDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.addDelay_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
         self.addDelay_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
