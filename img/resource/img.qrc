@@ -9,5 +9,7 @@
         <file>Logo_setting.png</file>
         <file>Logo_edit.png</file>
         <file>Logo_addDelay.png</file>
+        <file>github_0.png</file>
+        <file>github_1.png</file>
     </qresource>
 </RCC>
