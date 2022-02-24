@@ -19,7 +19,7 @@ class MainUI(QMainWindow) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(414, 695)
+        self.setFixedSize(414, 673)
         self.setWindowTitle("The_King_of_Macro_v2.0")
 
 
