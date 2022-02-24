@@ -11,5 +11,9 @@
         <file>Logo_addDelay.png</file>
         <file>github_0.png</file>
         <file>github_1.png</file>
+        <file>ckb_unchecked_normal.png</file>
+        <file>ckb_unchecked_hover.png</file>
+        <file>ckb_checked_normal.png</file>
+        <file>ckb_checked_hover.png</file>
     </qresource>
 </RCC>
