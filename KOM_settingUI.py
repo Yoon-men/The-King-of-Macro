@@ -16,13 +16,13 @@ class SettingUI(QDialog) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(370, 295)
+        self.setFixedSize(370, 310)
         self.setWindowTitle("Setting")
 
 
         # body_part
         self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(10, 10, 351, 261)
+        self.body_frm.setGeometry(10, 10, 351, 280)
         self.body_frm.setStyleSheet("QFrame{\n"
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
@@ -80,7 +80,7 @@ class SettingUI(QDialog) :
         
         # stopKey_part
         self.stopKey_lb = QLabel(self.body_frm)
-        self.stopKey_lb.setGeometry(70, 158, 111, 21)
+        self.stopKey_lb.setGeometry(70, 142, 111, 21)
         self.stopKey_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
         self.stopKey_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
@@ -88,7 +88,7 @@ class SettingUI(QDialog) :
         self.stopKey_lb.setText("매크로 중단 키 : ")
 
         self.stopKey_bt = QPushButton(self.body_frm)
-        self.stopKey_bt.setGeometry(190, 159, 91, 21)
+        self.stopKey_bt.setGeometry(190, 143, 91, 21)
         self.stopKey_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.stopKey_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
@@ -102,9 +102,41 @@ class SettingUI(QDialog) :
         self.stopKey_bt.setText("esc")
 
 
+        # winToTop_part
+        self.winToTop_lb = QLabel(self.body_frm)
+        self.winToTop_lb.setGeometry(110, 193, 81, 21)
+        self.winToTop_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.winToTop_lb.setStyleSheet("QLabel{\n"
+                                            "color : #b1b1b1;\n"
+                                        "}")
+        self.winToTop_lb.setText("가장 위로 : ")
+
+        self.winToTop_ckb = QCheckBox(self.body_frm)
+        self.winToTop_ckb.setGeometry(200, 193, 21, 21)
+        self.winToTop_ckb.setStyleSheet("QCheckBox::indicator::unchecked{\n"
+                                            "image : url(:/img/ckb_unchecked_normal.png);\n"
+                                            "width : 20px;\n"
+                                            "height : 20px;\n"
+                                        "}\n"
+                                        
+                                        "QCheckBox::indicator::unchecked::hover{\n"
+                                            "image : url(:/img/ckb_unchecked_hover.png);\n"
+                                        "}\n"
+                                        
+                                        "QCheckBox::indicator::checked{\n"
+                                            "image : url(:/img/ckb_checked_normal.png);\n"
+                                            "width : 20px;\n"
+                                            "height : 20px;\n"
+                                        "}\n"
+                                        
+                                        "QCheckBox::indicator::checked::hover{\n"
+                                            "image : url(:/img/ckb_checked_hover.png);\n"
+                                        "}")
+
+
         # icon_part
         self.github_bt = QPushButton(self.body_frm)
-        self.github_bt.setGeometry(163, 211, 30, 30)
+        self.github_bt.setGeometry(163, 240, 30, 30)
         self.github_bt.setStyleSheet("QPushButton{\n"
                                         "border-radius : 10px;\n"
                                         "image : url(:/img/github_0.png);\n"
