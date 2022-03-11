@@ -10,7 +10,8 @@
 <br>
 
 # How To Use
-![KOM_mockUp](https://user-images.githubusercontent.com/64591335/155266387-04482c94-ce93-49eb-83f8-11f6b8a8db5b.png)
+![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/157818330-97bf2eb6-218b-47e0-8282-680202127401.png)
+
 
 【 기본 】
 - 설정 창에서 '불러오기' 버튼을 눌러 DATA.csv를 불러온다.
