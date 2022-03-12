@@ -139,20 +139,26 @@ class EditUI(QDialog) :
         self.addKeyboard_bt.setText("키보드 추가")
 
         self.addDelay_bt = QPushButton(self.body_frm)
-        self.addDelay_bt.setGeometry(326, 244, 100, 24)
+        self.addDelay_bt.setGeometry(326, 241, 100, 24)
         self.addDelay_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.addDelay_bt_inactive()
         self.addDelay_bt.setText("딜레이 추가")
 
+        self.addColorChecker_bt = QPushButton(self.body_frm)
+        self.addColorChecker_bt.setGeometry(326, 282, 100, 24)
+        self.addColorChecker_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addColorChecker_bt_inactive()
+        self.addColorChecker_bt.setText("컬러체커 추가")
+
         self.line_1 = QFrame(self)
-        self.line_1.setGeometry(343, 291, 71, 20)
+        self.line_1.setGeometry(343, 329, 71, 20)
         self.line_1.setFrameShape(QFrame.HLine)
         self.line_1.setStyleSheet("QFrame{\n"
                                         "color : #585858;\n"
                                     "}")
 
         self.delete_bt = QPushButton(self.body_frm)
-        self.delete_bt.setGeometry(326, 334, 100, 24)
+        self.delete_bt.setGeometry(326, 367, 100, 24)
         self.delete_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.delete_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
@@ -166,14 +172,14 @@ class EditUI(QDialog) :
         self.delete_bt.setText("삭제")
 
         self.line_2 = QFrame(self)
-        self.line_2.setGeometry(343, 388, 71, 20)
+        self.line_2.setGeometry(343, 414, 71, 20)
         self.line_2.setFrameShape(QFrame.HLine)
         self.line_2.setStyleSheet("QFrame{\n"
                                         "color : #585858;\n"
                                     "}")
 
         self.up_bt = QPushButton(self.body_frm)
-        self.up_bt.setGeometry(362, 435, 28, 24)
+        self.up_bt.setGeometry(362, 461, 28, 24)
         self.up_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.up_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
@@ -187,7 +193,7 @@ class EditUI(QDialog) :
         self.up_bt.setText("▲")
 
         self.down_bt = QPushButton(self.body_frm)
-        self.down_bt.setGeometry(362, 470, 28, 24)
+        self.down_bt.setGeometry(362, 496, 28, 24)
         self.down_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.down_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
@@ -229,7 +235,7 @@ class EditUI(QDialog) :
 
 
     # activatedCondition_group
-    ## << addClick_bt (1/3) >> --------------------
+    ## << addClick_bt (1/4) >> --------------------
     def addClick_bt_inactive(self) : 
         self.addClick_bt.setStyleSheet("QPushButton{\n"
                                             "border : 2px solid #aaaaaa;\n"
@@ -250,7 +256,7 @@ class EditUI(QDialog) :
                                         "}")
 
 
-    ## << addKeyboard_bt (2/3) >> --------------------
+    ## << addKeyboard_bt (2/4) >> --------------------
     def addKeyboard_bt_inactive(self) : 
         self.addKeyboard_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
@@ -271,7 +277,7 @@ class EditUI(QDialog) :
                                         "}")
 
 
-    ## << addDelay_bt (3/3) >> --------------------
+    ## << addDelay_bt (3/4) >> --------------------
     def addDelay_bt_inactive(self) : 
         self.addDelay_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
@@ -285,6 +291,27 @@ class EditUI(QDialog) :
 
     def addDelay_bt_active(self) : 
         self.addDelay_bt.setStyleSheet("QPushButton{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 5px;\n"
+                                            "background-color : #aaaaaa;\n"
+                                            "color : #222222;\n"
+                                        "}")
+
+
+    ## << addColorChecker_bt (4/4) >> --------------------
+    def addColorChecker_bt_inactive(self) : 
+        self.addColorChecker_bt.setStyleSheet("QPushButton{\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "color : #cccccc;\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                                "color : #222222;\n"
+                                                "background-color : #aaaaaa;\n"
+                                            "}")
+    
+    def addColorChecker_bt_active(self) : 
+        self.addColorChecker_bt.setStyleSheet("QPushButton{\n"
                                             "border : 2px solid #aaaaaa;\n"
                                             "border-radius : 5px;\n"
                                             "background-color : #aaaaaa;\n"
