@@ -105,9 +105,9 @@
 
 ◇ 2022.2.22. (TUE) 21:37 // v2.0
 - 이전 버전에서 나타난 버그 해결
-- 자체 UI 변경(mainUI, settingUI, editUI, addDelayUI 총 4종)
+- 자체 UI 변경 (mainUI, settingUI, editUI, addDelayUI 총 4종)
 - '불러오기' 기능이 settingUI 안으로 들어감.
 
 ◇ 2022.?.??. (???) ??:?? // v2.1 **(Will)**
 - settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
-- 칼라 체커 기능 추가(In editUI)
+- 칼라 체커 기능 추가 (In editUI)
