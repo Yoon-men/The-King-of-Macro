@@ -10,7 +10,7 @@
 <br>
 
 # How To Use
-![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/158048746-b6da1aa2-abd1-4846-877a-c681aeca48e3.png)
+![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/158588032-f3fd2464-ab04-4762-81d2-debd07848f2d.png)
 
 
 【 기본 】
