@@ -456,9 +456,316 @@ class AddDelayUI(QDialog) :
 
 
 
+class AddColorCheckerUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+
+        self.addColorCheckerUI()
+
+
+
+    def addColorCheckerUI(self) : 
+        # basic_part
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(369, 608)
+        self.setWindowTitle("Add ColorChecker")
+
+
+        # body_part
+        self.body_frm = QFrame(self)
+        self.body_frm.setGeometry(10, 5, 351, 601)
+        self.body_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #202020;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+
+        self.title_frm = QFrame(self.body_frm)
+        self.title_frm.setGeometry(0, 0, 351, 41)
+        self.title_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #464646;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        # self.title_frm.mousePressEvent = self.setCenterPoint      # Test code / please unlock this line and delete this comment.
+        # self.title_frm.mouseMoveEvent = self.moveWindow       # Test code / please unlock this line and delete this comment.
+
+        self.title_lb = QLabel(self.title_frm)
+        self.title_lb.setGeometry(93, 13, 181, 16)
+        self.title_lb.setPixmap(":/img/Logo_addColorChecker.png")
+        self.title_lb.setScaledContents(True)
+
+        self.exit_bt = QPushButton(self.title_frm)
+        self.exit_bt.setGeometry(320, 10, 22, 22)
+        self.exit_bt.setStyleSheet("QPushButton{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "border-radius : 10px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #666666;\n"
+                                    "}")
+        icon = QIcon()
+        icon.addPixmap(":/img/exit.png")
+        self.exit_bt.setIcon(icon)
+        self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # addCoordinate_part
+        self.addCoordinate_bt = QPushButton(self.body_frm)
+        self.addCoordinate_bt.setGeometry(20, 63, 311, 24)
+        self.addCoordinate_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "color : #cccccc;\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                                "color : #222222;\n"
+                                                "background-color : #aaaaaa;\n"
+                                            "}")
+        self.addCoordinate_bt.setText("좌표 추가")
+
+        self.X_lb = QLabel(self.body_frm)
+        self.X_lb.setGeometry(75, 122, 14, 21)
+        self.X_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.X_lb.setStyleSheet("QLabel{\n"
+                                    "color : #b1b1b1;\n"
+                                "}")
+        self.X_lb.setText("X")
+
+        self.X_le = QLineEdit(self.body_frm)
+        self.X_le.setGeometry(95, 120, 67, 24)
+        self.X_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.X_le.setStyleSheet("QLineEdit{\n"
+                                    "color : #dddddd;\n"
+                                    "background-color : #303030;\n"
+                                    "border : 2px solid #303030;\n"
+                                    "border-radius : 5px;\n"
+                                    "selection-color : #000000;\n"
+                                    "selection-background-color : #ffffff;\n"
+                                "}\n"
+                                "QLineEdit::focus{\n"
+                                    "border-color : #aaaaaa;\n"
+                                "}")
+        self.X_le.setValidator(QIntValidator())
+        self.X_le.setAlignment(Qt.AlignCenter)
+
+        self.Y_lb = QLabel(self.body_frm)
+        self.Y_lb.setGeometry(191, 120, 15, 21)
+        self.Y_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.Y_lb.setStyleSheet("QLabel{\n"
+                                    "color : #b1b1b1;\n"
+                                "}")
+        self.Y_lb.setText("Y")
+
+        self.Y_le = QLineEdit(self.body_frm)
+        self.Y_le.setGeometry(211, 120, 67, 24)
+        self.Y_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.Y_le.setStyleSheet("QLineEdit{\n"
+                                    "color : #dddddd;\n"
+                                    "background-color : #303030;\n"
+                                    "border : 2px solid #303030;\n"
+                                    "border-radius : 5px;\n"
+                                    "selection-color : #000000;\n"
+                                    "selection-background-color : #ffffff;\n"
+                                "}\n"
+                                "QLineEdit::focus{\n"
+                                    "border-color : #aaaaaa;\n"
+                                "}")
+        self.Y_le.setValidator(QIntValidator())
+        self.Y_le.setAlignment(Qt.AlignCenter)
+        
+        self.line_1 = QLabel(self.body_frm)
+        self.line_1.setGeometry(53, 170, 241, 16)
+        self.line_1.setPixmap(":/img/Line.png")
+        self.line_1.setScaledContents(True)
+
+
+        # palette_part
+        self.palette_rb_1 = QRadioButton(self.body_frm)
+        self.palette_rb_1.setGeometry(61, 216, 46, 21)
+        self.palette_rb_1.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_1.setChecked(True)
+
+        self.palette_rb_2 = QRadioButton(self.body_frm)
+        self.palette_rb_2.setGeometry(120, 216, 46, 21)
+        self.palette_rb_2.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_2.hide()
+
+        self.palette_rb_3 = QRadioButton(self.body_frm)
+        self.palette_rb_3.setGeometry(179, 216, 46, 21)
+        self.palette_rb_3.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_3.hide()
+
+        self.palette_rb_4 = QRadioButton(self.body_frm)
+        self.palette_rb_4.setGeometry(238, 216, 46, 21)
+        self.palette_rb_4.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_4.hide()
+
+        self.palette_rb_5 = QRadioButton(self.body_frm)
+        self.palette_rb_5.setGeometry(61, 250, 46, 21)
+        self.palette_rb_5.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_5.hide()
+
+        self.palette_rb_6 = QRadioButton(self.body_frm)
+        self.palette_rb_6.setGeometry(120, 250, 46, 21)
+        self.palette_rb_6.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_6.hide()
+
+        self.palette_rb_7 = QRadioButton(self.body_frm)
+        self.palette_rb_7.setGeometry(179, 250, 46, 21)
+        self.palette_rb_7.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_7.hide()
+
+        self.palette_rb_8 = QRadioButton(self.body_frm)
+        self.palette_rb_8.setGeometry(238, 250, 46, 21)
+        self.palette_rb_8.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_8.hide()
+
+        self.palette_rb_9 = QRadioButton(self.body_frm)
+        self.palette_rb_9.setGeometry(61, 284, 46, 21)
+        self.palette_rb_9.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_9.hide()
+
+        self.palette_rb_10 = QRadioButton(self.body_frm)
+        self.palette_rb_10.setGeometry(120, 284, 46, 21)
+        self.palette_rb_10.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_10.hide()
+
+        self.palette_rb_11 = QRadioButton(self.body_frm)
+        self.palette_rb_11.setGeometry(179, 284, 46, 21)
+        self.palette_rb_11.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_11.hide()
+
+        self.palette_rb_12 = QRadioButton(self.body_frm)
+        self.palette_rb_12.setGeometry(238, 284, 46, 21)
+        self.palette_rb_12.setStyleSheet("QRadioButton{\n"
+                                            "background-color : #ffffff;\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                        "}")
+        self.palette_rb_12.hide()
+
+        self.addPalette_bt = QPushButton(self.body_frm)
+        self.addPalette_bt.setGeometry(133, 216, 21, 21)
+        self.addPalette_bt.setStyleSheet("QPushButton{\n"
+                                            "image : url(:/img/bt_plus_normal.png);\n"
+                                            "border-radius : 10px;\n"
+                                        "}\n"
+                                        "QPushButton:hover{\n"
+                                            "image : url(:/img/bt_plus_hover.png);\n"
+                                        "}")
+
+
+
+
 
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
     global edit
-    edit = EditUI()
+    # edit = EditUI()       # Test code / please unlock this line and delete this comment.
+    edit = AddColorCheckerUI()      # Test code / please delete this line.
     edit.exec_()
