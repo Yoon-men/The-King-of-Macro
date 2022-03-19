@@ -486,8 +486,8 @@ class AddColorCheckerUI(QDialog) :
                                         "background-color : #464646;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-        # self.title_frm.mousePressEvent = self.setCenterPoint      # Test code / please unlock this line and delete this comment.
-        # self.title_frm.mouseMoveEvent = self.moveWindow       # Test code / please unlock this line and delete this comment.
+        self.title_frm.mousePressEvent = self.setCenterPoint
+        self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(93, 13, 181, 16)
@@ -855,6 +855,71 @@ class AddColorCheckerUI(QDialog) :
 
 
         # colorCheckProcess_part
+        self.checkDelay_le = QLineEdit(self.body_frm)
+        self.checkDelay_le.setGeometry(80, 504, 60, 22)
+        self.checkDelay_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkDelay_le.setStyleSheet("QLineEdit{\n"
+                                            "color : #dddddd;\n"
+                                            "background-color : #303030;\n"
+                                            "border : 2px solid #303030;\n"
+                                            "border-radius : 5px;\n"
+                                            "selection-color : #000000;\n"
+                                            "selection-background-color : #ffffff;\n"
+                                        "}\n"
+                                        "QLineEdit::focus{\n"
+                                            "border-color : #aaaaaa;\n"
+                                        "}")
+        self.checkDelay_le.setValidator(QIntValidator())
+        self.checkDelay_le.setAlignment(Qt.AlignCenter)
+        self.checkDelay_le.setText("0")
+
+        self.checkDelay_lb = QLabel(self.body_frm)
+        self.checkDelay_lb.setGeometry(149, 505, 121, 21)
+        self.checkDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkDelay_lb.setStyleSheet("QLabel{\n"
+                                            "color : #b1b1b1;\n"
+                                        "}")
+        self.checkDelay_lb.setText("초마다 컬러체크 진행")
+
+        self.add_bt = QPushButton(self.body_frm)
+        self.add_bt.setGeometry(130, 560, 91, 24)
+        self.add_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.add_bt.setStyleSheet("QPushButton{\n"
+                                        "border : 2px solid #aaaaaa;\n"
+                                        "border-radius : 5px;\n"
+                                        "color : #cccccc;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "color : #222222;\n"
+                                        "background-color : #aaaaaa;\n"
+                                    "}")
+        self.add_bt.setText("추가")
+
+
+        # dropShadow_group
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(18)
+        self.shadow.setOffset(0, 0)
+        self.body_frm.setGraphicsEffect(self.shadow)
+    
+
+
+    # move_group
+    def setCenterPoint(self, event) : 
+        self.centerPoint = event.globalPos()
+
+
+    def moveWindow(self, event) : 
+        if event.buttons() == Qt.LeftButton : 
+            self.move(self.pos() + event.globalPos() - self.centerPoint)
+            self.centerPoint = event.globalPos()
+
+
+
+    # ignoreESC_group
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : 
+            pass
 
 
 
@@ -863,6 +928,5 @@ class AddColorCheckerUI(QDialog) :
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
     global edit
-    # edit = EditUI()       # Test code / please unlock this line and delete this comment.
-    edit = AddColorCheckerUI()      # Test code / please delete this line.
+    edit = EditUI()
     edit.exec_()
