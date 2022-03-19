@@ -4,7 +4,8 @@
 
 [update]
 1. settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
-2. 칼라 체커 기능 추가
+2. 컬러 체커 기능 추가 (In editUI)
+3. 마우스 클릭이 아닌 키보드 입력으로 마우스 좌표를 추가할 수 있도록 함 (좌클릭 = F9, 우클릭 = F10)
 """
 
 import sys
@@ -571,7 +572,7 @@ class BasicFn(QObject) :
 
                 startObj = mainUI.start_cb.currentIndex()
                 global runTime
-                runTime = mainUI.start_sb.value()
+                runTime = int(mainUI.start_le.text())
 
                 CSV_data_copy = copy.deepcopy(CSV_data)
                 macroNum = int((len(CSV_data_copy[startObj + 1])-1) / 2)
@@ -632,7 +633,7 @@ class BasicFn(QObject) :
 
                     if startType == "typeNum" : 
                         runTime -= 1
-                        mainUI.start_sb.setValue(runTime)
+                        mainUI.start_le.setText(str(runTime))
 
                 mainUI.noticeBoard.addItem("[system] 매크로 작업이 완료되었습니다.")
                 mainUI.noticeBoard.scrollToBottom()
@@ -678,7 +679,7 @@ class AdditionalFn_2(QObject) :
         while runTime > 0 and power == True : 
             time.sleep(1)
             runTime -= 1
-            mainUI.start_sb.setValue(runTime)
+            mainUI.start_le.setText(str(runTime))
 
         power = False
 
