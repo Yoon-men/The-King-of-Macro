@@ -82,16 +82,20 @@ class Main() :
         mainUI.exit_bt.clicked.connect(self.quit)
         mainUI.setting_bt.clicked.connect(self.openSetting)
 
+
         ## addName_part
         mainUI.addName_bt.clicked.connect(basicFn.addName)
         mainUI.addName_le.returnPressed.connect(basicFn.addName)
 
+
         ## edit_part
         mainUI.edit_bt.clicked.connect(self.openEdit)
         
+
         ## delete_part
         mainUI.delete_bt.clicked.connect(BasicFn.delete)
-        
+
+
         ## start_part
         mainUI.start_rb_typeNum.clicked.connect(mainUI.typeNum)
         mainUI.start_rb_typeTime.clicked.connect(mainUI.typeTime)
@@ -110,18 +114,21 @@ class Main() :
         ## title_part
         settingUI.exit_bt.clicked.connect(settingUI.close)
 
+
         ## load_part
         settingUI.load_bt.clicked.connect(BasicFn.load)
+
 
         ## stopKey_part
         settingUI.stopKey_bt.clicked.connect(BasicFn.setStopKey)
 
+
         ## winToTop_part
         settingUI.winToTop_ckb.stateChanged.connect(BasicFn.winToTop)
 
+
         ## icon_part
         settingUI.github_bt.clicked.connect(self.openGithub)
-
 
 
         # << editUI (3/5) >> --------------------
@@ -130,8 +137,10 @@ class Main() :
         editUI.setMacro_cb.currentIndexChanged.connect(basicFn.setMacro)
         editUI.editMacro_lw.itemClicked.connect(basicFn.checkNum)
 
+
         ## title_part
         editUI.exit_bt.clicked.connect(self.closeEdit)
+
 
         ## editMacro_part
         editUI.addClick_bt.clicked.connect(basicFn.addClick)
@@ -151,6 +160,7 @@ class Main() :
         ## title_part
         addDelayUI.exit_bt.clicked.connect(self.closeAddDelay)
 
+
         ## addDelay_part
         addDelayUI.add_bt.clicked.connect(basicFn.addDelay)
         addDelayUI.add_bt.clicked.connect(self.closeAddDelay)
@@ -164,9 +174,18 @@ class Main() :
         ## title_part
         addColorCheckerUI.exit_bt.clicked.connect(self.closeAddColorChecker)
 
-        ## addCoordinate_part
-        # addColorCheckerUI.addCoordinate_bt.clicked.connect()        # Test code / please add code to this line.
 
+        ## coordinate_part
+        addColorCheckerUI.addCoordinate_bt.clicked.connect(basicFn.addCoordinate)
+
+
+        ## color_part
+        addColorCheckerUI.addPalette_bt.clicked.connect(basicFn.addPalette)
+        addColorCheckerUI.copyColor_bt.clicked.connect(basicFn.copyColor)
+
+
+        ## addColorChecker_part
+        addColorCheckerUI.add_bt.clicked.connect(basicFn.addColorChecker)
 
 
 
@@ -259,6 +278,7 @@ class BasicFn(QObject) :
         if settingUI.winToTop_ckb.isChecked() : 
             editUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             addDelayUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             mainUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             mainUI.show()
             settingUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
@@ -268,11 +288,11 @@ class BasicFn(QObject) :
         else : 
             editUI.setWindowFlags(Qt.FramelessWindowHint)
             addDelayUI.setWindowFlags(Qt.FramelessWindowHint)
+            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint)
             mainUI.setWindowFlags(Qt.FramelessWindowHint)
             mainUI.show()
             settingUI.setWindowFlags(Qt.FramelessWindowHint)
             settingUI.show()
-
 
 
 
@@ -333,7 +353,7 @@ class BasicFn(QObject) :
                 editUI.addClick_bt_active()
                 addObj = editUI.setMacro_cb.currentIndex()
                 while True : 
-                    if mouse.is_pressed("left") : 
+                    if keyboard.is_pressed("F9") : 
                         x, y = pyautogui.position()
                         # Write DATA to List
                         CSV_data[addObj + 1].append("<L>")
@@ -350,7 +370,7 @@ class BasicFn(QObject) :
                         self.setMacro()
                         break
 
-                    if mouse.is_pressed("right") : 
+                    if keyboard.is_pressed("F10") : 
                         x, y = pyautogui.position()
                         # Write DATA to List
                         CSV_data[addObj + 1].append("<R>")
@@ -448,7 +468,26 @@ class BasicFn(QObject) :
             mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
-            
+
+    # addColorChckerUI
+
+    ## << coordinate_part (1/3) >> --------------------
+    def addCoordinate(self) : 
+        print("뭉탱이")      # Test code / please delete this line.
+
+
+    ##  << color_part (2/3) >> --------------------
+    def addPalette(self) : 
+        print("로")       # Test code / please delete this line.
+
+
+    def copyColor(self) : 
+        print("있다가")     # Test code / please delete this line.
+
+
+    ## << addColorChecker_part (3/3) >> --------------------
+    def addColorChecker(self) : 
+        print("유링게숭")      # Test code / please delete this line.
 
 
 
