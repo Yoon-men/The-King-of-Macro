@@ -24,6 +24,7 @@ from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
 from KOM_editUI import EditUI
 from KOM_editUI import AddDelayUI
+from KOM_editUI import AddColorCheckerUI
 
 class Main() : 
     def __init__(self) : 
@@ -37,6 +38,8 @@ class Main() :
         editUI = EditUI()
         global addDelayUI
         addDelayUI = AddDelayUI()
+        global addColorCheckerUI
+        addColorCheckerUI = AddColorCheckerUI()
 
         global thread_basicFn       # For quit
         thread_basicFn = QThread()
@@ -72,7 +75,7 @@ class Main() :
 
 
     def signal(self) : 
-        # << mainUI (1/4) >> --------------------
+        # << mainUI (1/5) >> --------------------
 
         ## title_part
         mainUI.keep_bt.clicked.connect(mainUI.showMinimized)
@@ -102,7 +105,7 @@ class Main() :
 
 
 
-        # << settingUI (2/4) >> --------------------
+        # << settingUI (2/5) >> --------------------
 
         ## title_part
         settingUI.exit_bt.clicked.connect(settingUI.close)
@@ -121,7 +124,7 @@ class Main() :
 
 
 
-        # << editUI (3/4) >> --------------------
+        # << editUI (3/5) >> --------------------
 
         ## functional_part
         editUI.setMacro_cb.currentIndexChanged.connect(basicFn.setMacro)
@@ -134,6 +137,7 @@ class Main() :
         editUI.addClick_bt.clicked.connect(basicFn.addClick)
         editUI.addKeyboard_bt.clicked.connect(basicFn.addKeyboard)
         editUI.addDelay_bt.clicked.connect(self.openAddDelay)
+        editUI.addColorChecker_bt.clicked.connect(self.openAddColorChecker)
 
         editUI.delete_bt.clicked.connect(basicFn.detailDelete)
 
@@ -142,7 +146,7 @@ class Main() :
 
 
 
-        # << addDelayUI (4/4) >> --------------------
+        # << addDelayUI (4/5) >> --------------------
 
         ## title_part
         addDelayUI.exit_bt.clicked.connect(self.closeAddDelay)
@@ -155,8 +159,18 @@ class Main() :
 
 
 
+        # << addColorCheckerUI (5/5) >> --------------------
+
+        ## title_part
+        addColorCheckerUI.exit_bt.clicked.connect(self.closeAddColorChecker)
+
+        ## addCoordinate_part
+        # addColorCheckerUI.addCoordinate_bt.clicked.connect()        # Test code / please add code to this line.
+
+
+
+
     def openSetting(self) : 
-        # settingUI.exec_()
         settingUI.show()
     
     def openGithub(self) : 
@@ -179,6 +193,15 @@ class Main() :
     def closeAddDelay(self) : 
         editUI.addDelay_bt_inactive()
         addDelayUI.close()
+
+
+    def openAddColorChecker(self) : 
+        editUI.addColorChecker_bt_active()
+        addColorCheckerUI.exec_()
+
+    def closeAddColorChecker(self) : 
+        editUI.addColorChecker_bt_inactive()
+        addColorCheckerUI.close()
 
 
 
@@ -240,7 +263,7 @@ class BasicFn(QObject) :
             mainUI.show()
             settingUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             settingUI.show()
-            
+
 
         else : 
             editUI.setWindowFlags(Qt.FramelessWindowHint)
