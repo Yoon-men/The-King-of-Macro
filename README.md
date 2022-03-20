@@ -9,7 +9,7 @@
 
 <br>
 
-# How To Use
+# How To Use (v2.0)
 ![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/158588032-f3fd2464-ab04-4762-81d2-debd07848f2d.png)
 
 
