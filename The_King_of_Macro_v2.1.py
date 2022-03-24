@@ -469,16 +469,40 @@ class BasicFn(QObject) :
             mainUI.noticeBoard.scrollToBottom()
 
 
+
     # addColorChckerUI
 
     ## << coordinate_part (1/3) >> --------------------
     def addCoordinate(self) : 
-        print("뭉탱이")      # Test code / please delete this line.
+        if Load_status == True : 
+            if len(CSV_data) != 1 : 
+                print("입력 확인 메시지 출력")      # Test code / please delete this line.
+                # addColorCheckerUI.addCoordinate_bt_active()       # Test code / please unlock this line and delete this comment.
+                while True : 
+                    print("아이고난! 아이고난!")        # Test code / please delete this line.
+                    if keyboard.is_pressed("F9") : 
+                        # x, y = pyautogui.position()
+                        # addColorCheckerUI.X_le.setText(x)
+                        # addColorCheckerUI.Y_le.setText(y)
+                        print("나는! 장풍을 했다!")     # Test code / please delete this line.
+                        # addColorCheckerUI.addCoordinate_bt_inactive()
+                        break
+
+            
+
+            else : 
+                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
+                mainUI.noticeBoard.scrollToBottom()
+
+        
+        else : 
+            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.scrollToBottom()
 
 
     ##  << color_part (2/3) >> --------------------
     def addPalette(self) : 
-        print("로")       # Test code / please delete this line.
+        print("아이고난!")      # Test code / please delete this line.
 
 
     def copyColor(self) : 
@@ -487,7 +511,19 @@ class BasicFn(QObject) :
 
     ## << addColorChecker_part (3/3) >> --------------------
     def addColorChecker(self) : 
-        print("유링게숭")      # Test code / please delete this line.
+        if Load_status == True : 
+            if len(CSV_data) != 1 : 
+                print("아이고난!")      # Test code / please delete this line.
+            
+
+            else : 
+                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
+                mainUI.noticeBoard.scrollToBottom()
+        
+
+        else : 
+            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.scrollToBottom()
 
 
 
