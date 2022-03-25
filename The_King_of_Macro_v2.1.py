@@ -3,8 +3,8 @@
 * Made by Yoonmen *
 
 [update]
-1. settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
-2. 컬러 체커 기능 추가 (In editUI)
+1. 컬러체커 기능 추가 (In editUI)
+2. settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
 3. 마우스 클릭이 아닌 키보드 입력으로 마우스 좌표를 추가할 수 있도록 함 (좌클릭 = F9, 우클릭 = F10)
 """
 
@@ -197,10 +197,14 @@ class Main() :
 
 
     def openEdit(self) : 
+        global isEditUiOpened
+        isEditUiOpened = True
         mainUI.edit_bt_active()
-        editUI.exec_()
+        editUI.show()
     
     def closeEdit(self) : 
+        global isEditUiOpened
+        isEditUiOpened = False
         mainUI.edit_bt_inactive()
         editUI.close()
 
@@ -216,7 +220,8 @@ class Main() :
 
     def openAddColorChecker(self) : 
         editUI.addColorChecker_bt_active()
-        addColorCheckerUI.exec_()
+        addColorCheckerUI.exec_()     # Test code / please unlock this line and delete this comment
+        # addColorCheckerUI.show()        # Test code / please delete this line.
 
     def closeAddColorChecker(self) : 
         editUI.addColorChecker_bt_inactive()
@@ -276,23 +281,27 @@ class BasicFn(QObject) :
 
     def winToTop(self) : 
         if settingUI.winToTop_ckb.isChecked() : 
-            editUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            addDelayUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             mainUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             mainUI.show()
             settingUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             settingUI.show()
+            editUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            if isEditUiOpened == True : 
+                editUI.show()
+            addDelayUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
 
 
         else : 
-            editUI.setWindowFlags(Qt.FramelessWindowHint)
-            addDelayUI.setWindowFlags(Qt.FramelessWindowHint)
-            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint)
             mainUI.setWindowFlags(Qt.FramelessWindowHint)
             mainUI.show()
             settingUI.setWindowFlags(Qt.FramelessWindowHint)
             settingUI.show()
+            editUI.setWindowFlags(Qt.FramelessWindowHint)
+            if isEditUiOpened == True : 
+                editUI.show()
+            addDelayUI.setWindowFlags(Qt.FramelessWindowHint)
+            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint)
 
 
 
@@ -477,18 +486,16 @@ class BasicFn(QObject) :
         if Load_status == True : 
             if len(CSV_data) != 1 : 
                 print("입력 확인 메시지 출력")      # Test code / please delete this line.
-                # addColorCheckerUI.addCoordinate_bt_active()       # Test code / please unlock this line and delete this comment.
+                addColorCheckerUI.addCoordinate_bt_active()       # Test code / please unlock this line and delete this comment.
                 while True : 
-                    print("아이고난! 아이고난!")        # Test code / please delete this line.
                     if keyboard.is_pressed("F9") : 
-                        # x, y = pyautogui.position()
-                        # addColorCheckerUI.X_le.setText(x)
-                        # addColorCheckerUI.Y_le.setText(y)
-                        print("나는! 장풍을 했다!")     # Test code / please delete this line.
-                        # addColorCheckerUI.addCoordinate_bt_inactive()
+                        x, y = pyautogui.position()
+                        addColorCheckerUI.X_le.setText(str(x))
+                        addColorCheckerUI.Y_le.setText(str(y))
+                        addColorCheckerUI.addCoordinate_bt_inactive()
+                        print("중지 버튼 입력 확인 완료")       # Test code / please delete this line.
                         break
 
-            
 
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
