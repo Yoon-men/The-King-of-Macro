@@ -513,15 +513,7 @@ class AddColorCheckerUI(QDialog) :
         self.addCoordinate_bt = QPushButton(self.body_frm)
         self.addCoordinate_bt.setGeometry(20, 63, 311, 24)
         self.addCoordinate_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
-                                                "border : 2px solid #aaaaaa;\n"
-                                                "border-radius : 5px;\n"
-                                                "color : #cccccc;\n"
-                                            "}\n"
-                                            "QPushButton:hover{\n"
-                                                "color : #222222;\n"
-                                                "background-color : #aaaaaa;\n"
-                                            "}")
+        self.addCoordinate_bt_inactive()
         self.addCoordinate_bt.setText("좌표 추가")
 
         self.X_lb = QLabel(self.body_frm)
@@ -920,6 +912,30 @@ class AddColorCheckerUI(QDialog) :
     def keyPressEvent(self, event) : 
         if event.key() == Qt.Key_Escape : 
             pass
+
+
+
+    # activatedCondition_group
+    ## << addCoordinate_bt (1/1) >> --------------------
+    def addCoordinate_bt_inactive(self) : 
+        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "color : #cccccc;\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                                "color : #222222;\n"
+                                                "background-color : #aaaaaa;\n"
+                                            "}")
+        
+
+    def addCoordinate_bt_active(self) : 
+        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "background-color : #aaaaaa;\n"
+                                                "color : #222222;\n"
+                                            "}")
 
 
 
