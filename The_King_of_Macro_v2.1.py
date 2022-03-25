@@ -14,7 +14,6 @@ from PySide2.QtCore import *
 import os
 import csv
 import keyboard
-import mouse
 import pyautogui
 import time
 import copy
@@ -176,7 +175,7 @@ class Main() :
 
 
         ## coordinate_part
-        addColorCheckerUI.addCoordinate_bt.clicked.connect(basicFn.addCoordinate)
+        addColorCheckerUI.addCoordinate_bt.clicked.connect(BasicFn.addCoordinate)
 
 
         ## color_part
@@ -220,8 +219,7 @@ class Main() :
 
     def openAddColorChecker(self) : 
         editUI.addColorChecker_bt_active()
-        addColorCheckerUI.exec_()     # Test code / please unlock this line and delete this comment
-        # addColorCheckerUI.show()        # Test code / please delete this line.
+        addColorCheckerUI.exec_()
 
     def closeAddColorChecker(self) : 
         editUI.addColorChecker_bt_inactive()
@@ -485,15 +483,13 @@ class BasicFn(QObject) :
     def addCoordinate(self) : 
         if Load_status == True : 
             if len(CSV_data) != 1 : 
-                print("입력 확인 메시지 출력")      # Test code / please delete this line.
-                addColorCheckerUI.addCoordinate_bt_active()       # Test code / please unlock this line and delete this comment.
+                addColorCheckerUI.addCoordinate_bt_active()
                 while True : 
-                    if keyboard.is_pressed("F9") : 
+                    if keyboard.is_pressed("F9") or keyboard.is_pressed("F10") : 
                         x, y = pyautogui.position()
                         addColorCheckerUI.X_le.setText(str(x))
                         addColorCheckerUI.Y_le.setText(str(y))
                         addColorCheckerUI.addCoordinate_bt_inactive()
-                        print("중지 버튼 입력 확인 완료")       # Test code / please delete this line.
                         break
 
 
@@ -501,7 +497,7 @@ class BasicFn(QObject) :
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
 
-        
+
         else : 
             mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
