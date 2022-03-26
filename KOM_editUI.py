@@ -509,12 +509,12 @@ class AddColorCheckerUI(QDialog) :
         self.exit_bt.setIconSize(QSize(22, 11))
 
 
-        # addCoordinate_part
-        self.addCoordinate_bt = QPushButton(self.body_frm)
-        self.addCoordinate_bt.setGeometry(20, 63, 311, 24)
-        self.addCoordinate_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
-        self.addCoordinate_bt_inactive()
-        self.addCoordinate_bt.setText("좌표 추가")
+        # setCoordinate_part
+        self.setCoordinate_bt = QPushButton(self.body_frm)
+        self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
+        self.setCoordinate_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.setCoordinate_bt_inactive()
+        self.setCoordinate_bt.setText("좌표 설정")
 
         self.X_lb = QLabel(self.body_frm)
         self.X_lb.setGeometry(75, 122, 14, 21)
@@ -916,9 +916,9 @@ class AddColorCheckerUI(QDialog) :
 
 
     # activatedCondition_group
-    ## << addCoordinate_bt (1/1) >> --------------------
-    def addCoordinate_bt_inactive(self) : 
-        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
+    ## << setCoordinate_bt (1/1) >> --------------------
+    def setCoordinate_bt_inactive(self) : 
+        self.setCoordinate_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
                                                 "border-radius : 5px;\n"
                                                 "color : #cccccc;\n"
@@ -929,8 +929,8 @@ class AddColorCheckerUI(QDialog) :
                                             "}")
         
 
-    def addCoordinate_bt_active(self) : 
-        self.addCoordinate_bt.setStyleSheet("QPushButton{\n"
+    def setCoordinate_bt_active(self) : 
+        self.setCoordinate_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
                                                 "border-radius : 5px;\n"
                                                 "background-color : #aaaaaa;\n"
