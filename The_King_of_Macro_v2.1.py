@@ -175,7 +175,7 @@ class Main() :
 
 
         ## coordinate_part
-        addColorCheckerUI.addCoordinate_bt.clicked.connect(BasicFn.addCoordinate)
+        addColorCheckerUI.setCoordinate_bt.clicked.connect(BasicFn.setCoordinate)
 
 
         ## color_part
@@ -480,16 +480,16 @@ class BasicFn(QObject) :
     # addColorChckerUI
 
     ## << coordinate_part (1/3) >> --------------------
-    def addCoordinate(self) : 
+    def setCoordinate(self) : 
         if Load_status == True : 
             if len(CSV_data) != 1 : 
-                addColorCheckerUI.addCoordinate_bt_active()
+                addColorCheckerUI.setCoordinate_bt_active()
                 while True : 
                     if keyboard.is_pressed("F9") or keyboard.is_pressed("F10") : 
                         x, y = pyautogui.position()
                         addColorCheckerUI.X_le.setText(str(x))
                         addColorCheckerUI.Y_le.setText(str(y))
-                        addColorCheckerUI.addCoordinate_bt_inactive()
+                        addColorCheckerUI.setCoordinate_bt_inactive()
                         break
 
 
