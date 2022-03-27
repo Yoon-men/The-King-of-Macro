@@ -180,11 +180,12 @@ class Main() :
 
         ## color_part
         addColorCheckerUI.addPalette_bt.clicked.connect(basicFn.addPalette)
-        addColorCheckerUI.copyColor_bt.clicked.connect(basicFn.copyColor)
+        addColorCheckerUI.copyColor_bt.clicked.connect(BasicFn.copyColor)
 
 
         ## addColorChecker_part
         addColorCheckerUI.add_bt.clicked.connect(basicFn.addColorChecker)
+        addColorCheckerUI.add_bt.clicked.connect(self.closeAddColorChecker)
 
 
 
@@ -481,26 +482,14 @@ class BasicFn(QObject) :
 
     ## << coordinate_part (1/3) >> --------------------
     def setCoordinate(self) : 
-        if Load_status == True : 
-            if len(CSV_data) != 1 : 
-                addColorCheckerUI.setCoordinate_bt_active()
-                while True : 
-                    if keyboard.is_pressed("F9") or keyboard.is_pressed("F10") : 
-                        x, y = pyautogui.position()
-                        addColorCheckerUI.X_le.setText(str(x))
-                        addColorCheckerUI.Y_le.setText(str(y))
-                        addColorCheckerUI.setCoordinate_bt_inactive()
-                        break
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
+        addColorCheckerUI.setCoordinate_bt_active()
+        while True : 
+            if keyboard.is_pressed("F9") or keyboard.is_pressed("F10") : 
+                x, y = pyautogui.position()
+                addColorCheckerUI.X_le.setText(str(x))
+                addColorCheckerUI.Y_le.setText(str(y))
+                addColorCheckerUI.setCoordinate_bt_inactive()
+                break
 
 
     ##  << color_part (2/3) >> --------------------
@@ -509,7 +498,26 @@ class BasicFn(QObject) :
 
 
     def copyColor(self) : 
-        print("있다가")     # Test code / please delete this line.
+        if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
+            mainUI.noticeBoard.addItem("[system] 설정된 좌표가 없습니다.")
+            mainUI.noticeBoard.scrollToBottom()
+
+
+        else : 
+            RGB = pyautogui.screenshot().getpixel((int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text())))
+            addColorCheckerUI.R_le.setText(str(RGB[0]))
+            addColorCheckerUI.G_le.setText(str(RGB[1]))
+            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton{\n"
+                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                            "border-radius : 6px;\n"
+                                        "}\n"
+                                        "QRadioButton::indicator{\n"
+                                            "width : 1px;\n"
+                                        "}\n"
+                                        "QRadioButton::checked{\n"
+                                            "border : 2px solid #ffffff;\n"
+                                        "}")
 
 
     ## << addColorChecker_part (3/3) >> --------------------
@@ -517,12 +525,12 @@ class BasicFn(QObject) :
         if Load_status == True : 
             if len(CSV_data) != 1 : 
                 print("아이고난!")      # Test code / please delete this line.
-            
+
 
             else : 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
                 mainUI.noticeBoard.scrollToBottom()
-        
+
 
         else : 
             mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
