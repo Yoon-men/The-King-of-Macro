@@ -70,6 +70,9 @@ class Main() :
         global palettePhase
         palettePhase = 1
 
+        global palette
+        palette = [(255, 0, 255)]
+
         mainUI.show()
         self.signal()
         sys.exit(app.exec_())
@@ -183,6 +186,24 @@ class Main() :
 
         ## color_part
         addColorCheckerUI.addPalette_bt.clicked.connect(BasicFn.addPalette)
+
+        addColorCheckerUI.palette_rb_1.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_2.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_3.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_4.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_5.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_6.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_7.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_8.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_9.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_10.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_11.clicked.connect(basicFn.setRGB)
+        addColorCheckerUI.palette_rb_12.clicked.connect(basicFn.setRGB)
+
+        addColorCheckerUI.R_le.textChanged.connect(basicFn.setColor)
+        addColorCheckerUI.G_le.textChanged.connect(basicFn.setColor)
+        addColorCheckerUI.B_le.textChanged.connect(basicFn.setColor)
+
         addColorCheckerUI.copyColor_bt.clicked.connect(BasicFn.copyColor)
 
 
@@ -555,6 +576,164 @@ class BasicFn(QObject) :
                 palettePhase += 1
 
 
+
+    def setRGB(self) : 
+        # palette_rb 누르면 해당 색깔로 R, G, B_le 내용 바뀌도록 만들기     # Test code / please delete this line.
+        print("나는 장풍을 했다!")      # Test code / please delete this line.
+
+
+
+    def setColor(self) : 
+        global RGB
+        RGB = (int(addColorCheckerUI.R_le.text()), int(addColorCheckerUI.G_le.text()), int(addColorCheckerUI.B_le.text()))
+        print(RGB)      # Test code / please delete this line.
+
+        if addColorCheckerUI.palette_rb_1.isChecked() : 
+            addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton{\n"
+                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                                "border-radius : 6px;\n"
+                                                            "}\n"
+                                                            "QRadioButton::indicator{\n"
+                                                                "width : 1px;\n"
+                                                            "}\n"
+                                                            "QRadioButton::checked{\n"
+                                                                "border : 2px solid #ffffff;\n"
+                                                            "}")
+
+        if addColorCheckerUI.palette_rb_2.isChecked() : 
+            addColorCheckerUI.palette_rb_2.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_3.isChecked() : 
+            addColorCheckerUI.palette_rb_3.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_4.isChecked() : 
+            addColorCheckerUI.palette_rb_4.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_5.isChecked() : 
+            addColorCheckerUI.palette_rb_5.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_6.isChecked() : 
+            addColorCheckerUI.palette_rb_6.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_7.isChecked() : 
+            addColorCheckerUI.palette_rb_7.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_8.isChecked() : 
+            addColorCheckerUI.palette_rb_8.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_9.isChecked() : 
+            addColorCheckerUI.palette_rb_9.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_10.isChecked() : 
+            addColorCheckerUI.palette_rb_10.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_11.isChecked() : 
+            addColorCheckerUI.palette_rb_11.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+        if addColorCheckerUI.palette_rb_12.isChecked() : 
+            addColorCheckerUI.palette_rb_12.setStyleSheet("QRadioButton{\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator{\n"
+                                                            "width : 1px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
+
+
+
     def copyColor(self) : 
         if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
             mainUI.noticeBoard.addItem("[system] 설정된 좌표가 없거나 잘못되었습니다.")
@@ -562,154 +741,12 @@ class BasicFn(QObject) :
 
 
         else : 
+            global RGB
             RGB = pyautogui.screenshot().getpixel((int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text())))
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
             addColorCheckerUI.B_le.setText(str(RGB[2]))
 
-            if addColorCheckerUI.palette_rb_1.isChecked() : 
-                addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_2.isChecked() : 
-                addColorCheckerUI.palette_rb_2.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_3.isChecked() : 
-                addColorCheckerUI.palette_rb_3.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_4.isChecked() : 
-                addColorCheckerUI.palette_rb_4.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_5.isChecked() : 
-                addColorCheckerUI.palette_rb_5.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_6.isChecked() : 
-                addColorCheckerUI.palette_rb_6.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_7.isChecked() : 
-                addColorCheckerUI.palette_rb_7.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_8.isChecked() : 
-                addColorCheckerUI.palette_rb_8.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_9.isChecked() : 
-                addColorCheckerUI.palette_rb_9.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_10.isChecked() : 
-                addColorCheckerUI.palette_rb_10.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_11.isChecked() : 
-                addColorCheckerUI.palette_rb_11.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
-
-            if addColorCheckerUI.palette_rb_12.isChecked() : 
-                addColorCheckerUI.palette_rb_12.setStyleSheet("QRadioButton{\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator{\n"
-                                                                "width : 1px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
 
 
     ## << addColorChecker_part (3/3) >> --------------------
