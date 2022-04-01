@@ -67,6 +67,9 @@ class Main() :
         global stopKey
         stopKey = "esc"
 
+        global isEditUiOpened
+        isEditUiOpened = False
+
         global palettePhase
         palettePhase = 1
 
