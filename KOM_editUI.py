@@ -775,6 +775,7 @@ class AddColorCheckerUI(QDialog) :
                                 "}")
         self.R_le.setValidator(QIntValidator(0, 255))
         self.R_le.setAlignment(Qt.AlignCenter)
+        self.R_le.setText("255")
 
         self.G_lb = QLabel(self.body_frm)
         self.G_lb.setGeometry(70, 374, 20, 21)
@@ -800,6 +801,7 @@ class AddColorCheckerUI(QDialog) :
                                 "}")
         self.G_le.setValidator(QIntValidator(0, 255))
         self.G_le.setAlignment(Qt.AlignCenter)
+        self.G_le.setText("0")
 
         self.B_lb = QLabel(self.body_frm)
         self.B_lb.setGeometry(72, 407, 20, 21)
@@ -825,6 +827,7 @@ class AddColorCheckerUI(QDialog) :
                                 "}")
         self.B_le.setValidator(QIntValidator(0, 255))
         self.B_le.setAlignment(Qt.AlignCenter)
+        self.B_le.setText("255")
 
         self.copyColor_bt = QPushButton(self.body_frm)
         self.copyColor_bt.setGeometry(162, 339, 111, 91)
