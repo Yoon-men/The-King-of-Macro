@@ -203,9 +203,9 @@ class Main() :
         addColorCheckerUI.palette_rb_11.clicked.connect(BasicFn.setRGB)
         addColorCheckerUI.palette_rb_12.clicked.connect(BasicFn.setRGB)
 
-        addColorCheckerUI.R_le.textChanged.connect(basicFn.setColor)
-        addColorCheckerUI.G_le.textChanged.connect(basicFn.setColor)
-        addColorCheckerUI.B_le.textChanged.connect(basicFn.setColor)
+        addColorCheckerUI.R_le.textChanged.connect(BasicFn.setColor)
+        addColorCheckerUI.G_le.textChanged.connect(BasicFn.setColor)
+        addColorCheckerUI.B_le.textChanged.connect(BasicFn.setColor)
 
         addColorCheckerUI.copyColor_bt.clicked.connect(BasicFn.copyColor)
 
@@ -593,7 +593,6 @@ class BasicFn(QObject) :
 
 
     def setRGB(self) : 
-        # palette_rb 누르면 해당 색깔로 R, G, B_le 내용 바뀌도록 만들기     # Test code / please delete this line.
         if addColorCheckerUI.palette_rb_1.isChecked() : 
             RGB = palette[0]
             addColorCheckerUI.R_le.setText(str(RGB[0]))
@@ -669,6 +668,24 @@ class BasicFn(QObject) :
 
 
     def setColor(self) : 
+        if addColorCheckerUI.R_le.text() == "" : 
+            addColorCheckerUI.R_le.setText("0")
+            addColorCheckerUI.R_le.selectAll()
+        if int(addColorCheckerUI.R_le.text()) > 255 : 
+            addColorCheckerUI.R_le.setText("255")
+        
+        if addColorCheckerUI.G_le.text() == "" : 
+            addColorCheckerUI.G_le.setText("0")
+            addColorCheckerUI.G_le.selectAll()
+        if int(addColorCheckerUI.G_le.text()) > 255 : 
+            addColorCheckerUI.G_le.setText("255")
+        
+        if addColorCheckerUI.B_le.text() == "" : 
+            addColorCheckerUI.B_le.setText("0")
+            addColorCheckerUI.B_le.selectAll()
+        if int(addColorCheckerUI.B_le.text()) > 255 : 
+            addColorCheckerUI.B_le.setText("255")
+
         global palette
         RGB = (int(addColorCheckerUI.R_le.text()), int(addColorCheckerUI.G_le.text()), int(addColorCheckerUI.B_le.text()))
 
