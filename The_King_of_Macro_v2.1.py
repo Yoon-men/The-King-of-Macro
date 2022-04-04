@@ -380,6 +380,10 @@ class BasicFn(QObject) :
             elif CSV_data[setObj + 1][(i+1)*2 - 1] == "<D>" : 
                 editUI.editMacro_lw.addItem(f"딜레이 < {CSV_data[setObj + 1][(i+1) * 2]} 초 >")
 
+            elif CSV_data[setObj + 1][(i+1)*2 - 1] == "<C>" : 
+                print("아이고난!")      # Test code / please delete this line.
+                # editUI.editMacro_lw.addItem(f"컬러체커 ")     # Test code / please unlock this line and delete this comment.
+
 
 
     def addClick(self) : 
@@ -865,7 +869,10 @@ class BasicFn(QObject) :
     def addColorChecker(self) : 
         if Load_status == True : 
             if len(CSV_data) != 1 : 
-                print("아이고난!")      # Test code / please delete this line.
+                # Write DATA to List
+                # addObj = editUI.setMacro_cb.currentIndex()        # Test code / please unlock this line and delete this comment.
+                # CSV_data[addObj + 1].append("<C>")                # Test code / please unlock this line and delete this comment.
+                print(palette)      # Test code / please delete this line.
 
 
             else : 
@@ -907,6 +914,7 @@ class BasicFn(QObject) :
     def checkNum(self) : 
         mainObj = editUI.setMacro_cb.currentIndex()
         checkObj = editUI.editMacro_lw.currentRow()
+
         if checkObj == 0 : 
             editUI.up_bt.setEnabled(False)
             editUI.down_bt.setEnabled(True)
