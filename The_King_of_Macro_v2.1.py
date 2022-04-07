@@ -381,8 +381,7 @@ class BasicFn(QObject) :
                 editUI.editMacro_lw.addItem(f"딜레이 < {CSV_data[setObj + 1][(i+1) * 2]} 초 >")
 
             elif CSV_data[setObj + 1][(i+1)*2 - 1] == "<C>" : 
-                print("아이고난!")      # Test code / please delete this line.
-                # editUI.editMacro_lw.addItem(f"컬러체커 ")     # Test code / please unlock this line and delete this comment.
+                editUI.editMacro_lw.addItem(f"컬러체커")
 
 
 
@@ -869,10 +868,25 @@ class BasicFn(QObject) :
     def addColorChecker(self) : 
         if Load_status == True : 
             if len(CSV_data) != 1 : 
+                addObj = editUI.setMacro_cb.currentIndex()
                 # Write DATA to List
-                # addObj = editUI.setMacro_cb.currentIndex()        # Test code / please unlock this line and delete this comment.
-                # CSV_data[addObj + 1].append("<C>")                # Test code / please unlock this line and delete this comment.
-                print(palette)      # Test code / please delete this line.
+                CSV_data[addObj + 1].append("<C>")
+                coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
+                box = []
+                box.append(coordinate)
+                box.append(int(addColorCheckerUI.checkingDelay_le.text()))
+                box.append(palette)
+                CSV_data[addObj + 1].append(box)
+                print(CSV_data)         # Test code / please delete this line.
+                # # Write DATA in List to CSV
+                # CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+                # writer = csv.writer(CSV_file)
+                # writer.writerows(CSV_data)
+                # # Notify input
+                # mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
+                # mainUI.noticeBoard.scrollToBottom()
+                # # Apply the update to editMacro_lw
+                # self.setMacro()
 
 
             else : 
@@ -920,8 +934,8 @@ class BasicFn(QObject) :
             editUI.down_bt.setEnabled(True)
 
         elif checkObj == int((len(CSV_data[mainObj + 1])-3)/2) : 
-            editUI.down_bt.setEnabled(False)
             editUI.up_bt.setEnabled(True)
+            editUI.down_bt.setEnabled(False)
 
         else : 
             editUI.up_bt.setEnabled(True)
