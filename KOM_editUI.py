@@ -850,10 +850,10 @@ class AddColorCheckerUI(QDialog) :
 
 
         # colorCheckProcess_part
-        self.checkDelay_le = QLineEdit(self.body_frm)
-        self.checkDelay_le.setGeometry(80, 504, 60, 22)
-        self.checkDelay_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
-        self.checkDelay_le.setStyleSheet("QLineEdit{\n"
+        self.checkingDelay_le = QLineEdit(self.body_frm)
+        self.checkingDelay_le.setGeometry(80, 504, 60, 22)
+        self.checkingDelay_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkingDelay_le.setStyleSheet("QLineEdit{\n"
                                             "color : #dddddd;\n"
                                             "background-color : #303030;\n"
                                             "border : 2px solid #303030;\n"
@@ -864,17 +864,17 @@ class AddColorCheckerUI(QDialog) :
                                         "QLineEdit::focus{\n"
                                             "border-color : #aaaaaa;\n"
                                         "}")
-        self.checkDelay_le.setValidator(QIntValidator())
-        self.checkDelay_le.setAlignment(Qt.AlignCenter)
-        self.checkDelay_le.setText("0")
+        self.checkingDelay_le.setValidator(QIntValidator())
+        self.checkingDelay_le.setAlignment(Qt.AlignCenter)
+        self.checkingDelay_le.setText("0")
 
-        self.checkDelay_lb = QLabel(self.body_frm)
-        self.checkDelay_lb.setGeometry(149, 505, 121, 21)
-        self.checkDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
-        self.checkDelay_lb.setStyleSheet("QLabel{\n"
+        self.checkingDelay_lb = QLabel(self.body_frm)
+        self.checkingDelay_lb.setGeometry(149, 505, 121, 21)
+        self.checkingDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkingDelay_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
-        self.checkDelay_lb.setText("초마다 컬러체크 진행")
+        self.checkingDelay_lb.setText("초마다 컬러체크 진행")
 
         self.add_bt = QPushButton(self.body_frm)
         self.add_bt.setGeometry(130, 560, 91, 24)
