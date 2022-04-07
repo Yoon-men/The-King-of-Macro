@@ -211,7 +211,7 @@ class Main() :
 
 
         ## addColorChecker_part
-        addColorCheckerUI.add_bt.clicked.connect(basicFn.addColorChecker)
+        addColorCheckerUI.add_bt.clicked.connect(BasicFn.addColorChecker)
         addColorCheckerUI.add_bt.clicked.connect(self.closeAddColorChecker)
 
 
@@ -333,7 +333,6 @@ class BasicFn(QObject) :
 
     def addName(self) : 
         if Load_status == True : 
-            global macroName
             # Write DATA to subList
             macroName = [mainUI.addName_le.text()]
             mainUI.addName_le.setText("")
@@ -381,7 +380,7 @@ class BasicFn(QObject) :
                 editUI.editMacro_lw.addItem(f"딜레이 < {CSV_data[setObj + 1][(i+1) * 2]} 초 >")
 
             elif CSV_data[setObj + 1][(i+1)*2 - 1] == "<C>" : 
-                editUI.editMacro_lw.addItem(f"컬러체커")
+                editUI.editMacro_lw.addItem(f"컬러체커 {CSV_data[setObj + 1][(i+1) * 2][0]}에서 {CSV_data[setObj + 1][(i+1) * 2][1]}초마다 실행")
 
 
 
@@ -868,25 +867,30 @@ class BasicFn(QObject) :
     def addColorChecker(self) : 
         if Load_status == True : 
             if len(CSV_data) != 1 : 
-                addObj = editUI.setMacro_cb.currentIndex()
-                # Write DATA to List
-                CSV_data[addObj + 1].append("<C>")
-                coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
-                box = []
-                box.append(coordinate)
-                box.append(int(addColorCheckerUI.checkingDelay_le.text()))
-                box.append(palette)
-                CSV_data[addObj + 1].append(box)
-                print(CSV_data)         # Test code / please delete this line.
-                # # Write DATA in List to CSV
-                # CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
-                # writer = csv.writer(CSV_file)
-                # writer.writerows(CSV_data)
-                # # Notify input
-                # mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
-                # mainUI.noticeBoard.scrollToBottom()
-                # # Apply the update to editMacro_lw
-                # self.setMacro()
+                if addColorCheckerUI.X_le.text() != "" and addColorCheckerUI.Y_le.text() != "" : 
+                    addObj = editUI.setMacro_cb.currentIndex()
+                    # Write DATA to List
+                    CSV_data[addObj + 1].append("<C>")
+                    coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
+                    box = []
+                    box.append(coordinate)
+                    box.append(int(addColorCheckerUI.checkingDelay_le.text()))
+                    box.append(palette)
+                    CSV_data[addObj + 1].append(box)
+                    # Write DATA in List to CSV
+                    CSV_file = open(CSV_road, "w", encoding = "utf-8", newline = "")
+                    writer = csv.writer(CSV_file)
+                    writer.writerows(CSV_data)
+                    # Notify input
+                    mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
+                    mainUI.noticeBoard.scrollToBottom()
+                    # Apply the update to editMacro_lw
+                    self.setMacro()
+
+
+                else : 
+                    mainUI.noticeBoard.addItem("[system] 설정된 좌표가 없어 컬러체커를 추가할 수 없습니다.")
+                    mainUI.noticeBoard.scrollToBottom()
 
 
             else : 
