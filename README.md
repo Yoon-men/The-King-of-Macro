@@ -2,10 +2,31 @@
 
 <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
-# What the fuck is this?
+# "What the fuck is this?"
 사용자 설정 매크로 프로그램입니다. (마우스 클릭, 키보드 입력)
 
 이 프로그램을 사용하기 위해서는 매크로 데이터를 저장해두는 'DATA.csv' 파일이 필요합니다.
+<details>
+  <summary>--- "Why did you make it?" (클릭해서 펼치기·접기) ---</summary>
+
+  ![image](https://user-images.githubusercontent.com/64591335/165354839-8295c95e-883f-4a39-bf61-60a75ef76e65.png)
+
+  레바의 모험 하려고 만들었습니다.
+  
+  ![image](https://user-images.githubusercontent.com/64591335/165355482-82fbd3ab-8f5b-4fcc-a0aa-99e7304302db.png)
+  
+  스킬 쓰려면 '무색 큐브 조각'이라는 아이템이 많이 필요한데,
+  
+  직접 사기 귀찮아서 The_King_of_Macro를 만들게 되었습니다.
+  
+  + 추가 정보
+  
+  ![image](https://user-images.githubusercontent.com/64591335/165355899-678adc9a-eea6-4371-bef0-11d0d86100b3.png)
+  
+  상점에 있는 신비한 항아리에서 매우 적은 확률로 항아리 모자가 뜨는데
+  
+  이 역시 The_King_of_Macro를 사용하면 편하게 얻을 수 있습니다.
+</details>
 
 <br>
 
