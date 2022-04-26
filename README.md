@@ -15,9 +15,9 @@
   
   ![image](https://user-images.githubusercontent.com/64591335/165355482-82fbd3ab-8f5b-4fcc-a0aa-99e7304302db.png)
   
-  스킬 쓰려면 '무색 큐브 조각'이라는 아이템이 많이 필요한데,
+  스킬을 쓰려면 '무색 큐브 조각'이라는 아이템이 많이 필요한데,
   
-  직접 사기 귀찮아서 The_King_of_Macro를 만들게 되었습니다.
+  손으로 일일이 직접 사기가 너무 귀찮아서 The_King_of_Macro를 만들게 되었습니다.
   
   + 추가 정보
   
