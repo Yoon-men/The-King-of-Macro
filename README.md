@@ -18,14 +18,6 @@
   스킬을 쓰려면 '무색 큐브 조각'이라는 아이템이 많이 필요한데,
   
   손으로 일일이 직접 사기가 너무 귀찮아서 The_King_of_Macro를 만들게 되었습니다.
-  
-  + 추가 정보
-  
-  ![image](https://user-images.githubusercontent.com/64591335/165355899-678adc9a-eea6-4371-bef0-11d0d86100b3.png)
-  
-  상점에 있는 신비한 항아리에서 매우 적은 확률로 항아리 모자가 뜨는데
-  
-  이 역시 The_King_of_Macro를 사용하면 편하게 얻을 수 있습니다.
 </details>
 
 <br>
