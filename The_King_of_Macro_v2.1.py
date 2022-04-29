@@ -5,7 +5,7 @@
 [update]
 1. 컬러체커 기능 추가 (In editUI)
 2. settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
-3. 마우스 클릭이 아닌 키보드 입력으로 마우스 좌표를 추가할 수 있도록 함 (좌클릭 = F9, 우클릭 = F10)
+3. 마우스 클릭 대신 키보드 입력으로 마우스 좌표를 추가할 수 있도록 변경 (좌클릭 = F9, 우클릭 = F10)
 """
 
 import sys
@@ -1104,8 +1104,13 @@ class BasicFn(QObject) :
 
                         # << Delay (4/4) >> --------------------
                         elif CSV_data_copy[startObj + 1][(i+1)*2 - 1] == "<D>" : 
-                            time.sleep(float(CSV_data_copy[startObj + 1][(i+1) * 2]))
-
+                            delay = float(CSV_data_copy[startObj + 1][(i+1) * 2])
+                            for _ in range(int(delay)) : 
+                                if power == False : 
+                                    break
+                                time.sleep(1)
+                            time.sleep(float(delay) - int(delay))
+                                
 
                     if startType == "typeNum" : 
                         runTime -= 1
