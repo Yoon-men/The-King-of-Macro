@@ -10,10 +10,10 @@
   <summary>--- "Why did you make it?" (클릭해서 펼치기·접기) ---</summary>
 
   ![image](https://user-images.githubusercontent.com/64591335/165354839-8295c95e-883f-4a39-bf61-60a75ef76e65.png)
-
-  레바의 모험 하려고 만들었습니다.
   
   ![image](https://user-images.githubusercontent.com/64591335/165355482-82fbd3ab-8f5b-4fcc-a0aa-99e7304302db.png)
+  
+  레바의 모험 하려고 만들었습니다.
   
   스킬을 쓰려면 '무색 큐브 조각'이라는 아이템이 많이 필요한데,
   
