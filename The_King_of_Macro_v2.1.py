@@ -396,7 +396,7 @@ class BasicFn(QObject) :
                         # Save the data of macro to file
                         with open(FILE_road, "wb") as file : 
                             pickle.dump(macroDATA, file)
-                        # Notify click event
+                        # Notify addClick event
                         mainUI.noticeBoard.addItem("[system] 클릭 좌표가 저장되었습니다.")
                         mainUI.noticeBoard.scrollToBottom()
                         editUI.addClick_bt_inactive()
@@ -844,7 +844,7 @@ class BasicFn(QObject) :
 
     def copyColor(self) : 
         if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
-            mainUI.noticeBoard.addItem("[system] 설정된 좌표가 없거나 잘못되었습니다.")
+            mainUI.noticeBoard.addItem("[system] 좌표 설정 후 다시 시도해주십시오.")
             mainUI.noticeBoard.scrollToBottom()
 
 
@@ -859,23 +859,19 @@ class BasicFn(QObject) :
     ## << addColorChecker_part (3/3) >> --------------------
     def addColorChecker(self) : 
         if Load_status == True : 
-            if len(macroDATA) != 1 : 
+            if len(macroDATA) != 0 : 
                 if addColorCheckerUI.X_le.text() != "" and addColorCheckerUI.Y_le.text() != "" : 
                     addObj = editUI.setMacro_cb.currentIndex()
-                    # Write DATA to List
-                    macroDATA[addObj + 1].append("<C>")
+                    # Add the data of macro to list
+                    macroDATA[addObj].append("<C>")
                     coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
-                    box = []
-                    box.append(coordinate)
-                    box.append(int(addColorCheckerUI.checkingDelay_le.text()))
-                    box.append(palette)
-                    macroDATA[addObj + 1].append(box)
-                    # Write DATA in List to CSV
-                    CSV_file = open(FILE_road, "w", encoding = "utf-8", newline = "")
-                    writer = csv.writer(CSV_file)
-                    writer.writerows(macroDATA)
-                    # Notify input
-                    mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
+                    box = [coordinate, int(addColorCheckerUI.checkingDelay_le.text()), palette]
+                    macroDATA[addObj].append(box)
+                    # Save the data of macro to file
+                    with open(FILE_road, "wb") as file : 
+                        pickle.dump(macroDATA, file)
+                    # Notify addColorChecker event
+                    mainUI.noticeBoard.addItem("[system] 컬러체커 추가가 완료되었습니다.")
                     mainUI.noticeBoard.scrollToBottom()
                     # Apply the update to editMacro_lw
                     self.setMacro()
@@ -892,7 +888,7 @@ class BasicFn(QObject) :
 
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
 
@@ -902,13 +898,12 @@ class BasicFn(QObject) :
             delObj = editUI.editMacro_lw.currentRow()
             if delObj != -1 : 
                 mainObj = editUI.setMacro_cb.currentIndex()
-                # Delete macro and macro's keyword
-                del macroDATA[mainObj + 1][(delObj+1)*2 - 1 : (delObj+1)*2 + 1]
-                # Write DATA to CSV
-                CSV_file = open(FILE_road, "w", encoding = "utf-8", newline = "")
-                writer = csv.writer(CSV_file)
-                writer.writerows(macroDATA)
-                # Notify delete
+                # Delete the data of detail macro in list
+                del macroDATA[mainObj][(delObj+1)*2 - 1 : (delObj+1)*2 + 1]
+                # Save the data of macro to file
+                with open(FILE_road, "wb") as file : 
+                    pickle.dump(macroDATA, file)
+                # Notify detailDelete event
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
                 mainUI.noticeBoard.scrollToBottom()
                 # Apply the update to editMacro_lw
@@ -920,7 +915,7 @@ class BasicFn(QObject) :
 
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
 
@@ -933,7 +928,7 @@ class BasicFn(QObject) :
             editUI.up_bt.setEnabled(False)
             editUI.down_bt.setEnabled(True)
 
-        elif checkObj == int((len(macroDATA[mainObj + 1])-3)/2) : 
+        elif checkObj == int((len(macroDATA[mainObj])-3)/2) : 
             editUI.up_bt.setEnabled(True)
             editUI.down_bt.setEnabled(False)
 
@@ -954,19 +949,18 @@ class BasicFn(QObject) :
 
             else : 
                 # Type swap
-                macroDATA[mainObj + 1][moveObj*2 + 1], macroDATA[mainObj + 1][moveObj*2 - 1] = macroDATA[mainObj + 1][moveObj*2 - 1], macroDATA[mainObj + 1][moveObj*2 + 1]
+                macroDATA[mainObj][moveObj*2 + 1], macroDATA[mainObj][moveObj*2 - 1] = macroDATA[mainObj][moveObj*2 - 1], macroDATA[mainObj][moveObj*2 + 1]
                 # Skill swap
-                macroDATA[mainObj + 1][moveObj*2 + 2], macroDATA[mainObj + 1][moveObj * 2] = macroDATA[mainObj + 1][moveObj * 2], macroDATA[mainObj + 1][moveObj*2 + 2]
-                # Write DATA to CSV
-                CSV_file = open(FILE_road, "w", encoding = "utf-8", newline = "")
-                writer = csv.writer(CSV_file)
-                writer.writerows(macroDATA)
+                macroDATA[mainObj][moveObj*2 + 2], macroDATA[mainObj][moveObj * 2] = macroDATA[mainObj][moveObj * 2], macroDATA[mainObj][moveObj*2 + 2]
+                # Save the data of macro to file
+                with open(FILE_road, "wb") as file : 
+                    pickle.dump(macroDATA, file)
                 # Apply the update to editMacro_lw
                 self.setMacro()
 
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
     
@@ -982,37 +976,35 @@ class BasicFn(QObject) :
 
             else : 
                 # Type swap
-                macroDATA[mainObj + 1][(moveObj+1)*2 - 1], macroDATA[mainObj + 1][(moveObj+1)*2 + 1] = macroDATA[mainObj + 1][(moveObj+1)*2 + 1], macroDATA[mainObj + 1][(moveObj+1)*2 - 1]
+                macroDATA[mainObj][(moveObj+1)*2 - 1], macroDATA[mainObj][(moveObj+1)*2 + 1] = macroDATA[mainObj][(moveObj+1)*2 + 1], macroDATA[mainObj][(moveObj+1)*2 - 1]
                 # Skill swap
-                macroDATA[mainObj + 1][(moveObj+1) * 2], macroDATA[mainObj + 1][(moveObj+2) * 2] = macroDATA[mainObj + 1][(moveObj+2) * 2], macroDATA[mainObj + 1][(moveObj+1) * 2]
-                # Write DATA in List to CSV
-                CSV_file = open(FILE_road, "w", encoding = "utf-8", newline = "")
-                writer = csv.writer(CSV_file)
-                writer.writerows(macroDATA)
+                macroDATA[mainObj][(moveObj+1) * 2], macroDATA[mainObj][(moveObj+2) * 2] = macroDATA[mainObj][(moveObj+2) * 2], macroDATA[mainObj][(moveObj+1) * 2]
+                # Save the data of macro to file
+                with open(FILE_road, "wb") as file : 
+                    pickle.dump(macroDATA, file)
                 # Apply the update to editMacro_lw
                 self.setMacro()
 
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
 
 
     def delete(self) : 
         if Load_status == True : 
-            if len(macroDATA) != 1 : 
+            if len(macroDATA) != 0 : 
                 delObj = mainUI.delete_cb.currentIndex()
-                # Remove DATA in ComboBoxes
+                # Remove the data of macro in comboBoxes
                 mainUI.delete_cb.removeItem(delObj)
                 mainUI.start_cb.removeItem(delObj)
                 editUI.setMacro_cb.removeItem(delObj)
-                # Delete DATA in List
-                del macroDATA[delObj + 1]
-                # Write DATA in List to CSV
-                CSV_file = open(FILE_road, "w", encoding = "utf-8", newline = "")
-                writer = csv.writer(CSV_file)
-                writer.writerows(macroDATA)
+                # Delete the data of macro in list
+                del macroDATA[delObj]
+                # Save the data of macro to file
+                with open(FILE_road, "wb") as file : 
+                    pickle.dump(macroDATA, file)
 
                 mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
                 mainUI.noticeBoard.scrollToBottom()
@@ -1024,7 +1016,7 @@ class BasicFn(QObject) :
 
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
 
@@ -1036,7 +1028,7 @@ class BasicFn(QObject) :
             global power
             power = True
             
-            if len(macroDATA) != 1 : 
+            if len(macroDATA) != 0 : 
                 if startType == "typeNum" : 
                     mainUI.start_bt_typeNum_active()
                 elif startType == "typeTime" : 
