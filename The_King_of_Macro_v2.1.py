@@ -1035,11 +1035,11 @@ class BasicFn(QObject) :
                     mainUI.start_bt_typeTime_active()
 
                 startObj = mainUI.start_cb.currentIndex()
+                
                 global runTime
                 runTime = int(mainUI.start_le.text())
 
-                CSV_data_copy = copy.deepcopy(macroDATA)
-                macroNum = int((len(CSV_data_copy[startObj + 1])-1) / 2)
+                macroNum = int((len(macroDATA[startObj])-1) / 2)
 
                 while power == True and runTime != 0 : 
                     for i in range(macroNum) : 
@@ -1047,53 +1047,33 @@ class BasicFn(QObject) :
                             break
 
                         # << Left Click (1/4) >> --------------------
-                        if CSV_data_copy[startObj + 1][(i+1)*2 - 1] == "<L>" : 
-                            ## Detect unprocess coordinate
-                            unprocessDetector = "(" in CSV_data_copy[startObj + 1][(i+1) * 2]
-
-                            if unprocessDetector == True : 
-                                ## Process coordinate
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].strip("(")
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].strip(")")
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].split(", ")
-                            
-                            pyautogui.moveTo(CSV_data_copy[startObj + 1][(i+1) * 2])
+                        if macroDATA[startObj][(i+1)*2 - 1] == "<L>" : 
+                            pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
                             time.sleep(0.05)
-                            pyautogui.click(CSV_data_copy[startObj + 1][(i+1) * 2])
+                            pyautogui.click(macroDATA[startObj][(i+1) * 2])
                         
 
                         # << Right Click (2/4) >> --------------------
-                        elif CSV_data_copy[startObj + 1][(i+1)*2 - 1] == "<R>" : 
-                            ## Detect unprocess coordinate
-                            unprocessDetector = "(" in CSV_data_copy[startObj + 1][(i+1) * 2]
-
-                            if unprocessDetector == True : 
-                                ## Process coordinate
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].strip("(")
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].strip(")")
-                                CSV_data_copy[startObj + 1][(i+1) * 2] = CSV_data_copy[startObj + 1][(i+1) * 2].split(", ")
-                            
-                            pyautogui.moveTo(CSV_data_copy[startObj + 1][(i+1) * 2])
+                        elif macroDATA[startObj][(i+1)*2 - 1] == "<R>" : 
+                            pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
                             time.sleep(0.05)
-                            pyautogui.rightClick(CSV_data_copy[startObj + 1][(i+1) * 2])
+                            pyautogui.rightClick(macroDATA[startObj][(i+1) * 2])
 
                         
                         # << Keyboard input (3/4) >> --------------------
-                        elif CSV_data_copy[startObj + 1][(i+1)*2 - 1] == "<K>" : 
-                            key = CSV_data_copy[startObj + 1][(i+1) * 2].split("+")
+                        elif macroDATA[startObj][(i+1)*2 - 1] == "<K>" : 
+                            key = macroDATA[startObj][(i+1) * 2].split("+")
                             if len(key) == 1 : 
                                 pyautogui.hotkey(key[0])
-                            
                             elif len(key) == 2 : 
                                 pyautogui.hotkey(key[0], key[1])
-                            
                             elif len(key) == 3 : 
                                 pyautogui.hotkey(key[0], key[1], key[2])
 
 
                         # << Delay (4/4) >> --------------------
-                        elif CSV_data_copy[startObj + 1][(i+1)*2 - 1] == "<D>" : 
-                            delay = float(CSV_data_copy[startObj + 1][(i+1) * 2])
+                        elif macroDATA[startObj][(i+1)*2 - 1] == "<D>" : 
+                            delay = float(macroDATA[startObj][(i+1) * 2])
                             for _ in range(int(delay)) : 
                                 if power == False : 
                                     break
@@ -1122,7 +1102,7 @@ class BasicFn(QObject) :
         
 
         else : 
-            mainUI.noticeBoard.addItem("[system] 아직 DATA.csv를 불러오지 않았습니다.")
+            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
             mainUI.noticeBoard.scrollToBottom()
 
 
