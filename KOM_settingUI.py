@@ -57,7 +57,7 @@ class SettingUI(QDialog) :
         self.exit_bt.setIconSize(QSize(22, 11))
 
         self.line = QLabel(self.body_frm)
-        self.line.setGeometry(52, 104, 241, 16)
+        self.line.setGeometry(52, 105, 241, 16)
         self.line.setPixmap(":/img/Line.png")
         self.line.setScaledContents(True)
 
@@ -80,7 +80,7 @@ class SettingUI(QDialog) :
         
         # stopKey_part
         self.stopKey_lb = QLabel(self.body_frm)
-        self.stopKey_lb.setGeometry(70, 142, 111, 21)
+        self.stopKey_lb.setGeometry(70, 145, 111, 21)
         self.stopKey_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
         self.stopKey_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
@@ -88,7 +88,7 @@ class SettingUI(QDialog) :
         self.stopKey_lb.setText("매크로 중단 키 : ")
 
         self.stopKey_bt = QPushButton(self.body_frm)
-        self.stopKey_bt.setGeometry(190, 143, 91, 21)
+        self.stopKey_bt.setGeometry(190, 146, 91, 21)
         self.stopKey_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
         self.stopKey_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
@@ -104,7 +104,7 @@ class SettingUI(QDialog) :
 
         # winToTop_part
         self.winToTop_lb = QLabel(self.body_frm)
-        self.winToTop_lb.setGeometry(110, 193, 81, 21)
+        self.winToTop_lb.setGeometry(110, 192, 81, 21)
         self.winToTop_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
         self.winToTop_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
@@ -112,7 +112,7 @@ class SettingUI(QDialog) :
         self.winToTop_lb.setText("가장 위로 : ")
 
         self.winToTop_ckb = QCheckBox(self.body_frm)
-        self.winToTop_ckb.setGeometry(200, 193, 21, 21)
+        self.winToTop_ckb.setGeometry(200, 192, 21, 21)
         self.winToTop_ckb.setStyleSheet("QCheckBox::indicator::unchecked{\n"
                                             "image : url(:/img/ckb_unchecked_normal.png);\n"
                                             "width : 20px;\n"
@@ -136,7 +136,7 @@ class SettingUI(QDialog) :
 
         # icon_part
         self.github_bt = QPushButton(self.body_frm)
-        self.github_bt.setGeometry(163, 240, 30, 30)
+        self.github_bt.setGeometry(163, 234, 30, 30)
         self.github_bt.setStyleSheet("QPushButton{\n"
                                         "border-radius : 10px;\n"
                                         "image : url(:/img/github_0.png);\n"
