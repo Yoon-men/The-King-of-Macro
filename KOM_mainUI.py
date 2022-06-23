@@ -19,8 +19,8 @@ class MainUI(QMainWindow) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(414, 673)
-        self.setWindowTitle("The_King_of_Macro_v2.0")
+        self.setFixedSize(414, 695)
+        self.setWindowTitle("The_King_of_Macro_v2.1")
 
 
         # body_part
@@ -126,8 +126,8 @@ class MainUI(QMainWindow) :
                                         "QListWidget::item::hover{\n"
                                             "background : #434343;\n"
                                         "}")
-        self.noticeBoard.addItem("[system] <The King of Macro_v2.0> - Made by. Yoonmen")
-        self.noticeBoard.addItem("[system] 환영합니다. DATA.csv를 불러와주세요.")
+        self.noticeBoard.addItem("[system] <The King of Macro_v2.1> - Made by. Yoonmen")
+        self.noticeBoard.addItem("[system] 환영합니다. DATA.p 파일을 불러와주세요.")
 
 
         #addName_part
@@ -305,10 +305,10 @@ class MainUI(QMainWindow) :
                                         "}")
         self.start_lb_1.setText("을(를)")
 
-        self.start_sb = QSpinBox(self.body_frm)
-        self.start_sb.setGeometry(235, 479, 60, 22)
-        self.start_sb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
-        self.start_sb.setStyleSheet("QSpinBox{\n"
+        self.start_le = QLineEdit(self.body_frm)
+        self.start_le.setGeometry(235, 479, 60, 22)
+        self.start_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.start_le.setStyleSheet("QLineEdit{\n"
                                             "color : #dddddd;\n"
                                             "background-color : #303030;\n"
                                             "border : 2px solid #303030;\n"
@@ -316,10 +316,12 @@ class MainUI(QMainWindow) :
                                             "selection-color : #000000;\n"
                                             "selection-background-color : #ffffff;\n"
                                             "}\n"
-                                            "QSpinBox::focus{\n"
+                                            "QLineEdit::focus{\n"
                                                 "border-color : #aaaaaa;\n"
                                             "}")
-        self.start_sb.setMaximum(999999999)
+        self.start_le.setValidator(QIntValidator())
+        self.start_le.setAlignment(Qt.AlignCenter)
+        self.start_le.setText("0")
 
         self.start_lb_2 = QLabel(self.body_frm)
         self.start_lb_2.setGeometry(304, 477, 16, 21)
@@ -370,7 +372,7 @@ class MainUI(QMainWindow) :
 
         self.start_cb.setGeometry(20, 477, 163, 24)
         self.start_lb_1.setGeometry(192, 477, 41, 21)
-        self.start_sb.setGeometry(235, 479, 60, 22)
+        self.start_le.setGeometry(235, 479, 60, 22)
         self.start_lb_2.setGeometry(304, 477, 16, 21)
         self.start_lb_2.setText("번")
         self.start_bt_typeTime.hide()
@@ -383,7 +385,7 @@ class MainUI(QMainWindow) :
         
         self.start_cb.setGeometry(20, 477, 137, 24)
         self.start_lb_1.setGeometry(166, 477, 41, 21)
-        self.start_sb.setGeometry(210, 479, 60, 22)
+        self.start_le.setGeometry(210, 479, 60, 22)
         self.start_lb_2.setGeometry(280, 477, 41, 21)
         self.start_lb_2.setText("초 동안")
         self.start_bt_typeNum.hide()
