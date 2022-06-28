@@ -17,7 +17,6 @@ import pickle
 import keyboard
 import pyautogui
 import time
-import copy
 import webbrowser
 
 from KOM_mainUI import MainUI
