@@ -13,7 +13,6 @@ import sys
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 import os
-import csv          # Test code / please delete the contents of this line.
 import pickle
 import keyboard
 import pyautogui
@@ -90,6 +89,7 @@ class Main() :
         ## title_part
         mainUI.keep_bt.clicked.connect(mainUI.showMinimized)
         mainUI.exit_bt.clicked.connect(self.quit)
+
         mainUI.setting_bt.clicked.connect(self.openSetting)
 
 
@@ -588,77 +588,46 @@ class BasicFn(QObject) :
 
 
     def setRGB(self) : 
-        if addColorCheckerUI.palette_rb_1.isChecked() : 
-            RGB = palette[0]
+        def displayRGB(RGB) : 
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
             addColorCheckerUI.B_le.setText(str(RGB[2]))
+
+        if addColorCheckerUI.palette_rb_1.isChecked() : 
+            displayRGB(palette[0])
 
         if addColorCheckerUI.palette_rb_2.isChecked() : 
-            RGB = palette[1]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[1])
         
         if addColorCheckerUI.palette_rb_3.isChecked() : 
-            RGB = palette[2]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[2])
 
         if addColorCheckerUI.palette_rb_4.isChecked() : 
-            RGB = palette[3]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[3])
         
         if addColorCheckerUI.palette_rb_5.isChecked() : 
-            RGB = palette[4]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[4])
         
         if addColorCheckerUI.palette_rb_6.isChecked() : 
-            RGB = palette[5]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[5])
         
         if addColorCheckerUI.palette_rb_7.isChecked() : 
-            RGB = palette[6]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[6])
         
         if addColorCheckerUI.palette_rb_8.isChecked() : 
-            RGB = palette[7]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[7])
 
         if addColorCheckerUI.palette_rb_9.isChecked() : 
-            RGB = palette[8]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[8])
         
         if addColorCheckerUI.palette_rb_10.isChecked() : 
-            RGB = palette[9]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[9])
 
         if addColorCheckerUI.palette_rb_11.isChecked() : 
-            RGB = palette[10]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[10])
 
         if addColorCheckerUI.palette_rb_12.isChecked() : 
-            RGB = palette[11]
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
+            displayRGB(palette[11])
 
 
 
