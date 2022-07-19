@@ -18,6 +18,7 @@ import keyboard
 import pyautogui
 import time
 import webbrowser
+from collections import deque               # Test code / please delete the contents of this line.
 
 from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
@@ -255,7 +256,6 @@ class Main() :
         addColorCheckerUI.close()
 
 
-
     def quit(self) : 
         thread_basicFn.quit()
         thread_additionalFn_1.quit()
@@ -278,7 +278,7 @@ class BasicFn(QObject) :
             # Read the file
             with open(FILE_road, "rb") as file : 
                 global macroDATA
-                macroDATA = list(pickle.load(file))
+                macroDATA = deque(pickle.load(file))
             # Add names of macros to comboBoxes
             for i in range(0, len(macroDATA)) : 
                 mainUI.delete_cb.addItem(macroDATA[i][0])
