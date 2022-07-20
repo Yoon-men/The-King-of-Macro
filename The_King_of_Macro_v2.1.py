@@ -18,7 +18,7 @@ import keyboard
 import pyautogui
 import time
 import webbrowser
-from collections import deque               # Test code / please delete the contents of this line.
+from collections import deque
 
 from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
@@ -389,7 +389,7 @@ class BasicFn(QObject) :
                 while True : 
                     if keyboard.is_pressed("F9") : 
                         x, y = pyautogui.position()
-                        # Add the data of macro to list
+                        # Add the data of macro to deque
                         macroDATA[addObj].append("<L>")
                         macroDATA[addObj].append((x, y))
                         # Save the data of macro to file
@@ -405,7 +405,7 @@ class BasicFn(QObject) :
 
                     if keyboard.is_pressed("F10") : 
                         x, y = pyautogui.position()
-                        # Add the data of macro to list
+                        # Add the data of macro to deque
                         macroDATA[addObj].append("<R>")
                         macroDATA[addObj].append((x, y))
                         # Save the data of macro to file
@@ -443,7 +443,7 @@ class BasicFn(QObject) :
                     mainUI.noticeBoard.addItem("[system] 키보드 입력은 삼중 동시 입력까지 지원합니다.")
                     mainUI.noticeBoard.scrollToBottom()
                 else : 
-                    # Add the data of macro to list
+                    # Add the data of macro to deque
                     macroDATA[addObj].append("<K>")
                     macroDATA[addObj].append(key)
                     # Save the data of macro to file
@@ -474,7 +474,7 @@ class BasicFn(QObject) :
             if len(macroDATA) != 0 : 
                 addObj = editUI.setMacro_cb.currentIndex()
                 delay = addDelayUI.addDelay_ds.text()
-                # Add the data of macro to list
+                # Add the data of macro to deque
                 macroDATA[addObj].append("<D>")
                 macroDATA[addObj].append(delay)
                 # Save the data of macro to file
@@ -830,7 +830,7 @@ class BasicFn(QObject) :
             if len(macroDATA) != 0 : 
                 if addColorCheckerUI.X_le.text() != "" and addColorCheckerUI.Y_le.text() != "" : 
                     addObj = editUI.setMacro_cb.currentIndex()
-                    # Add the data of macro to list
+                    # Add the data of macro to deque
                     macroDATA[addObj].append("<C>")
                     coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
                     box = [coordinate, int(addColorCheckerUI.checkingDelay_le.text()), palette]
@@ -866,7 +866,7 @@ class BasicFn(QObject) :
             delObj = editUI.editMacro_lw.currentRow()
             if delObj != -1 : 
                 mainObj = editUI.setMacro_cb.currentIndex()
-                # Delete the data of detail macro in list
+                # Delete the data of detail macro in deque
                 del macroDATA[mainObj][(delObj+1)*2 - 1 : (delObj+1)*2 + 1]
                 # Save the data of macro to file
                 with open(FILE_road, "wb") as file : 
@@ -968,7 +968,7 @@ class BasicFn(QObject) :
                 mainUI.delete_cb.removeItem(delObj)
                 mainUI.start_cb.removeItem(delObj)
                 editUI.setMacro_cb.removeItem(delObj)
-                # Delete the data of macro in list
+                # Delete the data of macro in deque
                 del macroDATA[delObj]
                 # Save the data of macro to file
                 with open(FILE_road, "wb") as file : 
