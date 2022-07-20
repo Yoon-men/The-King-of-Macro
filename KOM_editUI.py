@@ -941,6 +941,11 @@ class AddColorCheckerUI(QDialog) :
                                             "}")
 
 
+    def eventFilter(self, object, event) : 
+        if event.type() == QtCore.QEvent.HoverEnter : 
+            pass                # Test code / please delete the contents of this line.
+
+
 
 
 
