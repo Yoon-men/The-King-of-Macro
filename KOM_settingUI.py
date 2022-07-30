@@ -65,7 +65,7 @@ class SettingUI(QDialog) :
         # load_part
         self.load_bt = QPushButton(self.body_frm)
         self.load_bt.setGeometry(20, 63, 311, 24)
-        self.load_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.load_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.load_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
                                         "border-radius : 5px;\n"
@@ -81,7 +81,7 @@ class SettingUI(QDialog) :
         # stopKey_part
         self.stopKey_lb = QLabel(self.body_frm)
         self.stopKey_lb.setGeometry(70, 145, 111, 21)
-        self.stopKey_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.stopKey_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.stopKey_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
@@ -89,7 +89,7 @@ class SettingUI(QDialog) :
 
         self.stopKey_bt = QPushButton(self.body_frm)
         self.stopKey_bt.setGeometry(190, 146, 91, 21)
-        self.stopKey_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.stopKey_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.stopKey_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
                                         "border-radius : 5px;\n"
@@ -105,7 +105,7 @@ class SettingUI(QDialog) :
         # winToTop_part
         self.winToTop_lb = QLabel(self.body_frm)
         self.winToTop_lb.setGeometry(110, 192, 81, 21)
-        self.winToTop_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.winToTop_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.winToTop_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
