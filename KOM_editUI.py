@@ -60,7 +60,7 @@ class EditUI(QDialog) :
         # setMacro_part
         self.setMacro_lb = QLabel(self.body_frm)
         self.setMacro_lb.setGeometry(71, 70, 111, 21)
-        self.setMacro_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.setMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.setMacro_lb.setStyleSheet("QLabel{\n"
                                         "color : #b1b1b1;\n"
                                     "}")
@@ -69,7 +69,7 @@ class EditUI(QDialog) :
         self.setMacro_cb = QComboBox(self.body_frm)
         self.setMacro_cb.setGeometry(191, 69, 191, 24)
         self.setMacro_cb.setStyleSheet("QComboBox{\n"
-                                        "font-family : 나눔고딕;\n"
+                                        "font-family : 나눔고딕OTF;\n"
                                         "font-weight : bold;\n"
                                         "font-size : 10pt;\n"
                                         "border-radius : 5px;\n"
@@ -104,7 +104,7 @@ class EditUI(QDialog) :
         self.editMacro_lw = QListWidget(self.body_frm)
         self.editMacro_lw.setGeometry(16, 159, 294, 416)
         self.editMacro_lw.setFocusPolicy(Qt.NoFocus)
-        self.editMacro_lw.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.editMacro_lw.setStyleSheet("QListWidget{\n"
                                             "background-color : #4d4d4d;\n"
                                             "border-radius : 8px;\n"
@@ -128,25 +128,25 @@ class EditUI(QDialog) :
 
         self.addClick_bt = QPushButton(self.body_frm)
         self.addClick_bt.setGeometry(326, 159, 100, 24)
-        self.addClick_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addClick_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.addClick_bt_inactive()
         self.addClick_bt.setText("클릭 추가")
 
         self.addKeyboard_bt = QPushButton(self.body_frm)
         self.addKeyboard_bt.setGeometry(326, 200, 100, 24)
-        self.addKeyboard_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addKeyboard_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.addKeyboard_bt_inactive()
         self.addKeyboard_bt.setText("키보드 추가")
 
         self.addDelay_bt = QPushButton(self.body_frm)
         self.addDelay_bt.setGeometry(326, 241, 100, 24)
-        self.addDelay_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addDelay_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.addDelay_bt_inactive()
         self.addDelay_bt.setText("딜레이 추가")
 
         self.addColorChecker_bt = QPushButton(self.body_frm)
         self.addColorChecker_bt.setGeometry(326, 282, 100, 24)
-        self.addColorChecker_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.addColorChecker_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.addColorChecker_bt_inactive()
         self.addColorChecker_bt.setText("컬러체커 추가")
 
@@ -159,7 +159,7 @@ class EditUI(QDialog) :
 
         self.delete_bt = QPushButton(self.body_frm)
         self.delete_bt.setGeometry(326, 367, 100, 24)
-        self.delete_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.delete_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
                                                 "border-radius : 5px;\n"
@@ -180,7 +180,7 @@ class EditUI(QDialog) :
 
         self.up_bt = QPushButton(self.body_frm)
         self.up_bt.setGeometry(362, 461, 28, 24)
-        self.up_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.up_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.up_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
                                                 "border-radius : 5px;\n"
@@ -194,7 +194,7 @@ class EditUI(QDialog) :
 
         self.down_bt = QPushButton(self.body_frm)
         self.down_bt.setGeometry(362, 496, 28, 24)
-        self.down_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.down_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.down_bt.setStyleSheet("QPushButton{\n"
                                                 "border : 2px solid #aaaaaa;\n"
                                                 "border-radius : 5px;\n"
@@ -377,7 +377,7 @@ class AddDelayUI(QDialog) :
         # addDelay_part
         self.addDelay_lb = QLabel(self.body_frm)
         self.addDelay_lb.setGeometry(18, 60, 61, 21)
-        self.addDelay_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.addDelay_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.addDelay_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
@@ -385,7 +385,7 @@ class AddDelayUI(QDialog) :
 
         self.addDelay_ds = QDoubleSpinBox(self.body_frm)
         self.addDelay_ds.setGeometry(19, 90, 251, 22)
-        self.addDelay_ds.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.addDelay_ds.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.addDelay_ds.setStyleSheet("QDoubleSpinBox{\n"
                                             "color : #dddddd;\n"
                                             "background-color : #303030;\n"
@@ -401,7 +401,7 @@ class AddDelayUI(QDialog) :
 
         self.add_bt = QPushButton(self.body_frm)
         self.add_bt.setGeometry(58, 133, 81, 24)
-        self.add_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.add_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
                                         "border-radius : 5px;\n"
@@ -415,7 +415,7 @@ class AddDelayUI(QDialog) :
 
         self.cancel_bt = QPushButton(self.body_frm)
         self.cancel_bt.setGeometry(148, 133, 81, 24)
-        self.cancel_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.cancel_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.cancel_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
                                         "border-radius : 5px;\n"
@@ -512,13 +512,13 @@ class AddColorCheckerUI(QDialog) :
         # setCoordinate_part
         self.setCoordinate_bt = QPushButton(self.body_frm)
         self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
-        self.setCoordinate_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.setCoordinate_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.setCoordinate_bt_inactive()
         self.setCoordinate_bt.setText("좌표 설정")
 
         self.X_lb = QLabel(self.body_frm)
         self.X_lb.setGeometry(75, 122, 14, 21)
-        self.X_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.X_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.X_lb.setStyleSheet("QLabel{\n"
                                     "color : #b1b1b1;\n"
                                 "}")
@@ -526,7 +526,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.X_le = QLineEdit(self.body_frm)
         self.X_le.setGeometry(95, 120, 67, 24)
-        self.X_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.X_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.X_le.setStyleSheet("QLineEdit{\n"
                                     "color : #dddddd;\n"
                                     "background-color : #303030;\n"
@@ -543,7 +543,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.Y_lb = QLabel(self.body_frm)
         self.Y_lb.setGeometry(191, 120, 15, 21)
-        self.Y_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.Y_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.Y_lb.setStyleSheet("QLabel{\n"
                                     "color : #b1b1b1;\n"
                                 "}")
@@ -551,7 +551,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.Y_le = QLineEdit(self.body_frm)
         self.Y_le.setGeometry(211, 120, 67, 24)
-        self.Y_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.Y_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.Y_le.setStyleSheet("QLineEdit{\n"
                                     "color : #dddddd;\n"
                                     "background-color : #303030;\n"
@@ -753,7 +753,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.R_lb = QLabel(self.body_frm)
         self.R_lb.setGeometry(72, 341, 13, 21)
-        self.R_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.R_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.R_lb.setStyleSheet("QLabel{\n"
                                     "color : #b1b1b1;\n"
                                 "}")
@@ -761,7 +761,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.R_le = QLineEdit(self.body_frm)
         self.R_le.setGeometry(92, 339, 50, 24)
-        self.R_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.R_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.R_le.setStyleSheet("QLineEdit{\n"
                                     "color : #dddddd;\n"
                                     "background-color : #303030;\n"
@@ -779,7 +779,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.G_lb = QLabel(self.body_frm)
         self.G_lb.setGeometry(70, 374, 20, 21)
-        self.G_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.G_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.G_lb.setStyleSheet("QLabel{\n"
                                     "color : #b1b1b1;\n"
                                 "}")
@@ -787,7 +787,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.G_le = QLineEdit(self.body_frm)
         self.G_le.setGeometry(92, 372, 50, 24)
-        self.G_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.G_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.G_le.setStyleSheet("QLineEdit{\n"
                                     "color : #dddddd;\n"
                                     "background-color : #303030;\n"
@@ -805,7 +805,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.B_lb = QLabel(self.body_frm)
         self.B_lb.setGeometry(72, 407, 20, 21)
-        self.B_lb.setFont(QFont("나눔고딕", 12, QFont.ExtraBold))
+        self.B_lb.setFont(QFont("나눔고딕OTF", 12, QFont.ExtraBold))
         self.B_lb.setStyleSheet("QLabel{\n"
                                     "color : #b1b1b1;\n"
                                 "}")
@@ -813,7 +813,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.B_le = QLineEdit(self.body_frm)
         self.B_le.setGeometry(92, 405, 50, 24)
-        self.B_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.B_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.B_le.setStyleSheet("QLineEdit{\n"
                                     "color : #dddddd;\n"
                                     "background-color : #303030;\n"
@@ -831,7 +831,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.copyColor_bt = QPushButton(self.body_frm)
         self.copyColor_bt.setGeometry(162, 339, 111, 91)
-        self.copyColor_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.copyColor_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.copyColor_bt.setStyleSheet("QPushButton{\n"
                                             "border : 2px solid #aaaaaa;\n"
                                             "border-radius : 5px;\n"
@@ -852,7 +852,7 @@ class AddColorCheckerUI(QDialog) :
         # colorCheckProcess_part
         self.checkingDelay_le = QLineEdit(self.body_frm)
         self.checkingDelay_le.setGeometry(80, 504, 60, 22)
-        self.checkingDelay_le.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkingDelay_le.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.checkingDelay_le.setStyleSheet("QLineEdit{\n"
                                             "color : #dddddd;\n"
                                             "background-color : #303030;\n"
@@ -870,7 +870,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.checkingDelay_lb = QLabel(self.body_frm)
         self.checkingDelay_lb.setGeometry(149, 505, 121, 21)
-        self.checkingDelay_lb.setFont(QFont("나눔고딕", 10, QFont.ExtraBold))
+        self.checkingDelay_lb.setFont(QFont("나눔고딕OTF", 10, QFont.ExtraBold))
         self.checkingDelay_lb.setStyleSheet("QLabel{\n"
                                             "color : #b1b1b1;\n"
                                         "}")
@@ -878,7 +878,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.add_bt = QPushButton(self.body_frm)
         self.add_bt.setGeometry(130, 560, 91, 24)
-        self.add_bt.setFont(QFont("나눔고딕", 9, QFont.ExtraBold))
+        self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.ExtraBold))
         self.add_bt.setStyleSheet("QPushButton{\n"
                                         "border : 2px solid #aaaaaa;\n"
                                         "border-radius : 5px;\n"
