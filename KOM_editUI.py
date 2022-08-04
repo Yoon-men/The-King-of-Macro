@@ -586,6 +586,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_1.setChecked(True)
+        self.palette_rb_1.installEventFilter(self)
 
         self.palette_rb_2 = QRadioButton(self.body_frm)
         self.palette_rb_2.setGeometry(120, 216, 46, 21)
@@ -600,6 +601,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_2.hide()
+        self.palette_rb_2.installEventFilter(self)
 
         self.palette_rb_3 = QRadioButton(self.body_frm)
         self.palette_rb_3.setGeometry(179, 216, 46, 21)
@@ -614,6 +616,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_3.hide()
+        self.palette_rb_3.installEventFilter(self)
 
         self.palette_rb_4 = QRadioButton(self.body_frm)
         self.palette_rb_4.setGeometry(238, 216, 46, 21)
@@ -628,6 +631,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_4.hide()
+        self.palette_rb_4.installEventFilter(self)
 
         self.palette_rb_5 = QRadioButton(self.body_frm)
         self.palette_rb_5.setGeometry(61, 250, 46, 21)
@@ -642,6 +646,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_5.hide()
+        self.palette_rb_5.installEventFilter(self)
 
         self.palette_rb_6 = QRadioButton(self.body_frm)
         self.palette_rb_6.setGeometry(120, 250, 46, 21)
@@ -656,6 +661,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_6.hide()
+        self.palette_rb_6.installEventFilter(self)
 
         self.palette_rb_7 = QRadioButton(self.body_frm)
         self.palette_rb_7.setGeometry(179, 250, 46, 21)
@@ -670,6 +676,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_7.hide()
+        self.palette_rb_7.installEventFilter(self)
 
         self.palette_rb_8 = QRadioButton(self.body_frm)
         self.palette_rb_8.setGeometry(238, 250, 46, 21)
@@ -684,6 +691,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_8.hide()
+        self.palette_rb_8.installEventFilter(self)
 
         self.palette_rb_9 = QRadioButton(self.body_frm)
         self.palette_rb_9.setGeometry(61, 284, 46, 21)
@@ -698,6 +706,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_9.hide()
+        self.palette_rb_9.installEventFilter(self)
 
         self.palette_rb_10 = QRadioButton(self.body_frm)
         self.palette_rb_10.setGeometry(120, 284, 46, 21)
@@ -712,6 +721,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_10.hide()
+        self.palette_rb_10.installEventFilter(self)
 
         self.palette_rb_11 = QRadioButton(self.body_frm)
         self.palette_rb_11.setGeometry(179, 284, 46, 21)
@@ -726,6 +736,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_11.hide()
+        self.palette_rb_11.installEventFilter(self)
 
         self.palette_rb_12 = QRadioButton(self.body_frm)
         self.palette_rb_12.setGeometry(238, 284, 46, 21)
@@ -740,6 +751,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_12.hide()
+        self.palette_rb_12.installEventFilter(self)
 
         self.addPalette_bt = QPushButton(self.body_frm)
         self.addPalette_bt.setGeometry(133, 216, 21, 21)
@@ -943,7 +955,10 @@ class AddColorCheckerUI(QDialog) :
 
     def eventFilter(self, object, event) : 
         if event.type() == QtCore.QEvent.HoverEnter : 
-            pass                # Test code / please delete the contents of this line.
+            print("[system] HoverEnter is detected.")              # Test code / please delete the contents of this line.
+        
+        elif event.type() == QtCore.QEvent.HoverLeave : 
+            print("[system] HoverLeave is detected.")               # Test code / please delete the contents of this line.
 
 
 
@@ -951,6 +966,6 @@ class AddColorCheckerUI(QDialog) :
 
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
-    global edit
-    edit = EditUI()
-    edit.exec_()
+    # window = EditUI()
+    window = AddColorCheckerUI()                # Test code / please delete the contents of this line.
+    window.exec_()
