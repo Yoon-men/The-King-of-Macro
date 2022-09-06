@@ -580,7 +580,8 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -595,7 +596,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -610,7 +611,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -625,7 +626,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -640,7 +641,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -655,7 +656,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -670,7 +671,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -685,7 +686,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -700,7 +701,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -715,7 +716,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -730,7 +731,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -745,7 +746,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border-radius : 6px;\n"
                                         "}\n"
                                         "QRadioButton::indicator{\n"
-                                            "width : 0px;\n"
+                                            "width : 147px;\n"
                                         "}\n"
                                         "QRadioButton::checked{\n"
                                             "border : 2px solid #ffffff;\n"
@@ -942,7 +943,7 @@ class AddColorCheckerUI(QDialog) :
                                                 "color : #222222;\n"
                                                 "background-color : #aaaaaa;\n"
                                             "}")
-        
+
 
     def setCoordinate_bt_active(self) : 
         self.setCoordinate_bt.setStyleSheet("QPushButton{\n"
@@ -961,6 +962,10 @@ class AddColorCheckerUI(QDialog) :
         elif event.type() == QtCore.QEvent.HoverLeave : 
             print("[system] HoverLeave is detected.")               # Test code / please delete the contents of this line.
             return True
+        
+        # elif event.type() == QtCore.QEvent.MouseButtonPress : 
+        #     print("[system] Click is detected")                     # Test code / please delete the contents of this line.
+        #     return True
         
         return False
 
