@@ -799,17 +799,18 @@ class BasicFn(QObject) :
 
 
     def copyColor(self) : 
-        if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
-            mainUI.noticeBoard.addItem("[system] 좌표 설정 후 다시 시도해주십시오.")
-            mainUI.noticeBoard.scrollToBottom()
+        try : 
+            if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
+                mainUI.noticeBoard.addItem("[system] 좌표 설정 후 다시 시도해주십시오.")
+                mainUI.noticeBoard.scrollToBottom()
+            else : 
+                RGB = pyautogui.screenshot().getpixel((int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text())))
+                addColorCheckerUI.R_le.setText(str(RGB[0]))
+                addColorCheckerUI.G_le.setText(str(RGB[1]))
+                addColorCheckerUI.B_le.setText(str(RGB[2]))
 
-
-        else : 
-            RGB = pyautogui.screenshot().getpixel((int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text())))
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
-
+        except : 
+            mainUI.noticeBoard.addItem("[system] 좌표컬러복사 기능은 현재 메인 스크린만 지원합니다.")
 
 
     ## << addColorChecker_part (3/3) >> --------------------
