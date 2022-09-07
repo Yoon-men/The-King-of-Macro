@@ -574,181 +574,168 @@ class AddColorCheckerUI(QDialog) :
 
         # palette_part
         self.palette_rb_1 = QRadioButton(self.body_frm)
-        self.palette_rb_1.setGeometry(61, 216, 46, 21)
-        self.palette_rb_1.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_1.setGeometry(61, 214, 50, 25)
+        self.palette_rb_1.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 46px;\n"
-                                            "height : 21px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_1.setChecked(True)
         self.palette_rb_1.installEventFilter(self)
 
         self.palette_rb_2 = QRadioButton(self.body_frm)
-        self.palette_rb_2.setGeometry(120, 216, 46, 21)
-        self.palette_rb_2.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_2.setGeometry(120, 214, 50, 25)
+        self.palette_rb_2.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_2.hide()
         self.palette_rb_2.installEventFilter(self)
 
         self.palette_rb_3 = QRadioButton(self.body_frm)
-        self.palette_rb_3.setGeometry(179, 216, 46, 21)
-        self.palette_rb_3.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_3.setGeometry(179, 214, 50, 25)
+        self.palette_rb_3.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_3.hide()
         self.palette_rb_3.installEventFilter(self)
 
         self.palette_rb_4 = QRadioButton(self.body_frm)
-        self.palette_rb_4.setGeometry(238, 216, 46, 21)
-        self.palette_rb_4.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_4.setGeometry(238, 214, 50, 25)
+        self.palette_rb_4.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_4.hide()
         self.palette_rb_4.installEventFilter(self)
 
         self.palette_rb_5 = QRadioButton(self.body_frm)
-        self.palette_rb_5.setGeometry(61, 250, 46, 21)
-        self.palette_rb_5.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_5.setGeometry(61, 248, 50, 25)
+        self.palette_rb_5.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_5.hide()
         self.palette_rb_5.installEventFilter(self)
 
         self.palette_rb_6 = QRadioButton(self.body_frm)
-        self.palette_rb_6.setGeometry(120, 250, 46, 21)
-        self.palette_rb_6.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_6.setGeometry(120, 248, 50, 25)
+        self.palette_rb_6.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_6.hide()
         self.palette_rb_6.installEventFilter(self)
 
         self.palette_rb_7 = QRadioButton(self.body_frm)
-        self.palette_rb_7.setGeometry(179, 250, 46, 21)
-        self.palette_rb_7.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_7.setGeometry(179, 248, 50, 25)
+        self.palette_rb_7.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_7.hide()
         self.palette_rb_7.installEventFilter(self)
 
         self.palette_rb_8 = QRadioButton(self.body_frm)
-        self.palette_rb_8.setGeometry(238, 250, 46, 21)
-        self.palette_rb_8.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_8.setGeometry(238, 248, 50, 25)
+        self.palette_rb_8.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_8.hide()
         self.palette_rb_8.installEventFilter(self)
 
         self.palette_rb_9 = QRadioButton(self.body_frm)
-        self.palette_rb_9.setGeometry(61, 284, 46, 21)
-        self.palette_rb_9.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_9.setGeometry(61, 282, 50, 25)
+        self.palette_rb_9.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_9.hide()
         self.palette_rb_9.installEventFilter(self)
 
         self.palette_rb_10 = QRadioButton(self.body_frm)
-        self.palette_rb_10.setGeometry(120, 284, 46, 21)
-        self.palette_rb_10.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_10.setGeometry(120, 282, 50, 25)
+        self.palette_rb_10.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_10.hide()
         self.palette_rb_10.installEventFilter(self)
 
         self.palette_rb_11 = QRadioButton(self.body_frm)
-        self.palette_rb_11.setGeometry(179, 284, 46, 21)
-        self.palette_rb_11.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_11.setGeometry(179, 282, 50, 25)
+        self.palette_rb_11.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_11.hide()
         self.palette_rb_11.installEventFilter(self)
 
         self.palette_rb_12 = QRadioButton(self.body_frm)
-        self.palette_rb_12.setGeometry(238, 284, 46, 21)
-        self.palette_rb_12.setStyleSheet("QRadioButton{\n"
+        self.palette_rb_12.setGeometry(238, 282, 50, 25)
+        self.palette_rb_12.setStyleSheet("QRadioButton::indicator{\n"
+                                            "width : 46px;\n"
+                                            "height : 21px;\n"
                                             "background-color : #ff00ff;\n"
                                             "border-radius : 6px;\n"
                                         "}\n"
-                                        "QRadioButton::indicator{\n"
-                                            "width : 147px;\n"
-                                        "}\n"
-                                        "QRadioButton::checked{\n"
+                                        "QRadioButton::indicator::checked{\n"
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_12.hide()
