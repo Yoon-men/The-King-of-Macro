@@ -654,17 +654,15 @@ class BasicFn(QObject) :
 
         if addColorCheckerUI.palette_rb_1.isChecked() : 
             palette[0] = RGB
-            addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton{\n"
-                                                                
-                                                            "}\n""QRadioButton::indicator{\n"
-                                                                "width : 46px;\n"
-                                                                "height : 21px;\n"
-                                                                f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                "border-radius : 6px;\n"
-                                                            "}\n"
-                                                            "QRadioButton::indicator::checked{\n"
-                                                                "border : 2px solid #ffffff;\n"
-                                                            "}")
+            addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton::indicator{\n"
+                                                            "width : 46px;\n"
+                                                            "height : 21px;\n"
+                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                            "border-radius : 6px;\n"
+                                                        "}\n"
+                                                        "QRadioButton::indicator::checked{\n"
+                                                            "border : 2px solid #ffffff;\n"
+                                                        "}")
 
         if addColorCheckerUI.palette_rb_2.isChecked() : 
             palette[1] = RGB
