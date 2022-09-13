@@ -517,66 +517,6 @@ class BasicFn(QObject) :
     def addPalette(self) : 
         global palettePhase
         global palette
-        
-        if palettePhase == 11 : 
-                addColorCheckerUI.addPalette_bt.hide()
-                addColorCheckerUI.palette_rb_12.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 10 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
-                addColorCheckerUI.palette_rb_11.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 9 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
-                addColorCheckerUI.palette_rb_10.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 8 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
-                addColorCheckerUI.palette_rb_9.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 7 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
-                addColorCheckerUI.palette_rb_8.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 6 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
-                addColorCheckerUI.palette_rb_7.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 5 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
-                addColorCheckerUI.palette_rb_6.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 4 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
-                addColorCheckerUI.palette_rb_5.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 3 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
-                addColorCheckerUI.palette_rb_4.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        if palettePhase == 2 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
-                addColorCheckerUI.palette_rb_3.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
 
         if palettePhase == 1 : 
                 addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
@@ -584,7 +524,67 @@ class BasicFn(QObject) :
                 palette.append((255, 0, 255))
                 palettePhase += 1
 
+        elif palettePhase == 2 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
+                addColorCheckerUI.palette_rb_3.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
 
+        elif palettePhase == 3 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
+                addColorCheckerUI.palette_rb_4.show()
+                palette.append((255, 0, 255))   
+                palettePhase += 1
+
+        elif palettePhase == 4 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
+                addColorCheckerUI.palette_rb_5.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+        
+        elif palettePhase == 5 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
+                addColorCheckerUI.palette_rb_6.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+
+        elif palettePhase == 6 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
+                addColorCheckerUI.palette_rb_7.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+
+        elif palettePhase == 7 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
+                addColorCheckerUI.palette_rb_8.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+
+        elif palettePhase == 8 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
+                addColorCheckerUI.palette_rb_9.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+
+        elif palettePhase == 9 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
+                addColorCheckerUI.palette_rb_10.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+
+        elif palettePhase == 10 : 
+                addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
+                addColorCheckerUI.palette_rb_11.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+        
+        elif palettePhase == 11 : 
+                addColorCheckerUI.addPalette_bt.hide()
+                addColorCheckerUI.palette_rb_12.show()
+                palette.append((255, 0, 255))
+                palettePhase += 1
+        
+        
 
     def setRGB(self) : 
         def displayRGB(RGB) : 
