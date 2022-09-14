@@ -461,6 +461,7 @@ class AddColorCheckerUI(QDialog) :
         super().__init__()
 
         self.addColorCheckerUI()
+        self.paletteSignal()                # Test code / please delete the contents of this line.
 
 
 
@@ -941,18 +942,17 @@ class AddColorCheckerUI(QDialog) :
                                             "}")
 
 
+
     def eventFilter(self, object, event) : 
-        if event.type() == QtCore.QEvent.HoverEnter : 
-            print("[system] HoverEnter is detected.")              # Test code / please delete the contents of this line.
+        if event.type() == QtCore.QEvent.MouseButtonPress : 
+            if self.palette_rb_1.isChecked() :                            # Test code / please delete the contents of this line.
+                print("[system] palette_rb_1 is clicked.")                # Test code / please delete the contents of this line.
+            print("[system] Click is detected")                     # Test code / please delete the contents of this line.
             return True
-        
-        elif event.type() == QtCore.QEvent.HoverLeave : 
-            print("[system] HoverLeave is detected.")               # Test code / please delete the contents of this line.
+
+        elif event.type() == QtCore.QEvent.MouseButtonDblClick : 
+            print("[system] Double Click is detected.")             # Test code / please delete the contents of this line.
             return True
-        
-        # elif event.type() == QtCore.QEvent.MouseButtonPress : 
-        #     print("[system] Click is detected")                     # Test code / please delete the contents of this line.
-        #     return True
         
         return False
 
