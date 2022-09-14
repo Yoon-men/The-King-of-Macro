@@ -461,7 +461,6 @@ class AddColorCheckerUI(QDialog) :
         super().__init__()
 
         self.addColorCheckerUI()
-        self.paletteSignal()                # Test code / please delete the contents of this line.
 
 
 
