@@ -513,7 +513,7 @@ class BasicFn(QObject) :
                 break
 
 
-    ##  << color_part (2/3) >> --------------------
+    ##  << palette_part (2/3) >> --------------------
     def addPalette(self) : 
         global palettePhase
         global palette
@@ -583,8 +583,8 @@ class BasicFn(QObject) :
                 addColorCheckerUI.palette_rb_12.show()
                 palette.append((255, 0, 255))
                 palettePhase += 1
-        
-        
+
+
 
     def setRGB(self) : 
         def displayRGB(RGB) : 
