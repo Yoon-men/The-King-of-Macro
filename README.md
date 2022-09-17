@@ -123,7 +123,7 @@
 - 자체 UI 변경 (mainUI, settingUI, editUI, addDelayUI 총 4종)
 - '불러오기' 기능이 settingUI 안으로 들어감
 
-◇ 2022.?.??. ( ??? ) ??:?? // v2.1 **(Will)** // 90%
+◇ **(Will)** // v2.1 - **Add 'ColorChecker' function**
 - 칼라체커 기능 추가 (In editUI)
 - settingUI에 '매크로 프로그램을 가장 위로' 선택 기능 추가
 - 마우스 클릭 대신 키보드 입력으로 마우스 좌표를 추가할 수 있도록 변경 (좌클릭 = F9, 우클릭 = F10)
