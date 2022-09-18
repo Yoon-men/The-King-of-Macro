@@ -54,7 +54,7 @@
 # Download
 이미 DATA.p 파일을 갖고 있을 경우에는 exe 파일만 설치해주세요.
 > <The_King_of_Macro_v2.0>
->> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0">Download Link</a>
+>> <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0">Download Link (Click here)</a>
 
 <br>
 
