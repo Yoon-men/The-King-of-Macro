@@ -4,7 +4,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 
-from The_King_of_Macro import palette, ckedRb
+from The_King_of_Macro import BasicFn
 
 class EditUI(QDialog) : 
     def __init__(self) : 
@@ -945,14 +945,31 @@ class AddColorCheckerUI(QDialog) :
 
 
     def eventFilter(self, object, event) : 
-        if event.type() == QtCore.QEvent.MouseButtonPress : 
-            if self.palette_rb_1.isChecked() :                            # Test code / please delete the contents of this line.
-                print("[system] palette_rb_1 is clicked.")                # Test code / please delete the contents of this line.
-            print("[system] Click is detected")                     # Test code / please delete the contents of this line.
-            return True
-
-        elif event.type() == QtCore.QEvent.MouseButtonDblClick : 
-            print("[system] Double Click is detected.")             # Test code / please delete the contents of this line.
+        if event.type() == QtCore.QEvent.MouseButtonDblClick : 
+            if self.palette_rb_1.isChecked() : 
+                print("[system] 1번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            if self.palette_rb_2.isChecked() :    
+                print("[system] 2번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            if self.palette_rb_3.isChecked() : 
+                print("[system] 3번 rb 덥클 감지")               # Test code / please delete the contents of this line.
+            if self.palette_rb_4.isChecked() : 
+                print("[system] 4번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_5.isChecked() : 
+                print("[system] 5번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_6.isChecked() : 
+                print("[system] 6번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_7.isChecked() : 
+                print("[system] 7번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_8.isChecked() : 
+                print("[system] 8번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_9.isChecked() : 
+                print("[system] 9번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            if self.palette_rb_10.isChecked() : 
+                print("[system] 10번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            if self.palette_rb_11.isChecked() : 
+                print("[system] 11번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            if self.palette_rb_12.isChecked() : 
+                print("[system] 12번 rb 덥클 감지")             # Test code / please delete the contents of this line.
             return True
         
         return False
