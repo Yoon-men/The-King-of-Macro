@@ -77,9 +77,6 @@ class Main() :
         global palette
         palette = deque([(255, 0, 255)])
 
-        global ckedRb
-        ckedRb = 0
-
         mainUI.show()
         self.signal()
         sys.exit(app.exec_())
@@ -597,51 +594,39 @@ class BasicFn(QObject) :
 
         if addColorCheckerUI.palette_rb_1.isChecked() : 
             displayRGB(palette[0])
-            ckedRb = 1
 
         if addColorCheckerUI.palette_rb_2.isChecked() : 
             displayRGB(palette[1])
-            ckedRb = 2
         
         if addColorCheckerUI.palette_rb_3.isChecked() : 
             displayRGB(palette[2])
-            ckedRb = 3
 
         if addColorCheckerUI.palette_rb_4.isChecked() : 
             displayRGB(palette[3])
-            ckedRb = 4
         
         if addColorCheckerUI.palette_rb_5.isChecked() : 
             displayRGB(palette[4])
-            ckedRb = 5
         
         if addColorCheckerUI.palette_rb_6.isChecked() : 
             displayRGB(palette[5])
-            ckedRb = 6
         
         if addColorCheckerUI.palette_rb_7.isChecked() : 
             displayRGB(palette[6])
-            ckedRb = 7
         
         if addColorCheckerUI.palette_rb_8.isChecked() : 
             displayRGB(palette[7])
-            ckedRb = 8
 
         if addColorCheckerUI.palette_rb_9.isChecked() : 
             displayRGB(palette[8])
-            ckedRb = 9
         
         if addColorCheckerUI.palette_rb_10.isChecked() : 
             displayRGB(palette[9])
-            ckedRb = 10
 
         if addColorCheckerUI.palette_rb_11.isChecked() : 
             displayRGB(palette[10])
-            ckedRb = 11
 
         if addColorCheckerUI.palette_rb_12.isChecked() : 
             displayRGB(palette[11])
-            ckedRb = 12
 
 
 
