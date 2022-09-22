@@ -587,6 +587,7 @@ class BasicFn(QObject) :
 
 
     def setRGB(self) : 
+        print(f"[ 메인에서 확인한 팔레트 체크 : {palette} ]")               # Test code / please delete the contents of this line.
         def displayRGB(RGB) : 
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
@@ -815,7 +816,8 @@ class BasicFn(QObject) :
 
 
     def deletePalette(self) : 
-        pass                # Test code / please delete the contents of this line.
+        print("[system] deletePalette 함수가 실행되었습니다.")              # Test code / please delete the contents of this line.
+        print(palette)              # Test code / please delete the contents of this line.
 
 
     ## << addColorChecker_part (3/3) >> --------------------
