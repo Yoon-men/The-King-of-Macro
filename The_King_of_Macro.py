@@ -249,7 +249,20 @@ class Main() :
 
     def openAddColorChecker(self) : 
         editUI.addColorChecker_bt_active()
+        addColorCheckerUI.palette_rb_1.installEventFilter(self)
+        addColorCheckerUI.palette_rb_2.installEventFilter(self)
+        addColorCheckerUI.palette_rb_3.installEventFilter(self)
+        addColorCheckerUI.palette_rb_4.installEventFilter(self)
+        addColorCheckerUI.palette_rb_5.installEventFilter(self)
+        addColorCheckerUI.palette_rb_6.installEventFilter(self)
+        addColorCheckerUI.palette_rb_7.installEventFilter(self)
+        addColorCheckerUI.palette_rb_8.installEventFilter(self)
+        addColorCheckerUI.palette_rb_9.installEventFilter(self)
+        addColorCheckerUI.palette_rb_10.installEventFilter(self)
+        addColorCheckerUI.palette_rb_11.installEventFilter(self)
+        addColorCheckerUI.palette_rb_12.installEventFilter(self)
         addColorCheckerUI.exec_()
+        
 
     def closeAddColorChecker(self) : 
         editUI.addColorChecker_bt_inactive()
@@ -261,6 +274,37 @@ class Main() :
         thread_additionalFn_1.quit()
         thread_additionalFn_2.quit()
         QCoreApplication.instance().quit()
+    
+
+    def eventFilter(self, object, event) : 
+        if event.type() == QEvent.MouseButtonDblClick : 
+            if addColorCheckerUI.palette_rb_1.isChecked() : 
+                print("[system] 1번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_2.isChecked() : 
+                print("[system] 2번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_3.isChecked() : 
+                print("[system] 3번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_4.isChecked() : 
+                print("[system] 4번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_5.isChecked() : 
+                print("[system] 5번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_6.isChecked() : 
+                print("[system] 6번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_7.isChecked() : 
+                print("[system] 7번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_8.isChecked() : 
+                print("[system] 8번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_9.isChecked() : 
+                print("[system] 9번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_10.isChecked() : 
+                print("[system] 10번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_11.isChecked() : 
+                print("[system] 11번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            elif addColorCheckerUI.palette_rb_12.isChecked() : 
+                print("[system] 12번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            return True
+
+        return False
 
 
 
@@ -587,7 +631,7 @@ class BasicFn(QObject) :
 
 
     def setRGB(self) : 
-        print(f"[ 메인에서 확인한 팔레트 체크 : {palette} ]")               # Test code / please delete the contents of this line.
+        # print(f"[ 메인에서 확인한 팔레트 체크 : {palette} ]")               # Test code / please delete the contents of this line.
         def displayRGB(RGB) : 
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
