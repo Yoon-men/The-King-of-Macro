@@ -4,8 +4,6 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 
-from The_King_of_Macro import BasicFn
-
 class EditUI(QDialog) : 
     def __init__(self) : 
         super().__init__()
@@ -587,7 +585,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_1.setChecked(True)
-        self.palette_rb_1.installEventFilter(self)
+        # self.palette_rb_1.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_2 = QRadioButton(self.body_frm)
         self.palette_rb_2.setGeometry(120, 214, 50, 25)
@@ -601,7 +599,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_2.hide()
-        self.palette_rb_2.installEventFilter(self)
+        # self.palette_rb_2.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_3 = QRadioButton(self.body_frm)
         self.palette_rb_3.setGeometry(179, 214, 50, 25)
@@ -615,7 +613,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_3.hide()
-        self.palette_rb_3.installEventFilter(self)
+        # self.palette_rb_3.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_4 = QRadioButton(self.body_frm)
         self.palette_rb_4.setGeometry(238, 214, 50, 25)
@@ -629,7 +627,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_4.hide()
-        self.palette_rb_4.installEventFilter(self)
+        # self.palette_rb_4.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_5 = QRadioButton(self.body_frm)
         self.palette_rb_5.setGeometry(61, 248, 50, 25)
@@ -643,7 +641,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_5.hide()
-        self.palette_rb_5.installEventFilter(self)
+        # self.palette_rb_5.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_6 = QRadioButton(self.body_frm)
         self.palette_rb_6.setGeometry(120, 248, 50, 25)
@@ -657,7 +655,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_6.hide()
-        self.palette_rb_6.installEventFilter(self)
+        # self.palette_rb_6.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_7 = QRadioButton(self.body_frm)
         self.palette_rb_7.setGeometry(179, 248, 50, 25)
@@ -671,7 +669,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_7.hide()
-        self.palette_rb_7.installEventFilter(self)
+        # self.palette_rb_7.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_8 = QRadioButton(self.body_frm)
         self.palette_rb_8.setGeometry(238, 248, 50, 25)
@@ -685,7 +683,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_8.hide()
-        self.palette_rb_8.installEventFilter(self)
+        # self.palette_rb_8.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_9 = QRadioButton(self.body_frm)
         self.palette_rb_9.setGeometry(61, 282, 50, 25)
@@ -699,7 +697,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_9.hide()
-        self.palette_rb_9.installEventFilter(self)
+        # self.palette_rb_9.installEventFilter(self)                # Test code / please delete the contents of this line.
 
         self.palette_rb_10 = QRadioButton(self.body_frm)
         self.palette_rb_10.setGeometry(120, 282, 50, 25)
@@ -713,7 +711,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_10.hide()
-        self.palette_rb_10.installEventFilter(self)
+        # self.palette_rb_10.installEventFilter(self)               # Test code / please delete the contents of this line.
 
         self.palette_rb_11 = QRadioButton(self.body_frm)
         self.palette_rb_11.setGeometry(179, 282, 50, 25)
@@ -727,7 +725,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_11.hide()
-        self.palette_rb_11.installEventFilter(self)
+        # self.palette_rb_11.installEventFilter(self)               # Test code / please delete the contents of this line.
 
         self.palette_rb_12 = QRadioButton(self.body_frm)
         self.palette_rb_12.setGeometry(238, 282, 50, 25)
@@ -741,7 +739,7 @@ class AddColorCheckerUI(QDialog) :
                                             "border : 2px solid #ffffff;\n"
                                         "}")
         self.palette_rb_12.hide()
-        self.palette_rb_12.installEventFilter(self)
+        # self.palette_rb_12.installEventFilter(self)               # Test code / please delete the contents of this line.
 
         self.addPalette_bt = QPushButton(self.body_frm)
         self.addPalette_bt.setGeometry(133, 216, 21, 21)
@@ -944,35 +942,37 @@ class AddColorCheckerUI(QDialog) :
 
 
 
-    def eventFilter(self, object, event) : 
-        if event.type() == QtCore.QEvent.MouseButtonDblClick : 
-            if self.palette_rb_1.isChecked() : 
-                print("[system] 1번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            if self.palette_rb_2.isChecked() :    
-                print("[system] 2번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            if self.palette_rb_3.isChecked() : 
-                print("[system] 3번 rb 덥클 감지")               # Test code / please delete the contents of this line.
-            if self.palette_rb_4.isChecked() : 
-                print("[system] 4번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_5.isChecked() : 
-                print("[system] 5번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_6.isChecked() : 
-                print("[system] 6번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_7.isChecked() : 
-                print("[system] 7번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_8.isChecked() : 
-                print("[system] 8번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_9.isChecked() : 
-                print("[system] 9번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            if self.palette_rb_10.isChecked() : 
-                print("[system] 10번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            if self.palette_rb_11.isChecked() : 
-                print("[system] 11번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            if self.palette_rb_12.isChecked() : 
-                print("[system] 12번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            return True
+    # def eventFilter(self, object, event) :                   # Test code / please delete the contents of this lines.
+    #     if event.type() == QtCore.QEvent.MouseButtonDblClick : 
+    #         if self.palette_rb_1.isChecked() : 
+    #             # from The_King_of_Macro import palette
+    #             # print(f"[ editUI에서 확인한 팔레트 : {palette} ]")              # Test code / please delete the contents of this line.
+    #             print("[system] 1번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+    #         if self.palette_rb_2.isChecked() :    
+    #             print("[system] 2번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+    #         if self.palette_rb_3.isChecked() : 
+    #             print("[system] 3번 rb 덥클 감지")               # Test code / please delete the contents of this line.
+    #         if self.palette_rb_4.isChecked() : 
+    #             print("[system] 4번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_5.isChecked() : 
+    #             print("[system] 5번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_6.isChecked() : 
+    #             print("[system] 6번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_7.isChecked() : 
+    #             print("[system] 7번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_8.isChecked() : 
+    #             print("[system] 8번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_9.isChecked() : 
+    #             print("[system] 9번 rb 덥클 감지")              # Test code / please delete the contents of this line.
+    #         if self.palette_rb_10.isChecked() : 
+    #             print("[system] 10번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+    #         if self.palette_rb_11.isChecked() : 
+    #             print("[system] 11번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+    #         if self.palette_rb_12.isChecked() : 
+    #             print("[system] 12번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+    #         return True
         
-        return False
+    #     return False
 
 
 
