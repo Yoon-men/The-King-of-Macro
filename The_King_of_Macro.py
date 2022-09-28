@@ -10,8 +10,8 @@
 """
 
 import sys
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
+from PySide2.QtWidgets import QApplication, QFileDialog
+from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt
 import os
 import pickle
 import keyboard
@@ -26,7 +26,7 @@ from KOM_editUI import EditUI
 from KOM_editUI import AddDelayUI
 from KOM_editUI import AddColorCheckerUI
 
-class Main() : 
+class Main(QObject) : 
     def __init__(self) : 
         super().__init__()
         
@@ -40,6 +40,18 @@ class Main() :
         addDelayUI = AddDelayUI()
         global addColorCheckerUI
         addColorCheckerUI = AddColorCheckerUI()
+        addColorCheckerUI.palette_rb_1.installEventFilter(self)
+        addColorCheckerUI.palette_rb_2.installEventFilter(self)
+        addColorCheckerUI.palette_rb_3.installEventFilter(self)
+        addColorCheckerUI.palette_rb_4.installEventFilter(self)
+        addColorCheckerUI.palette_rb_5.installEventFilter(self)
+        addColorCheckerUI.palette_rb_6.installEventFilter(self)
+        addColorCheckerUI.palette_rb_7.installEventFilter(self)
+        addColorCheckerUI.palette_rb_8.installEventFilter(self)
+        addColorCheckerUI.palette_rb_9.installEventFilter(self)
+        addColorCheckerUI.palette_rb_10.installEventFilter(self)
+        addColorCheckerUI.palette_rb_11.installEventFilter(self)
+        addColorCheckerUI.palette_rb_12.installEventFilter(self)
 
         global thread_basicFn       # For quit
         thread_basicFn = QThread()
@@ -249,18 +261,6 @@ class Main() :
 
     def openAddColorChecker(self) : 
         editUI.addColorChecker_bt_active()
-        addColorCheckerUI.palette_rb_1.installEventFilter(self)
-        addColorCheckerUI.palette_rb_2.installEventFilter(self)
-        addColorCheckerUI.palette_rb_3.installEventFilter(self)
-        addColorCheckerUI.palette_rb_4.installEventFilter(self)
-        addColorCheckerUI.palette_rb_5.installEventFilter(self)
-        addColorCheckerUI.palette_rb_6.installEventFilter(self)
-        addColorCheckerUI.palette_rb_7.installEventFilter(self)
-        addColorCheckerUI.palette_rb_8.installEventFilter(self)
-        addColorCheckerUI.palette_rb_9.installEventFilter(self)
-        addColorCheckerUI.palette_rb_10.installEventFilter(self)
-        addColorCheckerUI.palette_rb_11.installEventFilter(self)
-        addColorCheckerUI.palette_rb_12.installEventFilter(self)
         addColorCheckerUI.exec_()
         
 
