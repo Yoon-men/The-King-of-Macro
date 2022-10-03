@@ -278,30 +278,48 @@ class Main(QObject) :
 
     def eventFilter(self, object, event) : 
         if event.type() == QEvent.MouseButtonDblClick : 
-            if addColorCheckerUI.palette_rb_1.isChecked() : 
-                print("[system] 1번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_2.isChecked() : 
-                print("[system] 2번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_3.isChecked() : 
-                print("[system] 3번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_4.isChecked() : 
-                print("[system] 4번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_5.isChecked() : 
-                print("[system] 5번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_6.isChecked() : 
-                print("[system] 6번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_7.isChecked() : 
-                print("[system] 7번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_8.isChecked() : 
-                print("[system] 8번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_9.isChecked() : 
-                print("[system] 9번 rb 덥클 감지")              # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_10.isChecked() : 
-                print("[system] 10번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_11.isChecked() : 
-                print("[system] 11번 rb 덥클 감지")             # Test code / please delete the contents of this line.
-            elif addColorCheckerUI.palette_rb_12.isChecked() : 
-                print("[system] 12번 rb 덥클 감지")             # Test code / please delete the contents of this line.
+            if len(palette) > 1 : 
+                if addColorCheckerUI.palette_rb_1.isChecked() : del palette[0]
+                elif addColorCheckerUI.palette_rb_2.isChecked() : del palette[1]
+                elif addColorCheckerUI.palette_rb_3.isChecked() : del palette[2]
+                elif addColorCheckerUI.palette_rb_4.isChecked() : del palette[3]
+                elif addColorCheckerUI.palette_rb_5.isChecked() : del palette[4]
+                elif addColorCheckerUI.palette_rb_6.isChecked() : del palette[5]
+                elif addColorCheckerUI.palette_rb_7.isChecked() : del palette[6]
+                elif addColorCheckerUI.palette_rb_8.isChecked() : del palette[7]
+                elif addColorCheckerUI.palette_rb_9.isChecked() : del palette[8]
+                elif addColorCheckerUI.palette_rb_10.isChecked() : del palette[9]
+                elif addColorCheckerUI.palette_rb_11.isChecked() : del palette[10]
+                elif addColorCheckerUI.palette_rb_12.isChecked() : del palette[11]
+                
+                if palettePhase == 12 : 
+                    addColorCheckerUI.palette_rb_12.hide()
+                elif palettePhase == 11 : 
+                    addColorCheckerUI.palette_rb_11.hide()
+                elif palettePhase == 10 : 
+                    addColorCheckerUI.palette_rb_10.hide()
+                elif palettePhase == 9 : 
+                    addColorCheckerUI.palette_rb_9.hide()
+                elif palettePhase == 8 : 
+                    addColorCheckerUI.palette_rb_8.hide()
+                elif palettePhase == 7 : 
+                    addColorCheckerUI.palette_rb_7.hide()
+                elif palettePhase == 6 : 
+                    addColorCheckerUI.palette_rb_6.hide()
+                elif palettePhase == 5 : 
+                    addColorCheckerUI.palette_rb_5.hide()
+                elif palettePhase == 4 : 
+                    addColorCheckerUI.palette_rb_4.hide()
+                elif palettePhase == 3 : 
+                    addColorCheckerUI.palette_rb_3.hide()
+                elif palettePhase == 2 : 
+                    addColorCheckerUI.palette_rb_2.hide()
+
+                global palettePhase ; palettePhase -= 1
+
+            else : 
+                print("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")                # Test code / please delete the contents of this line.
+            
             return True
 
         return False
@@ -857,11 +875,6 @@ class BasicFn(QObject) :
         except : 
             mainUI.noticeBoard.addItem("[system] 좌표컬러복사 기능은 현재 메인 스크린만 지원합니다.")
 
-
-
-    def deletePalette(self) : 
-        print("[system] deletePalette 함수가 실행되었습니다.")              # Test code / please delete the contents of this line.
-        print(palette)              # Test code / please delete the contents of this line.
 
 
     ## << addColorChecker_part (3/3) >> --------------------
