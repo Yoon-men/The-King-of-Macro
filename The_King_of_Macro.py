@@ -294,26 +294,37 @@ class Main(QObject) :
                 
                 if palettePhase == 12 : 
                     addColorCheckerUI.palette_rb_12.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
                 elif palettePhase == 11 : 
                     addColorCheckerUI.palette_rb_11.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
                 elif palettePhase == 10 : 
                     addColorCheckerUI.palette_rb_10.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
                 elif palettePhase == 9 : 
                     addColorCheckerUI.palette_rb_9.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
                 elif palettePhase == 8 : 
                     addColorCheckerUI.palette_rb_8.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
                 elif palettePhase == 7 : 
                     addColorCheckerUI.palette_rb_7.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
                 elif palettePhase == 6 : 
                     addColorCheckerUI.palette_rb_6.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
                 elif palettePhase == 5 : 
                     addColorCheckerUI.palette_rb_5.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
                 elif palettePhase == 4 : 
                     addColorCheckerUI.palette_rb_4.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
                 elif palettePhase == 3 : 
                     addColorCheckerUI.palette_rb_3.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
                 elif palettePhase == 2 : 
                     addColorCheckerUI.palette_rb_2.hide()
+                    addColorCheckerUI.addPalette_bt.setGeometry(133, 216, 21, 21)
 
                 global palettePhase ; palettePhase -= 1
 
