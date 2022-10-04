@@ -277,6 +277,7 @@ class Main(QObject) :
     
 
     def eventFilter(self, object, event) : 
+        global palettePhase
         if event.type() == QEvent.MouseButtonDblClick : 
             if len(palette) > 1 : 
                 if addColorCheckerUI.palette_rb_1.isChecked() : del palette[0]
@@ -295,6 +296,7 @@ class Main(QObject) :
                 if palettePhase == 12 : 
                     addColorCheckerUI.palette_rb_12.hide()
                     addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
+                    addColorCheckerUI.addPalette_bt.show()
                 elif palettePhase == 11 : 
                     addColorCheckerUI.palette_rb_11.hide()
                     addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
@@ -326,7 +328,9 @@ class Main(QObject) :
                     addColorCheckerUI.palette_rb_2.hide()
                     addColorCheckerUI.addPalette_bt.setGeometry(133, 216, 21, 21)
 
-                global palettePhase ; palettePhase -= 1
+                palettePhase -= 1
+                print(palette)              # Test code / please delete the contents of this line.
+                basicFn.setRGB()
 
             else : 
                 print("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")                # Test code / please delete the contents of this line.
@@ -660,7 +664,6 @@ class BasicFn(QObject) :
 
 
     def setRGB(self) : 
-        # print(f"[ 메인에서 확인한 팔레트 체크 : {palette} ]")               # Test code / please delete the contents of this line.
         def displayRGB(RGB) : 
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
