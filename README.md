@@ -23,7 +23,7 @@
 <br>
 
 # How To Use (v2.1)
-![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/158588032-f3fd2464-ab04-4762-81d2-debd07848f2d.png)
+![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/195372144-15598ea2-3e1a-4bb2-bca4-1391389d3989.png)
 
 
 【 기본 】
