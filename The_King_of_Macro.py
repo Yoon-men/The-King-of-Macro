@@ -360,7 +360,7 @@ class Main(QObject) :
                                                             "QRadioButton::indicator::checked{\n"
                                                                 "border : 2px solid #ffffff;\n"
                                                             "}")
-                if len(palette) >= 2 : 
+                if palettePhase >= 2 : 
                     RGB = palette[1]
                     addColorCheckerUI.palette_rb_2.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -371,7 +371,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 3 : 
+                if palettePhase >= 3 : 
                     RGB = palette[2]
                     addColorCheckerUI.palette_rb_3.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -382,7 +382,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 4 : 
+                if palettePhase >= 4 : 
                     RGB = palette[3]
                     addColorCheckerUI.palette_rb_4.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -393,7 +393,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 5 : 
+                if palettePhase >= 5 : 
                     RGB = palette[4]
                     addColorCheckerUI.palette_rb_5.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -404,7 +404,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 6 : 
+                if palettePhase >= 6 : 
                     RGB = palette[5]
                     addColorCheckerUI.palette_rb_6.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -415,7 +415,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 7 : 
+                if palettePhase >= 7 : 
                     RGB = palette[6]
                     addColorCheckerUI.palette_rb_7.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -426,7 +426,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 8 : 
+                if palettePhase >= 8 : 
                     RGB = palette[7]
                     addColorCheckerUI.palette_rb_8.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -437,7 +437,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 9 : 
+                if palettePhase >= 9 : 
                     RGB = palette[8]
                     addColorCheckerUI.palette_rb_9.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -448,7 +448,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 10 : 
+                if palettePhase >= 10 : 
                     RGB = palette[9]
                     addColorCheckerUI.palette_rb_10.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
@@ -459,7 +459,7 @@ class Main(QObject) :
                                                                 "QRadioButton::indicator::checked{\n"
                                                                     "border : 2px solid #ffffff;\n"
                                                                 "}")
-                if len(palette) >= 11 : 
+                if palettePhase >= 11 : 
                     RGB = palette[10]
                     addColorCheckerUI.palette_rb_11.setStyleSheet("QRadioButton::indicator{\n"
                                                                     "width : 46px;\n"
