@@ -474,7 +474,7 @@ class Main(QObject) :
                 basicFn.setRGB()
 
             else : 
-                print("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")                # Test code / please delete the contents of this line.
+                mainUI.noticeBoard.addItem("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")
             
             return True
 
@@ -960,7 +960,7 @@ class BasicFn(QObject) :
                     with open(FILE_road, "wb") as file : 
                         pickle.dump(macroDATA, file)
                     # Notify addColorChecker event
-                    mainUI.noticeBoard.addItem("[system] 컬러체커 추가가 완료되었습니다.")
+                    mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
                     mainUI.noticeBoard.scrollToBottom()
                     # Apply the update to editMacro_lw
                     self.setMacro()
