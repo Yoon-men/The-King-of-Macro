@@ -1,8 +1,8 @@
 from img.img import *
 import sys
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
+from PySide2.QtGui import QIcon, QFont
+from PySide2.QtWidgets import QDialog, QFrame, QLabel, QPushButton, QCheckBox, QGraphicsDropShadowEffect, QApplication
+from PySide2.QtCore import Qt, QSize
 
 class SettingUI(QDialog) : 
     def __init__(self) : 
@@ -115,8 +115,8 @@ class SettingUI(QDialog) :
         self.winToTop_ckb.setGeometry(200, 192, 21, 21)
         self.winToTop_ckb.setStyleSheet("QCheckBox::indicator::unchecked{\n"
                                             "image : url(:/img/ckb_unchecked_normal.png);\n"
-                                            "width : 20px;\n"
-                                            "height : 20px;\n"
+                                            "width : 21px;\n"
+                                            "height : 21px;\n"
                                         "}\n"
                                         
                                         "QCheckBox::indicator::unchecked::hover{\n"
