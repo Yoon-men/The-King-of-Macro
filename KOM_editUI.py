@@ -1,8 +1,8 @@
 from img.img import *
 import sys
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
+from PySide2.QtGui import QIcon, QFont, QIntValidator
+from PySide2.QtWidgets import QDialog, QFrame, QLabel, QPushButton, QComboBox, QListWidget, QGraphicsDropShadowEffect, QDoubleSpinBox, QLineEdit, QRadioButton, QApplication
+from PySide2.QtCore import Qt, QSize
 
 class EditUI(QDialog) : 
     def __init__(self) : 
@@ -928,6 +928,21 @@ class AddColorCheckerUI(QDialog) :
                                                 "color : #222222;\n"
                                             "}")
 
+
+
+
+class DeletePaletteUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+
+        self.deletePaletteUI()
+    
+
+
+    def deletePaletteUI(self) : 
+        # basic_part
+        
+        pass                # Test code / please delete the contents of this line.
 
 
 
