@@ -1,8 +1,8 @@
 from img.img import *
 import sys
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
+from PySide2.QtGui import QIcon, QFont, QIntValidator
+from PySide2.QtWidgets import QMainWindow, QFrame, QLabel, QPushButton, QListWidget, QLineEdit, QComboBox, QRadioButton, QGraphicsDropShadowEffect, QApplication
+from PySide2.QtCore import Qt, QSize
 
 global startType
 startType = "typeNum"
