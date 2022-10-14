@@ -300,10 +300,8 @@ class Main(QObject) :
         if event.type() == QEvent.MouseButtonDblClick : 
             if len(palette) > 1 : 
                 deletePaletteUI.exec_()
-
             else : 
                 mainUI.noticeBoard.addItem("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")
-            
             return True
 
         return False
