@@ -242,6 +242,8 @@ class Main(QObject) :
 
         ## deletePalette_part
         deletePaletteUI.delete_bt.clicked.connect(basicFn.deletePalette)
+        deletePaletteUI.delete_bt.clicked.connect(self.closeDeletePalette)
+
         deletePaletteUI.cancel_bt.clicked.connect(self.closeDeletePalette)
 
 
