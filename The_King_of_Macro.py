@@ -301,6 +301,23 @@ class Main(QObject) :
         global palettePhase
         if event.type() == QEvent.MouseButtonDblClick : 
             if len(palette) > 1 : 
+                if addColorCheckerUI.palette_rb_1.isChecked() : RGB = palette[0]
+                elif addColorCheckerUI.palette_rb_2.isChecked() : RGB = palette[1]
+                elif addColorCheckerUI.palette_rb_3.isChecked() : RGB = palette[2]
+                elif addColorCheckerUI.palette_rb_4.isChecked() : RGB = palette[3]
+                elif addColorCheckerUI.palette_rb_5.isChecked() : RGB = palette[4]
+                elif addColorCheckerUI.palette_rb_6.isChecked() : RGB = palette[5]
+                elif addColorCheckerUI.palette_rb_7.isChecked() : RGB = palette[6]
+                elif addColorCheckerUI.palette_rb_8.isChecked() : RGB = palette[7]
+                elif addColorCheckerUI.palette_rb_9.isChecked() : RGB = palette[8]
+                elif addColorCheckerUI.palette_rb_10.isChecked() : RGB = palette[9]
+                elif addColorCheckerUI.palette_rb_11.isChecked() : RGB = palette[10]
+                elif addColorCheckerUI.palette_rb_12.isChecked() : RGB = palette[11]
+                deletePaletteUI.deletePalette_frm.setStyleSheet("QFrame{\n"
+                                                                    f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                                                    "border-radius : 6px;\n"
+                                                                    "border : 2px solid #ffffff;\n"
+                                                                "}")
                 deletePaletteUI.exec_()
             else : 
                 mainUI.noticeBoard.addItem("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")
@@ -359,6 +376,7 @@ class BasicFn(QObject) :
                 editUI.show()
             addDelayUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            deletePaletteUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
 
 
         else : 
