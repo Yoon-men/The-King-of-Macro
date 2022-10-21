@@ -229,7 +229,7 @@ class Main(QObject) :
 
 
         ## addColorChecker_part
-        addColorCheckerUI.add_bt.clicked.connect(BasicFn.addColorChecker)
+        addColorCheckerUI.add_bt.clicked.connect(basicFn.addColorChecker)
         addColorCheckerUI.add_bt.clicked.connect(self.closeAddColorChecker)
 
 
@@ -285,7 +285,7 @@ class Main(QObject) :
         editUI.addColorChecker_bt_inactive()
         addColorCheckerUI.close()
 
-    
+
     def closeDeletePalette(self) : 
         deletePaletteUI.close()
 
@@ -440,7 +440,6 @@ class BasicFn(QObject) :
                 editUI.editMacro_lw.addItem(f"딜레이 < {macroDATA[setObj][(i+1) * 2]} 초 >")
 
             elif macroDATA[setObj][(i+1)*2 - 1] == "<C>" : 
-                print(f"좌표 : {macroDATA[setObj][(i+1) * 2][0]} / 딜레이 : {macroDATA[setObj][(i+1) * 2][1]}")           # Test code / please delete the contents of this line.
                 editUI.editMacro_lw.addItem(f"컬러체커 {macroDATA[setObj][(i+1) * 2][0]}에서 {macroDATA[setObj][(i+1) * 2][1]}초마다 실행")
 
 
@@ -992,7 +991,7 @@ class BasicFn(QObject) :
     def addColorChecker(self) : 
         if Load_status == True : 
             if len(macroDATA) != 0 : 
-                if addColorCheckerUI.X_le.text() != "" and addColorCheckerUI.Y_le.text() != "" : 
+                if (addColorCheckerUI.X_le.text() != "") and (addColorCheckerUI.Y_le.text() != "") : 
                     addObj = editUI.setMacro_cb.currentIndex()
                     # Add the data of macro to deque
                     macroDATA[addObj].append("<C>")
