@@ -1177,21 +1177,21 @@ class BasicFn(QObject) :
                         if power == False : 
                             break
 
-                        # << Left Click (1/4) >> --------------------
+                        # << Left Click (1/5) >> --------------------
                         if macroDATA[startObj][(i+1)*2 - 1] == "<L>" : 
                             pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
                             time.sleep(0.05)
                             pyautogui.click(macroDATA[startObj][(i+1) * 2])
                         
 
-                        # << Right Click (2/4) >> --------------------
+                        # << Right Click (2/5) >> --------------------
                         elif macroDATA[startObj][(i+1)*2 - 1] == "<R>" : 
                             pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
                             time.sleep(0.05)
                             pyautogui.rightClick(macroDATA[startObj][(i+1) * 2])
 
                         
-                        # << Keyboard input (3/4) >> --------------------
+                        # << Keyboard input (3/5) >> --------------------
                         elif macroDATA[startObj][(i+1)*2 - 1] == "<K>" : 
                             key = macroDATA[startObj][(i+1) * 2].split("+")
                             if len(key) == 1 : 
@@ -1202,7 +1202,7 @@ class BasicFn(QObject) :
                                 pyautogui.hotkey(key[0], key[1], key[2])
 
 
-                        # << Delay (4/4) >> --------------------
+                        # << Delay (4/5) >> --------------------
                         elif macroDATA[startObj][(i+1)*2 - 1] == "<D>" : 
                             delay = float(macroDATA[startObj][(i+1) * 2])
                             for _ in range(int(delay)) : 
@@ -1210,7 +1210,16 @@ class BasicFn(QObject) :
                                     break
                                 time.sleep(1)
                             time.sleep(float(delay) - int(delay))
-                                
+
+
+                        # << ColorChecker (4/5) >> --------------------
+                        elif macroDATA[startObj][(i+1)*2 - 1] == "<C>" : 
+                            while power == True : 
+                                pyautogui.moveTo(macroDATA[startObj][(i+1) * 2][0])
+                                for palette in macroDATA[startObj][(i+1) * 2][1] : 
+                                    pass                # Test code / please delete the contents of this line.
+                                time.sleep(macroDATA[startObj][(i+1) * 2][1])
+     
 
                     if startType == "typeNum" : 
                         runTime -= 1
@@ -1257,7 +1266,7 @@ class AdditionalFn_2(QObject) :
         global runTime
         global power
 
-        while runTime > 0 and power == True : 
+        while (runTime > 0) and (power == True) : 
             time.sleep(1)
             runTime -= 1
             mainUI.start_le.setText(str(runTime))
