@@ -341,7 +341,7 @@ class BasicFn(QObject) :
             # Read the file
             with open(FILE_road, "rb") as file : 
                 global macroDATA
-                macroDATA = deque(pickle.load(file))
+                macroDATA = pickle.load(file)
             # Add names of macros to comboBoxes
             for i in range(0, len(macroDATA)) : 
                 mainUI.delete_cb.addItem(macroDATA[i][0])
