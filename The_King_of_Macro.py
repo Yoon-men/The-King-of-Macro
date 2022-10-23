@@ -1212,14 +1212,17 @@ class BasicFn(QObject) :
                             time.sleep(float(delay) - int(delay))
 
 
-                        # << ColorChecker (4/5) >> --------------------
+                        # << ColorCheck (5/5) >> --------------------
                         elif macroDATA[startObj][(i+1)*2 - 1] == "<C>" : 
-                            while power == True : 
-                                pyautogui.moveTo(macroDATA[startObj][(i+1) * 2][0])
-                                for palette in macroDATA[startObj][(i+1) * 2][1] : 
-                                    pass                # Test code / please delete the contents of this line.
+                            checkStatus = False
+                            while (power == True) and (checkStatus == False) : 
+                                coordinate = macroDATA[startObj][(i+1) * 2][0]
+                                pyautogui.moveTo(coordinate)
+                                for palette in macroDATA[startObj][(i+1) * 2][2] : 
+                                    RGB = pyautogui.screenshot().getpixel(coordinate)
+                                    if RGB == palette : checkStatus = True ; break
                                 time.sleep(macroDATA[startObj][(i+1) * 2][1])
-     
+
 
                     if startType == "typeNum" : 
                         runTime -= 1
