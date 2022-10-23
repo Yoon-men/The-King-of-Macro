@@ -1,5 +1,5 @@
 """
-<The_King_of_Macro_v2.1> - 22.?.??. (???) ??:??
+<The_King_of_Macro_v2.1> - 22.10.21 (SUN) 21:57
 * Made by Yoonmen *
 
 [update]
