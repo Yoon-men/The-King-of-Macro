@@ -1221,6 +1221,7 @@ class BasicFn(QObject) :
                                 for palette in macroDATA[startObj][(i+1) * 2][2] : 
                                     RGB = pyautogui.screenshot().getpixel(coordinate)
                                     if RGB == palette : checkStatus = True ; break
+                                if checkStatus == True : break
                                 time.sleep(macroDATA[startObj][(i+1) * 2][1])
 
 
