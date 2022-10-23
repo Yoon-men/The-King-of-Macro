@@ -7,7 +7,7 @@
 
 이 프로그램을 사용하기 위해서는 매크로 데이터를 저장해두는 'DATA.p' 파일이 필요합니다.
 <details>
-  <summary>--- "Why did you make it?" (클릭해서 펼치기·접기) ---</summary>
+  <summary>"Why did you make it?"</summary>
 
   ![image](https://user-images.githubusercontent.com/64591335/165354839-8295c95e-883f-4a39-bf61-60a75ef76e65.png)
   
@@ -59,6 +59,9 @@
 <br>
 
 # Plan
+<details>
+<summary>자세히</summary>
+
 - [x] 마우스 입력 추가
 - [x] 실행 간격 설정 추가
 - [x] 딜레이 설정 관련 변경
@@ -82,6 +85,7 @@
 - [ ] pc 조작 기능 추가(매크로 완료 후 pc 종료, 절전 등의 동작을 설정할 수 있도록)
 - [ ] 추가한 컬러체커 수정 가능하도록 만들기
 - [ ] 마우스 좌표 직접 입력으로 입력 추가 가능하도록 만들기
+</details>
 
 <br>
 
