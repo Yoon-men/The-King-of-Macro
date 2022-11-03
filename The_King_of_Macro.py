@@ -1,13 +1,18 @@
-"""
-<The_King_of_Macro_v2.1> - 22.10.21 (SUN) 21:57
-* Made by Yoonmen *
+'''
+======================================
+< The_King_of_Macro_v2.1 >
 
 [update]
 1. 컬러체커 기능 추가 (In editUI)
 2. '매크로 프로그램을 가장 위로' 선택 기능 추가 (In settingUI)
 3. 마우스 클릭 대신 키보드 입력으로 마우스 좌표를 추가하도록 변경 (좌클릭 = F9, 우클릭 = F10)
 4. 매크로 데이터 저장 방식 변경
-"""
+
+* Made by Yoonmen *
+
+- 22.10.21 (SUN) 21:57 -
+======================================
+'''
 
 import sys
 from PySide2.QtWidgets import QApplication, QFileDialog
