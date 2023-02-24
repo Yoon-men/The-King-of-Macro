@@ -1,6 +1,6 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QCheckBox
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
 
@@ -17,14 +17,14 @@ class SettingUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(370, 310)
         self.setWindowTitle("Setting")
-        # self.setWindowIcon(QIcon("KOM.ico"))              # Test code / please unlock the contents of this line.
+        self.setWindowIcon(QIcon("KOM.ico"))
         QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
 
 
         # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(10, 10, 351, 280)
-        self.body_frm.setStyleSheet("QFrmae{\n"
+        self.body_frm.setStyleSheet("QFrame{\n"
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
@@ -37,7 +37,7 @@ class SettingUI(QDialog) :
         self.title_frm = QFrame(self.body_frm)
         self.title_frm.setGeometry(0, 0, 351, 41)
         self.title_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #484848"
+                                        "background-color : #484848;\n"
                                         "border-radius : 10px;\n"
                                     "}")
         
@@ -91,9 +91,62 @@ class SettingUI(QDialog) :
 
 
         # setStopKey_part
+        lb_styleSheet = ("QLabel{\n"
+                            "color : #b1b1b1;\n"
+                        "}")
+
+        self.setStopKey_lb = QLabel(self.body_frm)
+        self.setStopKey_lb.setGeometry(70, 145, 111, 21)
+        self.setStopKey_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.setStopKey_lb.setStyleSheet(lb_styleSheet)
+        self.setStopKey_lb.setText("매크로 중단 키 : ")
+
+        self.setStopKey_bt = QPushButton(self.body_frm)
+        self.setStopKey_bt.setGeometry(190, 146, 91, 21)
+        self.setStopKey_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.setStopKey_bt.setStyleSheet(bt_styleSheet)
+        self.setStopKey_bt.setText("esc")
 
 
-    
+        # winToTop_part
+        self.winToTop_lb = QLabel(self.body_frm)
+        self.winToTop_lb.setGeometry(110, 192, 81, 21)
+        self.winToTop_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.winToTop_lb.setStyleSheet(lb_styleSheet)
+        self.winToTop_lb.setText("가장 위로 : ")
+
+        self.winToTop_ckb = QCheckBox(self.body_frm)
+        self.winToTop_ckb.setGeometry(200, 192, 21, 21)
+        self.winToTop_ckb.setStyleSheet("QCheckBox::indicator::unchecked{\n"
+                                            "image : url(:/img/ckb_unchecked_normal.png);\n"
+                                            "width : 21;\n"
+                                            "height : 21px;\n"
+                                        "}\n"
+                                        "QCheckBox::indicator::unchecked::hover{\n"
+                                            "image : url(:/img/ckb_unchecked_hover.png);\n"
+                                        "}\n"
+                                        
+                                        "QCheckBox::indicator::checked{\n"
+                                            "image : url(:/img/ckb_checked_normal.png);\n"
+                                            "width : 21px;\n"
+                                            "height : 21px;\n"
+                                        "}\n"
+                                        "QCheckBox::indicator::checked::hover{\n"
+                                            "image : url(:/img/ckb_checked_hover.png);\n"
+                                        "}")
+        
+
+        # github_part
+        self.github_bt = QPushButton(self.body_frm)
+        self.github_bt.setGeometry(163, 234, 30, 30)
+        self.github_bt.setStyleSheet("QPushButton{\n"
+                                        "border-radius : 10px;\n"
+                                        "image : url(:/img/github_bt_normal.png);\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "image : url(:/img/github_bt_hover.png);\n"
+                                    "}")
+
 
 
     def setCenterPoint(self, event) : 
@@ -103,6 +156,12 @@ class SettingUI(QDialog) :
         if event.buttons() == Qt.LeftButton : 
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
+
+
+
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : 
+            pass
 
 
 
