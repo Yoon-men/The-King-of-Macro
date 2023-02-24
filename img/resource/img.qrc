@@ -1,23 +1,23 @@
 <RCC>
     <qresource prefix="/img">
-        <file>setting.png</file>
-        <file>Line.png</file>
-        <file>Logo.png</file>
-        <file>exit.png</file>
+        <file>logo_main.png</file>
+        <file>logo_setting.png</file>
+        <file>logo_edit.png</file>
+        <file>logo_addDelay.png</file>
+        <file>logo_addColorChecker.png</file>
+        <file>logo_deletePalette.png</file>
         <file>keep.png</file>
+        <file>exit.png</file>
+        <file>setting.png</file>
+        <file>line.png</file>
         <file>down.png</file>
-        <file>Logo_setting.png</file>
-        <file>Logo_edit.png</file>
-        <file>Logo_addDelay.png</file>
-        <file>github_0.png</file>
-        <file>github_1.png</file>
         <file>ckb_unchecked_normal.png</file>
         <file>ckb_unchecked_hover.png</file>
         <file>ckb_checked_normal.png</file>
         <file>ckb_checked_hover.png</file>
-        <file>Logo_addColorChecker.png</file>
+        <file>github_bt_normal.png</file>
+        <file>github_bt_hover.png</file>
         <file>bt_plus_normal.png</file>
         <file>bt_plus_hover.png</file>
-        <file>Logo_deletePalette.png</file>
     </qresource>
 </RCC>
