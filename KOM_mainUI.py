@@ -1,8 +1,9 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QLineEdit, QComboBox, QRadioButton
+from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QLineEdit, QComboBox, QRadioButton, QListWidget
 from PySide2.QtGui import QIcon, QFont, QFontDatabase, QIntValidator
 from PySide2.QtCore import Qt, QSize
+from time import strftime
 
 
 class MainUI(QMainWindow) : 
@@ -236,7 +237,7 @@ class MainUI(QMainWindow) :
         self.start_typeTime_rb.setText("Time_type")
 
         self.start_cb = QComboBox(self.body_frm)
-        self.start_cb.setGeometry(20, 477, 163, 24)
+        self.start_cb.setGeometry(20, 476, 163, 24)
         self.start_cb.setStyleSheet(cb_styleSheet)
 
         self.start_lb_1 = QLabel(self.body_frm)
@@ -264,6 +265,33 @@ class MainUI(QMainWindow) :
         self.start_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.start_bt.setStyleSheet(bt_styleSheet)
         self.start_bt.setText("실행")
+
+        self.log_lw = QListWidget(self.body_frm)
+        self.log_lw.setGeometry(18, 529, 370, 118)
+        self.log_lw.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.log_lw.setStyleSheet("QListWidget{\n"
+                                        "background-color : #4d4d4d;\n"
+                                        "border-radius : 8px;\n"
+                                        "color : #dddddd;\n"
+                                        "padding-left : 3px;\n"
+                                        "padding-top : 3px;\n"
+                                    "}\n"
+                                    "QListWidget QScrollBar{\n"
+                                        "background-color : #aaaaaa;\n"
+                                    "}\n"
+                                    "QListWidget::item{\n"
+                                        "margin : 1.3px;\n"
+                                    "}\n"
+                                    "QListWidget::item::selected{\n"
+                                        "background-color : #2b2b2b;\n"
+                                        "color : #dddddd;\n"
+                                    "}\n"
+                                    "QListWidget::item::hover{\n"
+                                        "background-color : #434343;\n"
+                                    "}")
+        self.log_lw.setFocusPolicy(Qt.NoFocus)
+        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] <The King of Macro v2.2> - Made by. Yoonmen")
+        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] 환영합니다. DATA.p 파일을 불러와주세요.")
 
 
 
