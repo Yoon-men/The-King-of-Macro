@@ -1,8 +1,8 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox
 from PySide2.QtCore import Qt, QSize
-from PySide2.QtGui import QIcon, QFontDatabase
+from PySide2.QtGui import QIcon, QFontDatabase, QFont
 
 
 class EditUI(QDialog) : 
@@ -63,6 +63,53 @@ class EditUI(QDialog) :
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
         self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # setMacro_part
+        self.setMacro_lb = QLabel(self.body_frm)
+        self.setMacro_lb.setGeometry(71, 70, 111, 21)
+        self.setMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.setMacro_lb.setStyleSheet("QLabel{\n"
+                                            "color : #b1b1b1;\n"
+                                        "}")
+        self.setMacro_lb.setText("편집할 매크로 : ")
+
+        self.setMacro_cb = QComboBox(self.body_frm)
+        self.setMacro_cb.setGeometry(191, 69, 191, 24)
+        self.setMacro_cb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.setMacro_cb.setStyleSheet("QComboBox{\n"
+                                            "background-color : #303030;\n"
+                                            "border-radius : 5px;\n"
+                                            "color : #cccccc;\n"
+                                        "}\n"
+                                        "QComboBox QAbstractItemView{\n"
+                                            "background-color : #303030;\n"
+                                            "border : 2px solid #aaaaaa;\n"
+                                            "border-radius : 0px;\n"
+                                            "color : #cccccc;\n"
+                                            "selection-background-color : #ffffff;\n"
+                                            "selection-color : #000000;\n"
+                                            "outline : 0px;\n"
+                                        "}\n"
+                                        "QComboBox::donw-arrow{\n"
+                                            "image : url(:/img/down.png);\n"
+                                            "width : 18px;\n"
+                                            "height : 18px;\n"
+                                        "}\n"
+                                        "QComboBox::drop-down{\n"
+                                            "border-color : #b1b1b1;\n"
+                                            "padding-right : 10px;\n"
+                                        "}")
+        
+        self.line_1 = QLabel(self.body_frm)
+        self.line_1.setGeometry(101, 114, 241, 16)
+        self.line_1.setStyleSheet("QLabel{\n"
+                                    "image : url(:/img/line.png);\n"
+                                "}")
+        
+
+        # editMacro_part
+
 
 
     def setCenterPoint(self, event) : 
