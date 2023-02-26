@@ -28,7 +28,6 @@ class SettingUI(QDialog) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
