@@ -1,8 +1,8 @@
 from img.img import *
 import sys
 from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QLineEdit, QComboBox, QRadioButton, QListWidget
-from PySide2.QtGui import QIcon, QFont, QFontDatabase, QIntValidator
 from PySide2.QtCore import Qt, QSize
+from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
 from time import strftime
 
 
@@ -28,7 +28,6 @@ class MainUI(QMainWindow) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-                                    
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
