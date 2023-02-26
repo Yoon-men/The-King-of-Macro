@@ -1,6 +1,6 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
 
@@ -28,7 +28,6 @@ class EditUI(QDialog) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-        
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -109,6 +108,85 @@ class EditUI(QDialog) :
         
 
         # editMacro_part
+        self.editMacro_lw = QListWidget(self.body_frm)
+        self.editMacro_lw.setGeometry(16, 159, 294, 416)
+        self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.editMacro_lw.setStyleSheet("QListWidget{\n"
+                                            "background-color : #4d4d4d;\n"
+                                            "border-radius : 8px;\n"
+                                            "color : #dddddd;\n"
+                                            "padding-left : 3px;\n"
+                                            "padding-top : 3px;\n"
+                                        "}\n"
+                                        "QListWidget QScrollBar{\n"
+                                            "background-color : #aaaaaa;\n"
+                                        "}\n"
+                                        "QListWidget::item{\n"
+                                            "margin : 1.3px;\n"
+                                        "}\n"
+                                        "QListWidget::item::selected{\n"
+                                            "background-color : #2b2b2b;\n"
+                                            "color : #dddddd;\n"
+                                        "}\n"
+                                        "QListWidget::item::hover{\n"
+                                            "background-color : #434343;\n"
+                                        "}")
+        self.editMacro_lw.setFocusPolicy(Qt.NoFocus)
+
+        normal_bt_styleSheet = ("QPushButton{\n"
+                                    "background-color : #202020;\n"
+                                    "border : 2px solid #aaaaaa;\n"
+                                    "border-radius : 6px;\n"
+                                    "color : #cccccc;\n"
+                                "}\n"
+                                "QPushButton:hover{\n"
+                                    "background-color : #aaaaaa;\n"
+                                    "color : #222222;\n"
+                                "}")
+
+        working_bt_styleSheet = ("QPushButton{\n"
+                                    "background-color : #aaaaaa;\n"
+                                    "border : 2px solid #aaaaaa;\n"
+                                    "border-radius : 5px;\n"
+                                    "color : #222222;\n"
+                                "}")
+        
+        self.addClick_bt = QPushButton(self.body_frm)
+        self.addClick_bt.setGeometry(326, 159, 100, 24)
+        self.addClick_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addClick_bt.setStyleSheet(normal_bt_styleSheet)
+        self.addClick_bt.setText("클릭 추가")
+
+        self.addKeyboard_bt = QPushButton(self.body_frm)
+        self.addKeyboard_bt.setGeometry(326, 200, 100, 24)
+        self.addKeyboard_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addKeyboard_bt.setStyleSheet(normal_bt_styleSheet)
+        self.addKeyboard_bt.setText("키보드 추가")
+
+        self.addDelay_bt = QPushButton(self.body_frm)
+        self.addDelay_bt.setGeometry(326, 241, 100, 24)
+        self.addDelay_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addDelay_bt.setStyleSheet(normal_bt_styleSheet)
+        self.addDelay_bt.setText("딜레이 추가")
+
+        self.addColorChecker_bt = QPushButton(self.body_frm)
+        self.addColorChecker_bt.setGeometry(326, 282, 100, 24)
+        self.addColorChecker_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addColorChecker_bt.setStyleSheet(normal_bt_styleSheet)
+        self.addColorChecker_bt.setText("컬러체커 추가")
+
+        self.frameLine = QFrame(self)
+        self.frameLine.setGeometry(343, 329, 71, 20)
+        self.frameLine.setFrameShape(QFrame.HLine)
+        self.frameLine.setStyleSheet("QFrame{\n"
+                                            "color : #585858;\n"
+                                        "}")
+        
+        self.delete_bt = QPushButton(self.body_frm)
+        self.delete_bt.setGeometry(326, 367, 100, 24)
+        self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.delete_bt.setStyleSheet(normal_bt_styleSheet)
+        self.delete_bt.setText("삭제")
 
 
 
