@@ -90,7 +90,7 @@ class EditUI(QDialog) :
                                             "selection-color : #000000;\n"
                                             "outline : 0px;\n"
                                         "}\n"
-                                        "QComboBox::donw-arrow{\n"
+                                        "QComboBox::down-arrow{\n"
                                             "image : url(:/img/down.png);\n"
                                             "width : 18px;\n"
                                             "height : 18px;\n"
