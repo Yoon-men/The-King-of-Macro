@@ -1,6 +1,6 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
 
@@ -197,6 +197,192 @@ class EditUI(QDialog) :
         if event.buttons() == Qt.LeftButton : 
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
+
+
+
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : pass
+
+
+
+
+class AddDelayUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+
+        self.addDelayUI()
+
+    def addDelayUI(self) : 
+        # basic_part
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(302, 201)
+        self.setWindowTitle("Add Delay")
+        self.setWindowIcon(QIcon("KOM.ico"))
+        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        
+
+        # body_part
+        self.body_frm = QFrame(self)
+        self.body_frm.setGeometry(10, 10, 290, 173)
+        self.body_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #202020;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(18)
+        self.shadow.setOffset(0, 0)
+        self.body_frm.setGraphicsEffect(self.shadow)
+        
+        self.title_frm = QFrame(self.body_frm)
+        self.title_frm.setGeometry(0, 0, 290, 41)
+        self.title_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #464646;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        self.title_frm.mousePressEvent = self.setCenterPoint
+        self.title_frm.mouseMoveEvent = self.moveWindow
+
+        self.title_lb = QLabel(self.title_frm)
+        self.title_lb.setGeometry(97, 13, 101, 21)
+        self.title_lb.setStyleSheet("QLabel{\n"
+                                        "image : url(:/img/logo_addDelay);\n"
+                                    "}")
+        
+        self.exit_bt = QPushButton(self.body_frm)
+        self.exit_bt.setGeometry(260, 10, 22, 22)
+        self.exit_bt.setStyleSheet("QPushButton{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "border-radius : 10px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #666666;\n"
+                                    "}")
+        icon = QIcon()
+        icon.addPixmap(":/img/exit.png")
+        self.exit_bt.setIcon(icon)
+        self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # addDelay_part
+        self.addDelay_lb = QLabel(self.body_frm)
+        self.addDelay_lb.setGeometry(18, 60, 61, 21)
+        self.addDelay_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.addDelay_lb.setStyleSheet("QLabel{\n"
+                                            "color : #b1b1b1;\n"
+                                        "}")
+        self.addDelay_lb.setText("딜레이 : ")
+
+        self.addDelay_ds = QDoubleSpinBox(self.body_frm)
+        self.addDelay_ds.setGeometry(19, 90, 251, 22)
+        self.addDelay_ds.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.addDelay_ds.setStyleSheet("QDoubleSpinBox{\n"
+                                            "background-color : #303030;\n"
+                                            "border : 2px solid #303030;\n"
+                                            "border-radius : 5px;\n"
+                                            "color : #dddddd;\n"
+                                            "selection-background-color : #ffffff;\n"
+                                            "selection-color : #000000;\n"
+                                        "}\n"
+                                        "QDoubleSpinBox::focus{\n"
+                                            "border : 2px solid #aaaaaa;\n"                 # Test code / please modify the contents of this line.
+                                        "}")
+        self.addDelay_ds.setMaximum(999999999)
+
+        bt_styleSheet = ("QPushButton{\n"
+                            "background-color : #202020;\n"
+                            "border : 2px solid #aaaaaa;\n"
+                            "border-radius : 5px;\n"
+                            "color : #cccccc;\n"
+                        "}\n"
+                        "QPushButton:hover{\n"
+                            "background-color : #aaaaaa;\n"
+                            "color : #222222;\n"
+                        "}")
+
+        self.add_bt = QPushButton(self.body_frm)
+        self.add_bt.setGeometry(58, 133, 81, 24)
+        self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.add_bt.setStyleSheet(bt_styleSheet)
+        self.add_bt.setText("추가")
+
+        self.cancel_bt = QPushButton(self.body_frm)
+        self.cancel_bt.setGeometry(148, 133, 81, 24)
+        self.cancel_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.cancel_bt.setStyleSheet(bt_styleSheet)
+        self.cancel_bt.setText("취소")
+
+
+
+    def setCenterPoint(self, event) : 
+        self.centerPoint = event.globalPos()
+    
+    def moveWindow(self, event) : 
+        if event.buttons() == Qt.LeftButton : 
+            self.move(self.pos() + event.globalPos() - self.centerPoint)
+            self.centerPoint = event.globalPos()
+
+
+
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : pass
+
+
+
+
+class AddColorCheckerUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+
+        self.addColorCheckerUI()
+    
+    def addColorCheckerUI(self) : 
+        # basic_part
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(369, 608)
+        self.setWindowTitle("Add ColorChecker")
+        self.setWindowIcon(QIcon("KOM.ico"))
+        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+
+
+        # body_part
+        self.body_frm = QFrame(self)
+        self.body_frm.setGeometry(10, 5, 351, 601)
+        self.body_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #202020;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(18)
+        self.shadow.setOffset(0, 0)
+        self.body_frm.setGraphicsEffect(self.shadow)
+
+        self.title_frm = QFrame(self.body_frm)
+        self.title_frm.setGeometry(0, 0, 351, 41)
+        self.title_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #464646;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        self.title_frm.mousePressEvent = self.setCenterPoint
+        self.title_frm.mouseMoveEvent = self.moveWindow
+    
+
+
+    def setCenterPoint(self, event) : 
+        self.centerPoint = event.globalPos()
+    
+    def moveWindow(self, event) : 
+        if event.buttons() == Qt.LeftButton : 
+            self.move(self.pos() + event.globalPos() - self.centerPoint)
+            self.centerPoint = event.globalPos()
+
+
+
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : pass
 
 
 
