@@ -1,8 +1,8 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox, QLineEdit
 from PySide2.QtCore import Qt, QSize
-from PySide2.QtGui import QIcon, QFontDatabase, QFont
+from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
 
 
 class EditUI(QDialog) : 
@@ -368,6 +368,85 @@ class AddColorCheckerUI(QDialog) :
                                     "}")
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
+
+        self.title_lb = QLabel(self.body_frm)
+        self.title_lb.setGeometry(93, 13, 181, 16)
+        self.title_lb.setStyleSheet("QLabel{\n"
+                                        "image : url(:/img/logo_addColorChecker);\n"
+                                    "}")
+        
+        self.exit_bt = QPushButton(self.body_frm)
+        self.exit_bt.setGeometry(320, 10, 22, 22)
+        self.exit_bt.setStyleSheet("QPushButton{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "border-radius : 10px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #666666;\n"
+                                    "}")
+        icon = QIcon()
+        icon.addPixmap(":/img/exit.png")
+        self.exit_bt.setIcon(icon)
+        self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # setCoordinate_part
+        self.setCoordinate_bt = QPushButton(self.body_frm)
+        self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
+        self.setCoordinate_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.setCoordinate_bt.setStyleSheet("QPushButton{\n"
+                                                "background-color : #202020;\n"
+                                                "border : 2px solid #aaaaaa;\n"
+                                                "border-radius : 5px;\n"
+                                                "color : #cccccc;\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                                "background-color : #aaaaaa;\n"
+                                                "color : #222222;\n"
+                                            "}")
+        self.setCoordinate_bt.setText("좌표 설정")
+
+        lb_styleSheet = ("QLabel{\n"
+                            "color : #b1b1b1;\n"
+                        "}")
+
+        self.x_coordinate_lb = QLabel(self.body_frm)
+        self.x_coordinate_lb.setGeometry(75, 122, 14, 21)
+        self.x_coordinate_lb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.x_coordinate_lb.setStyleSheet(lb_styleSheet)
+        self.x_coordinate_lb.setText("X")
+
+        le_styleSheet = ("QLineEdit{\n"
+                            "background-color : #303030;\n"
+                            "border : 2px solid #303030;\n"
+                            "border-radius : 5px;\n"
+                            "color : #dddddd;\n"
+                            "selection-background-color : #ffffff;\n"
+                            "selection-color : #000000;\n"
+                        "}\n"
+                        "QLineEdit::focus{\n"
+                            "border-color : #aaaaaa;\n"
+                        "}")
+        
+        self.x_coordinate_le = QLineEdit(self.body_frm)
+        self.x_coordinate_le.setGeometry(95, 120, 67, 24)
+        self.x_coordinate_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.x_coordinate_le.setStyleSheet(le_styleSheet)
+        self.x_coordinate_le.setValidator(QIntValidator())
+        self.x_coordinate_le.setAlignment(Qt.AlignCenter)
+
+        self.y_coordinate_lb = QLabel(self.body_frm)
+        self.y_coordinate_lb.setGeometry(191, 120, 15, 21)
+        self.y_coordinate_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.y_coordinate_lb.setStyleSheet(lb_styleSheet)
+        self.y_coordinate_lb.setText("Y")
+
+        self.y_coordinate_le = QLineEdit(self.body_frm)
+        self.y_coordinate_le.setGeometry(211, 120, 67, 24)
+        self.y_coordinate_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.y_coordinate_le.setStyleSheet(le_styleSheet)
+        self.y_coordinate_le.setValidator(QIntValidator())
+        self.y_coordinate_le.setAlignment(Qt.AlignCenter)
     
 
 
