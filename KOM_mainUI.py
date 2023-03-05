@@ -309,11 +309,19 @@ class MainUI(QMainWindow) :
     def eventFilter(self, object, event) : 
         if object == self.start_typeNum_rb : 
             if event.type() == QEvent.MouseButtonPress : 
-                pass                # Test code / please delete the contents of this line.
+                self.start_cb.setGeometry(20, 476, 163, 24)
+                self.start_lb_1.setGeometry(192, 478, 41, 21)
+                self.start_le.setGeometry(235, 478, 60, 22)
+                self.start_lb_2.setGeometry(304, 478, 16, 21)
+                self.start_lb_2.setText("번")
 
         elif object == self.start_typeTime_rb : 
             if event.type() == QEvent.MouseButtonPress : 
-                pass                # Test code / please delete the contents of this line.
+                self.start_cb.setGeometry(20, 476, 137, 24)
+                self.start_lb_1.setGeometry(166, 478, 41, 21)
+                self.start_le.setGeometry(210, 478, 60, 22)
+                self.start_lb_2.setGeometry(280, 478, 41, 21)
+                self.start_lb_2.setText("초 동안")
 
 
 
