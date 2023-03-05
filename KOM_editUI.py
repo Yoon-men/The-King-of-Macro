@@ -617,13 +617,128 @@ class AddColorCheckerUI(QDialog) :
         self.checkingDelay_lb.setStyleSheet(lb_styleSheet)
         self.checkingDelay_lb.setText("초마다 컬러체크 진행")
 
+        self.add_bt = QPushButton(self.body_frm)
+        self.add_bt.setGeometry(130, 560, 91, 24)
+        self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.add_bt.setStyleSheet(bt_styleSheet)
+        self.add_bt.setText("추가")
 
-    
 
 
     def setCenterPoint(self, event) : 
         self.centerPoint = event.globalPos()
     
+    def moveWindow(self, event) : 
+        if event.buttons() == Qt.LeftButton : 
+            self.move(self.pos() + event.globalPos() - self.centerPoint)
+            self.centerPoint = event.globalPos()
+
+
+
+    def keyPressEvent(self, event) : 
+        if event.key() == Qt.Key_Escape : pass
+
+
+
+
+class DeletePaletteUI(QDialog) : 
+    def __init__(self) : 
+        super().__init__()
+
+        self.deletePaletteUI()
+    
+    def deletePaltteUI(self) : 
+        # basic_part
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(361, 208)
+        self.setWindowTitle("Delete Palette")
+        self.setWindowIcon(QIcon("KOM.ico"))
+        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+
+
+        # body_part
+        self.body_frm = QFrame(self)
+        self.body_frm.setGeometry(10, 10, 346, 173)
+        self.body_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #202020;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(18)
+        self.shadow.setOffset(0, 0)
+        self.body_frm.setGraphicsEffect(self.shadow)
+        
+        self.title_frm = QFrame(self.body_frm)
+        self.title_frm.setGeometry(0, 0, 346, 41)
+        self.title_frm.setStyleSheet("QFrame{\n"
+                                        "background-color : #464646;\n"
+                                        "border-radius : 10px;\n"
+                                    "}")
+        self.title_frm.mousePressEvent = self.setCenterPoint
+        self.title_frm.mouseMoveEvent = self.moveWindow
+
+        self.title_lb = QLabel(self.body_frm)
+        self.title_lb.setGeometry(108, 12, 140, 19)
+        self.title_lb.setStyleSheet("QLabel{\n"
+                                        "image : url(:/img/logo_deletePalette.png);\n"
+                                    "}")
+        
+        self.exit_bt = QPushButton(self.title_frm)
+        self.exit_bt.setGeometry(316, 10, 22, 22)
+        self.exit_bt.setStyleSheet("QPushButton{\n"
+                                        "background-color : #aaaaaa;\n"
+                                        "border-radius : 10px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                        "background-color : #666666;\n"
+                                    "}")
+        icon = QIcon()
+        icon.addPixmap(":/img/exit.png")
+        self.exit_bt.setIcon(icon)
+        self.exit_bt.setIconSize(QSize(22, 11))
+
+
+        # deletePalette_part
+        lb_styleSheet = ("QLabel{\n"
+                            "color : #b1b1b1;\n"
+                        "}")
+
+        self.deletePalette_lb = QLabel(self.body_frm)
+        self.deletePalette_lb.setGeometry(35, 60, 277, 21)
+        self.deletePalette_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.deletePalette_lb.setStyleSheet(lb_styleSheet)
+        self.deletePalette_lb.setText("아래의 팔레트를 정말 삭제하시겠습니까?")
+
+        bt_styleSheet = ("QPushButton{\n"
+                            "background-color : #202020;\n"
+                            "border : 2px solid #aaaaaa;\n"
+                            "border-radius : 5px;\n"
+                            "color : #cccccc;\n"
+                        "}\n"
+                        "QPushButton:hover{\n"
+                            "background-color : #aaaaaa;\n"
+                            "color : #222222;\n"
+                        "}")
+
+        self.delete_bt = QPushButton(self.body_frm)
+        self.delete_bt.setGeometry(91, 133, 81, 24)
+        self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.delete_bt.setStyleSheet(bt_styleSheet)
+        self.delete_bt.setText("삭제")
+
+        self.cancel_bt = QPushButton(self.body_frm)
+        self.cancel_bt.setGeometry(181, 133, 81, 24)
+        self.cancel_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.cancel_bt.setStyleSheet(bt_styleSheet)
+        self.cancel_bt.setText("취소")
+
+
+    
+    def setCenterPoint(self, event) : 
+        self.centerPoint = event.globalPos()
+
     def moveWindow(self, event) : 
         if event.buttons() == Qt.LeftButton : 
             self.move(self.pos() + event.globalPos() - self.centerPoint)
