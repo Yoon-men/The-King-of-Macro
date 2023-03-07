@@ -647,7 +647,7 @@ class DeletePaletteUI(QDialog) :
 
         self.deletePaletteUI()
     
-    def deletePaltteUI(self) : 
+    def deletePaletteUI(self) : 
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
