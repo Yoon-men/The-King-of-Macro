@@ -22,8 +22,8 @@
 
 <br>
 
-# How To Use (v2.1)
-![KOM_v2 1_mockUp](https://user-images.githubusercontent.com/64591335/195372144-15598ea2-3e1a-4bb2-bca4-1391389d3989.png)
+# How To Use (v2.2)
+![KOM_v2 2_mockUp](https://user-images.githubusercontent.com/64591335/232239563-926fc7b6-8942-4783-8d19-a3f20aaf325f.png)
 
 
 【 기본 】
