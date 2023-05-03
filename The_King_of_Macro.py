@@ -1,100 +1,61 @@
 '''
-======================================
-< The_King_of_Macro_v2.1 >
+======================================================================================
+                              < The_King_of_Macro_v2.2 >
 
-[update]
-1. 컬러체커 기능 추가 (In editUI)
-2. '매크로 프로그램을 가장 위로' 선택 기능 추가 (In settingUI)
-3. 마우스 클릭 대신 키보드 입력으로 마우스 좌표를 추가하도록 변경 (좌클릭 = F9, 우클릭 = F10)
-4. 매크로 데이터 저장 방식 변경
+                    귀찮은 반복 작업은 먹지 말고 프로그램에게 양보하세요.
 
-* Made by Yoonmen *
+                                 * Made by Yoonmen *
 
-- 22.10.21 (SUN) 21:57 -
-======================================
+                               - 23.?.? (???) ??:?? -
+======================================================================================
 '''
 
 import sys
 from PySide2.QtWidgets import QApplication, QFileDialog
 from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt
-import os
-import pickle
-import keyboard
-import pyautogui
-import time
-import webbrowser
+
+from time import sleep as timeSleep, strftime
+from os import path
+from pickle import load as pickleLoad, dump as pickleDump
+from keyboard import read_hotkey, is_pressed
+from pyautogui import position, screenshot, moveTo, click, rightClick, hotkey
+from webbrowser import open as openWebBrowser
 from collections import deque
 
 from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
-from KOM_editUI import EditUI
-from KOM_editUI import AddDelayUI
-from KOM_editUI import AddColorCheckerUI
-from KOM_editUI import DeletePaletteUI
+from KOM_editUI import EditUI, AddDelayUI, AddColorCheckerUI, DeletePaletteUI
 
 class Main(QObject) : 
     def __init__(self) : 
         super().__init__()
-        
-        global mainUI
-        mainUI = MainUI()
-        global settingUI
-        settingUI = SettingUI()
-        global editUI
-        editUI = EditUI()
-        global addDelayUI
-        addDelayUI = AddDelayUI()
-        global addColorCheckerUI
-        addColorCheckerUI = AddColorCheckerUI()
-        global deletePaletteUI
-        deletePaletteUI = DeletePaletteUI()
-        addColorCheckerUI.palette_rb_1.installEventFilter(self)
-        addColorCheckerUI.palette_rb_2.installEventFilter(self)
-        addColorCheckerUI.palette_rb_3.installEventFilter(self)
-        addColorCheckerUI.palette_rb_4.installEventFilter(self)
-        addColorCheckerUI.palette_rb_5.installEventFilter(self)
-        addColorCheckerUI.palette_rb_6.installEventFilter(self)
-        addColorCheckerUI.palette_rb_7.installEventFilter(self)
-        addColorCheckerUI.palette_rb_8.installEventFilter(self)
-        addColorCheckerUI.palette_rb_9.installEventFilter(self)
-        addColorCheckerUI.palette_rb_10.installEventFilter(self)
-        addColorCheckerUI.palette_rb_11.installEventFilter(self)
-        addColorCheckerUI.palette_rb_12.installEventFilter(self)
 
-        global thread_basicFn       # For quit
-        thread_basicFn = QThread()
-        thread_basicFn.start()
-        global basicFn
-        basicFn = BasicFn()
-        basicFn.moveToThread(thread_basicFn)
+        global mainUI, settingUI, editUI, addDelayUI, addColorCheckerUI, deletePaletteUI
+        mainUI, settingUI, editUI, addDelayUI, addColorCheckerUI, deletePaletteUI = MainUI(), SettingUI(), EditUI(), AddDelayUI(), AddColorCheckerUI(), DeletePaletteUI()
 
-        global thread_additionalFn_1      # For quit
-        thread_additionalFn_1 = QThread()
-        thread_additionalFn_1.start()
-        global additionalFn_1
-        additionalFn_1 = AdditionalFn_1()
-        additionalFn_1.moveToThread(thread_additionalFn_1)
+        global QMacroThread, macroThread
+        QMacroThread = QThread()
+        QMacroThread.start()
+        macroThread = MacroThread()
+        macroThread.moveToThread(QMacroThread)
 
-        global thread_additionalFn_2        # For quit
-        thread_additionalFn_2 = QThread()
-        thread_additionalFn_2.start()
-        global additionalFn_2
-        additionalFn_2 = AdditionalFn_2()
-        additionalFn_2.moveToThread(thread_additionalFn_2)
+        global QStopKeyListenerThread, stopKeyListenerThread
+        QStopKeyListenerThread = QThread()
+        QStopKeyListenerThread.start()
+        stopKeyListenerThread = StopKeyListenerThread()
+        stopKeyListenerThread.moveToThread(QStopKeyListenerThread)
 
-        global Load_status
-        Load_status = False
+        global QTimerThread, timerThread
+        QTimerThread = QThread()
+        QTimerThread.start()
+        timerThread = TimerThread()
+        timerThread.moveToThread(QTimerThread)
 
-        global stopKey
-        stopKey = "esc"
-
-        global isEditUiOpened
-        isEditUiOpened = False
-
-        global palettePhase
-        palettePhase = 1
-
-        global palette
+        global load_status, stop_key, is_edit_ui_opened, palette_phase, palette
+        load_status = False
+        stop_key = "esc"
+        is_edit_ui_opened = False
+        palette_phase = 1
         palette = deque([(255, 0, 255)])
 
         mainUI.show()
@@ -104,1183 +65,186 @@ class Main(QObject) :
 
 
     def signal(self) : 
-        # << mainUI (1/6) >> --------------------
-
-        ## title_part
+        # < MainUI (1 / 6) > --------------------
         mainUI.keep_bt.clicked.connect(mainUI.showMinimized)
-        mainUI.exit_bt.clicked.connect(self.quit)
+        mainUI.exit_bt.clicked.connect(self.exit)
 
-        mainUI.setting_bt.clicked.connect(self.openSetting)
+        mainUI.setting_bt.clicked.connect(settingUI.show)
 
+        mainUI.addNewMacro_bt.clicked.connect(self.addNewMacro)
+        mainUI.addNewMacro_le.returnPressed.connect(self.addNewMacro)
 
-        ## addName_part
-        mainUI.addName_bt.clicked.connect(basicFn.addName)
-        mainUI.addName_le.returnPressed.connect(basicFn.addName)
+        mainUI.edit_bt.clicked.connect(self.toggleEditUI)
 
+        mainUI.delete_bt.clicked.connect(self.deleteMacro)
 
-        ## edit_part
-        mainUI.edit_bt.clicked.connect(self.openEdit)
-        
-
-        ## delete_part
-        mainUI.delete_bt.clicked.connect(BasicFn.delete)
+        mainUI.start_bt.clicked.connect(macroThread.startMacro)
+        mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
+        mainUI.start_bt.clicked.connect(timerThread.startTimer)
 
 
-        ## start_part
-        mainUI.start_rb_typeNum.clicked.connect(mainUI.typeNum)
-        mainUI.start_rb_typeTime.clicked.connect(mainUI.typeTime)
-
-        mainUI.start_bt_typeNum.clicked.connect(basicFn.startMacro)
-        mainUI.start_bt_typeNum.clicked.connect(additionalFn_1.stopKeyDetector)
-
-        mainUI.start_bt_typeTime.clicked.connect(basicFn.startMacro)
-        mainUI.start_bt_typeTime.clicked.connect(additionalFn_1.stopKeyDetector)
-        mainUI.start_bt_typeTime.clicked.connect(additionalFn_2.timer)
-
-
-
-        # << settingUI (2/6) >> --------------------
-
-        ## title_part
+        # < SettingUI (2 / 6) > --------------------
         settingUI.exit_bt.clicked.connect(settingUI.close)
 
-
-        ## load_part
-        settingUI.load_bt.clicked.connect(BasicFn.load)
-
-
-        ## stopKey_part
-        settingUI.stopKey_bt.clicked.connect(BasicFn.setStopKey)
+        settingUI.load_bt.clicked.connect(self.loadData)
+        settingUI.setStopKey_bt.clicked.connect(self.setStopKey)
+        settingUI.winToTop_ckb.stateChanged.connect(self.setWinToTop)
 
 
-        ## winToTop_part
-        settingUI.winToTop_ckb.stateChanged.connect(BasicFn.winToTop)
-
-
-        ## icon_part
-        settingUI.github_bt.clicked.connect(self.openGithub)
-
-
-
-        # << editUI (3/6) >> --------------------
-
-        ## functional_part
-        editUI.setMacro_cb.currentIndexChanged.connect(basicFn.setMacro)
-        editUI.editMacro_lw.itemClicked.connect(basicFn.checkNum)
-
-
-        ## title_part
+        # < EditUI (3 / 6) > --------------------
         editUI.exit_bt.clicked.connect(self.closeEdit)
 
+        editUI.setMacro_cb.currentIndexChanged.connecgt(self.setMacro)
 
-        ## editMacro_part
-        editUI.addClick_bt.clicked.connect(basicFn.addClick)
-        editUI.addKeyboard_bt.clicked.connect(basicFn.addKeyboard)
+        editUI.addClick_bt.clicked.connect(self.addClick)
+        editUI.addClick_bt.clicked.connect(self.addKeyboard)
         editUI.addDelay_bt.clicked.connect(self.openAddDelay)
         editUI.addColorChecker_bt.clicked.connect(self.openAddColorChecker)
 
-        editUI.delete_bt.clicked.connect(basicFn.detailDelete)
-
-        editUI.up_bt.clicked.connect(basicFn.up)
-        editUI.down_bt.clicked.connect(basicFn.down)
-
-
-
-        # << addDelayUI (4/6) >> --------------------
-
-        ## title_part
-        addDelayUI.exit_bt.clicked.connect(self.closeAddDelay)
-
-
-        ## addDelay_part
-        addDelayUI.add_bt.clicked.connect(basicFn.addDelay)
-        addDelayUI.add_bt.clicked.connect(self.closeAddDelay)
-
-        addDelayUI.cancel_bt.clicked.connect(self.closeAddDelay)
-
-
-
-        # << addColorCheckerUI (5/6) >> --------------------
-
-        ## title_part
-        addColorCheckerUI.exit_bt.clicked.connect(self.closeAddColorChecker)
-
-
-        ## coordinate_part
-        addColorCheckerUI.setCoordinate_bt.clicked.connect(BasicFn.setCoordinate)
-
-
-        ## color_part
-        addColorCheckerUI.addPalette_bt.clicked.connect(BasicFn.addPalette)
-
-        addColorCheckerUI.palette_rb_1.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_2.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_3.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_4.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_5.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_6.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_7.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_8.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_9.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_10.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_11.clicked.connect(BasicFn.setRGB)
-        addColorCheckerUI.palette_rb_12.clicked.connect(BasicFn.setRGB)
-
-        addColorCheckerUI.R_le.textChanged.connect(BasicFn.setColor)
-        addColorCheckerUI.G_le.textChanged.connect(BasicFn.setColor)
-        addColorCheckerUI.B_le.textChanged.connect(BasicFn.setColor)
-
-        addColorCheckerUI.copyColor_bt.clicked.connect(BasicFn.copyColor)
-
-
-        ## addColorChecker_part
-        addColorCheckerUI.add_bt.clicked.connect(basicFn.addColorChecker)
-        addColorCheckerUI.add_bt.clicked.connect(self.closeAddColorChecker)
-
-
-
-        # << deletePaletteUI (6/6) >> --------------------
-
-        ## title_part
-        deletePaletteUI.exit_bt.clicked.connect(self.closeDeletePalette)
-
-
-        ## deletePalette_part
-        deletePaletteUI.delete_bt.clicked.connect(basicFn.deletePalette)
-        deletePaletteUI.delete_bt.clicked.connect(self.closeDeletePalette)
-
-        deletePaletteUI.cancel_bt.clicked.connect(self.closeDeletePalette)
-
-
-
-    def openSetting(self) : 
-        settingUI.show()
+        editUI.delete_bt.clicked.connect(self.deleteMacro)
     
-    def openGithub(self) : 
-        webbrowser.open("https://github.com/Yoon-men/The_King_of_Macro")
 
 
-    def openEdit(self) : 
-        global isEditUiOpened
-        isEditUiOpened = True
-        mainUI.edit_bt_active()
-        editUI.show()
-    
-    def closeEdit(self) : 
-        global isEditUiOpened
-        isEditUiOpened = False
-        mainUI.edit_bt_inactive()
-        editUI.close()
-
-
-    def openAddDelay(self) : 
-        editUI.addDelay_bt_active()
-        addDelayUI.exec_()
-    
-    def closeAddDelay(self) : 
-        editUI.addDelay_bt_inactive()
-        addDelayUI.close()
-
-
-    def openAddColorChecker(self) : 
-        editUI.addColorChecker_bt_active()
-        addColorCheckerUI.exec_()
-
-    def closeAddColorChecker(self) : 
-        editUI.addColorChecker_bt_inactive()
-        addColorCheckerUI.close()
-
-
-    def closeDeletePalette(self) : 
-        deletePaletteUI.close()
-
-
-    def quit(self) : 
-        thread_basicFn.quit()
-        thread_additionalFn_1.quit()
-        thread_additionalFn_2.quit()
+    def exit(self) -> None : 
+        QMacroThread.quit()
+        QTimerThread.quit()
         QCoreApplication.instance().quit()
-    
-
-    def eventFilter(self, object, event) : 
-        global palettePhase
-        if event.type() == QEvent.MouseButtonDblClick : 
-            if len(palette) > 1 : 
-                if addColorCheckerUI.palette_rb_1.isChecked() : RGB = palette[0]
-                elif addColorCheckerUI.palette_rb_2.isChecked() : RGB = palette[1]
-                elif addColorCheckerUI.palette_rb_3.isChecked() : RGB = palette[2]
-                elif addColorCheckerUI.palette_rb_4.isChecked() : RGB = palette[3]
-                elif addColorCheckerUI.palette_rb_5.isChecked() : RGB = palette[4]
-                elif addColorCheckerUI.palette_rb_6.isChecked() : RGB = palette[5]
-                elif addColorCheckerUI.palette_rb_7.isChecked() : RGB = palette[6]
-                elif addColorCheckerUI.palette_rb_8.isChecked() : RGB = palette[7]
-                elif addColorCheckerUI.palette_rb_9.isChecked() : RGB = palette[8]
-                elif addColorCheckerUI.palette_rb_10.isChecked() : RGB = palette[9]
-                elif addColorCheckerUI.palette_rb_11.isChecked() : RGB = palette[10]
-                elif addColorCheckerUI.palette_rb_12.isChecked() : RGB = palette[11]
-                deletePaletteUI.deletePalette_frm.setStyleSheet("QFrame{\n"
-                                                                    f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                                    "border-radius : 6px;\n"
-                                                                    "border : 2px solid #ffffff;\n"
-                                                                "}")
-                deletePaletteUI.exec_()
-            else : 
-                mainUI.noticeBoard.addItem("[system] 등록된 팔레트가 1개밖에 없어 삭제할 수 없습니다.")
-            return True
-
-        return False
 
 
 
-
-# Basic functions for Macro working
-class BasicFn(QObject) : 
-    def load(self) : 
-        global FILE_road
-        FILE_road = str(QFileDialog.getOpenFileName()[0])
-        FILE_name = os.path.basename(FILE_road)
-
-        if FILE_name == "DATA.p" : 
-            mainUI.noticeBoard.addItem("[system] 매크로 데이터를 불러오는데 성공했습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-            # Read the file
-            with open(FILE_road, "rb") as file : 
-                global macroDATA
-                macroDATA = pickle.load(file)
-            # Add names of macros to comboBoxes
-            for i in range(0, len(macroDATA)) : 
-                mainUI.delete_cb.addItem(macroDATA[i][0])
-                mainUI.start_cb.addItem(macroDATA[i][0])
-                editUI.setMacro_cb.addItem(macroDATA[i][0])
-
-            global Load_status
-            Load_status = True
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 매크로 데이터를 불러오는데 실패했습니다.")
-            mainUI.noticeBoard.scrollToBottom()
+    def logging(self, message: str) -> None : 
+        mainUI.log_lw.addItem(f"[{strftime('%Y-%m-%d')}] {message}")
+        mainUI.log_lw.setCurrentRow(mainUI.log_lw.count()-1)
+        mainUI.log_lw.scrollToBottom()
 
 
 
-    def setStopKey(self) : 
-        global stopKey
-        stopKey = keyboard.read_hotkey(suppress = False)
-        settingUI.stopKey_bt.setText(stopKey)
+    def loadData(self) -> None : 
+        global file_path
+        file_path, _ = QFileDialog.getOpenFileName()
+
+        if not file_path : 
+            self.logging("데이터 불러오기를 취소했습니다.")
+            return
+
+        file_name = path.basename(file_path)
+        if file_name != "data.dat" : 
+            self.logging("데이터를 불러오는데 실패했습니다.")
+            return
+
+        with open(file_path, "rb") as file : 
+            global data
+            data = pickleLoad(file)
+        
+        for i in range(len(data)) : 
+            mainUI.delete_cb.addItem(data[i]["name"])
+            mainUI.start_cb.addItem(data[i]["name"])
+            editUI.setMacro_cb.addItem(data[i]["name"])
+
+        global load_status
+        load_status = True
+
+        self.logging("데이터를 불러오는데 성공했습니다.")
 
 
 
-    def winToTop(self) : 
+    def winToTop(self) -> None : 
+        flags = Qt.FramelessWindowHint
         if settingUI.winToTop_ckb.isChecked() : 
-            mainUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            mainUI.show()
-            settingUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            settingUI.show()
-            editUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            if isEditUiOpened == True : 
-                editUI.show()
-            addDelayUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-            deletePaletteUI.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-
-
-        else : 
-            mainUI.setWindowFlags(Qt.FramelessWindowHint)
-            mainUI.show()
-            settingUI.setWindowFlags(Qt.FramelessWindowHint)
-            settingUI.show()
-            editUI.setWindowFlags(Qt.FramelessWindowHint)
-            if isEditUiOpened == True : 
-                editUI.show()
-            addDelayUI.setWindowFlags(Qt.FramelessWindowHint)
-            addColorCheckerUI.setWindowFlags(Qt.FramelessWindowHint)
-
-
-
-    def addName(self) : 
-        if Load_status == True : 
-            macroName = [mainUI.addName_le.text()]
-            mainUI.addName_le.setText("")
-
-            if macroName[0] == "" : 
-                mainUI.noticeBoard.addItem("[system] 공백을 이름으로 사용할 수 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-            else : 
-                # Add name of macro to comboBoxes
-                mainUI.delete_cb.addItem(macroName[0])
-                mainUI.start_cb.addItem(macroName[0])
-                editUI.setMacro_cb.addItem(macroName[0])
-
-                macroDATA.append(macroName)
-
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-
-                mainUI.noticeBoard.addItem("[system] 새로운 매크로를 추가했습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def setMacro(self) : 
-        editUI.editMacro_lw.clear()
-        setObj = editUI.setMacro_cb.currentIndex()
-        for i in range(int((len(macroDATA[setObj]) - 1) / 2)) : 
-            if macroDATA[setObj][(i+1)*2 - 1] == "<L>" : 
-                editUI.editMacro_lw.addItem(f"마우스 {macroDATA[setObj][(i+1) * 2]} 좌클릭")
-            
-            elif macroDATA[setObj][(i+1)*2 - 1] == "<R>" : 
-                editUI.editMacro_lw.addItem(f"마우스 {macroDATA[setObj][(i+1) * 2]} 우클릭")
-
-            elif macroDATA[setObj][(i+1)*2 - 1] == "<K>" : 
-                editUI.editMacro_lw.addItem(f"키보드 < {macroDATA[setObj][(i+1) * 2]} > 입력")
-
-            elif macroDATA[setObj][(i+1)*2 - 1] == "<D>" : 
-                editUI.editMacro_lw.addItem(f"딜레이 < {macroDATA[setObj][(i+1) * 2]} 초 >")
-
-            elif macroDATA[setObj][(i+1)*2 - 1] == "<C>" : 
-                editUI.editMacro_lw.addItem(f"컬러체커 {macroDATA[setObj][(i+1) * 2][0]}에서 {macroDATA[setObj][(i+1) * 2][1]}초마다 실행")
-
-
-
-    def addClick(self) : 
-        if Load_status == True : 
-            if len(macroDATA) != 0 : 
-                editUI.addClick_bt_active()
-                addObj = editUI.setMacro_cb.currentIndex()
-                while True : 
-                    if keyboard.is_pressed("F9") : 
-                        x, y = pyautogui.position()
-                        # Add the data of macro to deque
-                        macroDATA[addObj].append("<L>")
-                        macroDATA[addObj].append((x, y))
-                        # Save the data of macro to file
-                        with open(FILE_road, "wb") as file : 
-                            pickle.dump(macroDATA, file)
-                        # Notify addClick event
-                        mainUI.noticeBoard.addItem("[system] 클릭 좌표가 저장되었습니다.")
-                        mainUI.noticeBoard.scrollToBottom()
-                        editUI.addClick_bt_inactive()
-                        # Apply the update to editMacro_lw
-                        self.setMacro()
-                        break
-
-                    if keyboard.is_pressed("F10") : 
-                        x, y = pyautogui.position()
-                        # Add the data of macro to deque
-                        macroDATA[addObj].append("<R>")
-                        macroDATA[addObj].append((x, y))
-                        # Save the data of macro to file
-                        with open(FILE_road, "wb") as file : 
-                            pickle.dump(macroDATA, file)
-                        # Notify addClick event
-                        mainUI.noticeBoard.addItem("[system] 클릭 좌표가 저장되었습니다.")
-                        mainUI.noticeBoard.scrollToBottom()
-                        editUI.addClick_bt_inactive()
-                        # Apply the update to editMacro_lw
-                        self.setMacro()
-                        break
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
+            flags |= Qt.WindowStaysOnTopHint
         
+        mainUI.setWindowFlags(flags)
+        settingUI.setWindowFlags(flags)
+        editUI.setWindowFlags(flags)
+        addDelayUI.setWindowFlags(flags)
+        addColorCheckerUI.setWindowFlags(flags)
+        deletePaletteUI.setWindowFlags(flags)
 
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def addKeyboard(self) : 
-        if Load_status == True : 
-            if len(macroDATA) != 0 : 
-                editUI.addKeyboard_bt_active()
-                addObj = editUI.setMacro_cb.currentIndex()
-                key = keyboard.read_hotkey(suppress = False)
-                
-                keyCheck = key.split("+")
-                if len(keyCheck) > 3 : 
-                    mainUI.noticeBoard.addItem("[system] 키보드 입력은 삼중 동시 입력까지 지원합니다.")
-                    mainUI.noticeBoard.scrollToBottom()
-                else : 
-                    # Add the data of macro to deque
-                    macroDATA[addObj].append("<K>")
-                    macroDATA[addObj].append(key)
-                    # Save the data of macro to file
-                    with open(FILE_road, "wb") as file : 
-                        pickle.dump(macroDATA, file)
-                    # Notify addKeyboard event
-                    mainUI.noticeBoard.addItem("[system] 키보드 입력이 저장되었습니다.")
-                    mainUI.noticeBoard.scrollToBottom()
-                    # Apply the update to editMacro_lw
-                    self.setMacro()
-                
-                editUI.addKeyboard_bt_inactive()
+        mainUI.show()
+        settingUI.show()
+        if is_edit_ui_opened : editUI.show()
 
 
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
+
+    def addNewMacro(self) -> None : 
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
         
+        macro_name = mainUI.addMacro_le.text()
+        mainUI.addMacro_le.clear()
+        if not macro_name : 
+            self.logging("공백을 이름으로 사용할 수 없습니다.")
+            return
 
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
+        mainUI.delete_cb.addItem(macro_name)
+        mainUI.start_cb.addItem(macro_name)
+        editUI.setMacro_cb.addItem(macro_name)
 
+        global data
+        data.append({"name": macro_name, "data": []})
 
-
-    def addDelay(self) : 
-        if Load_status == True : 
-            if len(macroDATA) != 0 : 
-                addObj = editUI.setMacro_cb.currentIndex()
-                delay = addDelayUI.addDelay_ds.text()
-                # Add the data of macro to deque
-                macroDATA[addObj].append("<D>")
-                macroDATA[addObj].append(delay)
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-                # Notify addDelay event
-                mainUI.noticeBoard.addItem("[system] 딜레이 추가가 완료되었습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-                editUI.addDelay_bt_inactive()
-                # Apply the update to editMacro_lw
-                self.setMacro()
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    # addColorChckerUI
-
-    ## << coordinate_part (1/3) >> --------------------
-    def setCoordinate(self) : 
-        addColorCheckerUI.setCoordinate_bt_active()
-        while True : 
-            if keyboard.is_pressed("F9") or keyboard.is_pressed("F10") : 
-                x, y = pyautogui.position()
-                addColorCheckerUI.X_le.setText(str(x))
-                addColorCheckerUI.Y_le.setText(str(y))
-                addColorCheckerUI.setCoordinate_bt_inactive()
-                break
-
-
-    ##  << palette_part (2/3) >> --------------------
-    def addPalette(self) : 
-        global palettePhase
-        global palette
-
-        if palettePhase == 1 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
-                addColorCheckerUI.palette_rb_2.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        elif palettePhase == 2 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
-                addColorCheckerUI.palette_rb_3.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        elif palettePhase == 3 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
-                addColorCheckerUI.palette_rb_4.show()
-                palette.append((255, 0, 255))   
-                palettePhase += 1
-
-        elif palettePhase == 4 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
-                addColorCheckerUI.palette_rb_5.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
+        with open(file_path, "wb") as file : 
+            pickleDump(data, file)
         
-        elif palettePhase == 5 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
-                addColorCheckerUI.palette_rb_6.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
+        self.logging("새로운 매크로를 추가했습니다.")
 
-        elif palettePhase == 6 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
-                addColorCheckerUI.palette_rb_7.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
 
-        elif palettePhase == 7 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
-                addColorCheckerUI.palette_rb_8.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
 
-        elif palettePhase == 8 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
-                addColorCheckerUI.palette_rb_9.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        elif palettePhase == 9 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
-                addColorCheckerUI.palette_rb_10.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-        elif palettePhase == 10 : 
-                addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
-                addColorCheckerUI.palette_rb_11.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-        
-        elif palettePhase == 11 : 
-                addColorCheckerUI.addPalette_bt.hide()
-                addColorCheckerUI.palette_rb_12.show()
-                palette.append((255, 0, 255))
-                palettePhase += 1
-
-
-
-    def setRGB(self) : 
-        def displayRGB(RGB) : 
-            addColorCheckerUI.R_le.setText(str(RGB[0]))
-            addColorCheckerUI.G_le.setText(str(RGB[1]))
-            addColorCheckerUI.B_le.setText(str(RGB[2]))
-
-        if addColorCheckerUI.palette_rb_1.isChecked() : 
-            displayRGB(palette[0])
-
-        if addColorCheckerUI.palette_rb_2.isChecked() : 
-            displayRGB(palette[1])
-        
-        if addColorCheckerUI.palette_rb_3.isChecked() : 
-            displayRGB(palette[2])
-
-        if addColorCheckerUI.palette_rb_4.isChecked() : 
-            displayRGB(palette[3])
-        
-        if addColorCheckerUI.palette_rb_5.isChecked() : 
-            displayRGB(palette[4])
-        
-        if addColorCheckerUI.palette_rb_6.isChecked() : 
-            displayRGB(palette[5])
-        
-        if addColorCheckerUI.palette_rb_7.isChecked() : 
-            displayRGB(palette[6])
-        
-        if addColorCheckerUI.palette_rb_8.isChecked() : 
-            displayRGB(palette[7])
-
-        if addColorCheckerUI.palette_rb_9.isChecked() : 
-            displayRGB(palette[8])
-        
-        if addColorCheckerUI.palette_rb_10.isChecked() : 
-            displayRGB(palette[9])
-
-        if addColorCheckerUI.palette_rb_11.isChecked() : 
-            displayRGB(palette[10])
-
-        if addColorCheckerUI.palette_rb_12.isChecked() : 
-            displayRGB(palette[11])
-
-
-
-    def setColor(self) : 
-        if addColorCheckerUI.R_le.text() == "" : 
-            addColorCheckerUI.R_le.setText("0")
-            addColorCheckerUI.R_le.selectAll()
-        if int(addColorCheckerUI.R_le.text()) > 255 : 
-            addColorCheckerUI.R_le.setText("255")
-        
-        if addColorCheckerUI.G_le.text() == "" : 
-            addColorCheckerUI.G_le.setText("0")
-            addColorCheckerUI.G_le.selectAll()
-        if int(addColorCheckerUI.G_le.text()) > 255 : 
-            addColorCheckerUI.G_le.setText("255")
-        
-        if addColorCheckerUI.B_le.text() == "" : 
-            addColorCheckerUI.B_le.setText("0")
-            addColorCheckerUI.B_le.selectAll()
-        if int(addColorCheckerUI.B_le.text()) > 255 : 
-            addColorCheckerUI.B_le.setText("255")
-
-        global palette
-        RGB = (int(addColorCheckerUI.R_le.text()), int(addColorCheckerUI.G_le.text()), int(addColorCheckerUI.B_le.text()))
-        styleSheet = ("QRadioButton::indicator{\n"
-                        "width : 46px;\n"
-                        "height : 21px;\n"
-                        f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                        "border-radius : 6px;\n"
-                    "}\n"
-                    "QRadioButton::indicator::checked{\n"
-                        "border : 2px solid #ffffff;\n"
-                    "}")
-
-        if addColorCheckerUI.palette_rb_1.isChecked() : 
-            palette[0] = RGB
-            addColorCheckerUI.palette_rb_1.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_2.isChecked() : 
-            palette[1] = RGB
-            addColorCheckerUI.palette_rb_2.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_3.isChecked() : 
-            palette[2] = RGB
-            addColorCheckerUI.palette_rb_3.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_4.isChecked() : 
-            palette[3] = RGB
-            addColorCheckerUI.palette_rb_4.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_5.isChecked() : 
-            palette[4] = RGB
-            addColorCheckerUI.palette_rb_5.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_6.isChecked() : 
-            palette[5] = RGB
-            addColorCheckerUI.palette_rb_6.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_7.isChecked() : 
-            palette[6] = RGB
-            addColorCheckerUI.palette_rb_7.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_8.isChecked() : 
-            palette[7] = RGB
-            addColorCheckerUI.palette_rb_8.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_9.isChecked() : 
-            palette[8] = RGB
-            addColorCheckerUI.palette_rb_9.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_10.isChecked() : 
-            palette[9] = RGB
-            addColorCheckerUI.palette_rb_10.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_11.isChecked() : 
-            palette[10] = RGB
-            addColorCheckerUI.palette_rb_11.setStyleSheet(styleSheet)
-
-        if addColorCheckerUI.palette_rb_12.isChecked() : 
-            palette[11] = RGB
-            addColorCheckerUI.palette_rb_12.setStyleSheet(styleSheet)
-
-
-
-    def copyColor(self) : 
-        try : 
-            if addColorCheckerUI.X_le.text() == "" or addColorCheckerUI.Y_le.text() == "" : 
-                mainUI.noticeBoard.addItem("[system] 좌표 설정 후 다시 시도해주십시오.")
-                mainUI.noticeBoard.scrollToBottom()
-            else : 
-                RGB = pyautogui.screenshot().getpixel((int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text())))
-                addColorCheckerUI.R_le.setText(str(RGB[0]))
-                addColorCheckerUI.G_le.setText(str(RGB[1]))
-                addColorCheckerUI.B_le.setText(str(RGB[2]))
-
-        except : 
-            mainUI.noticeBoard.addItem("[system] 좌표컬러복사 기능은 현재 메인 스크린만 지원합니다.")
-
-
-
-    def deletePalette(self) : 
-        if addColorCheckerUI.palette_rb_1.isChecked() : del palette[0]
-        elif addColorCheckerUI.palette_rb_2.isChecked() : del palette[1]
-        elif addColorCheckerUI.palette_rb_3.isChecked() : del palette[2]
-        elif addColorCheckerUI.palette_rb_4.isChecked() : del palette[3]
-        elif addColorCheckerUI.palette_rb_5.isChecked() : del palette[4]
-        elif addColorCheckerUI.palette_rb_6.isChecked() : del palette[5]
-        elif addColorCheckerUI.palette_rb_7.isChecked() : del palette[6]
-        elif addColorCheckerUI.palette_rb_8.isChecked() : del palette[7]
-        elif addColorCheckerUI.palette_rb_9.isChecked() : del palette[8]
-        elif addColorCheckerUI.palette_rb_10.isChecked() : del palette[9]
-        elif addColorCheckerUI.palette_rb_11.isChecked() : del palette[10]
-        elif addColorCheckerUI.palette_rb_12.isChecked() : del palette[11]
-        
-        styleSheet = ("QRadioButton::indicator{\n"
-                            "width : 46px;\n"
-                            "height : 21px;\n"
-                            "background-color : rgb(255, 0, 255);\n"
-                            "border-radius : 6px;\n"
-                        "}\n"
-                        "QRadioButton::indicator::checked{\n"
-                            "border : 2px solid #ffffff;\n"
-                        "}")
-        global palettePhase
-        if palettePhase == 12 : 
-            addColorCheckerUI.palette_rb_12.hide()
-            addColorCheckerUI.palette_rb_12.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
-            addColorCheckerUI.addPalette_bt.show()
-        elif palettePhase == 11 : 
-            addColorCheckerUI.palette_rb_11.hide()
-            addColorCheckerUI.palette_rb_11.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
-        elif palettePhase == 10 : 
-            addColorCheckerUI.palette_rb_10.hide()
-            addColorCheckerUI.palette_rb_10.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
-        elif palettePhase == 9 : 
-            addColorCheckerUI.palette_rb_9.hide()
-            addColorCheckerUI.palette_rb_9.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
-        elif palettePhase == 8 : 
-            addColorCheckerUI.palette_rb_8.hide()
-            addColorCheckerUI.palette_rb_8.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
-        elif palettePhase == 7 : 
-            addColorCheckerUI.palette_rb_7.hide()
-            addColorCheckerUI.palette_rb_7.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
-        elif palettePhase == 6 : 
-            addColorCheckerUI.palette_rb_6.hide()
-            addColorCheckerUI.palette_rb_6.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
-        elif palettePhase == 5 : 
-            addColorCheckerUI.palette_rb_5.hide()
-            addColorCheckerUI.palette_rb_5.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
-        elif palettePhase == 4 : 
-            addColorCheckerUI.palette_rb_4.hide()
-            addColorCheckerUI.palette_rb_4.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
-        elif palettePhase == 3 : 
-            addColorCheckerUI.palette_rb_3.hide()
-            addColorCheckerUI.palette_rb_3.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
-        elif palettePhase == 2 : 
-            addColorCheckerUI.palette_rb_2.hide()
-            addColorCheckerUI.palette_rb_2.setStyleSheet(styleSheet)
-            addColorCheckerUI.addPalette_bt.setGeometry(133, 216, 21, 21)
-
-        palettePhase -= 1
-
-        RGB = palette[0]
-        addColorCheckerUI.palette_rb_1.setStyleSheet("QRadioButton::indicator{\n"
-                                                        "width : 46px;\n"
-                                                        "height : 21px;\n"
-                                                        f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                        "border-radius : 6px;\n"
-                                                    "}\n"
-                                                    "QRadioButton::indicator::checked{\n"
-                                                        "border : 2px solid #ffffff;\n"
-                                                    "}")
-        if palettePhase >= 2 : 
-            RGB = palette[1]
-            addColorCheckerUI.palette_rb_2.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 3 : 
-            RGB = palette[2]
-            addColorCheckerUI.palette_rb_3.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 4 : 
-            RGB = palette[3]
-            addColorCheckerUI.palette_rb_4.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 5 : 
-            RGB = palette[4]
-            addColorCheckerUI.palette_rb_5.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 6 : 
-            RGB = palette[5]
-            addColorCheckerUI.palette_rb_6.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 7 : 
-            RGB = palette[6]
-            addColorCheckerUI.palette_rb_7.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 8 : 
-            RGB = palette[7]
-            addColorCheckerUI.palette_rb_8.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 9 : 
-            RGB = palette[8]
-            addColorCheckerUI.palette_rb_9.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 10 : 
-            RGB = palette[9]
-            addColorCheckerUI.palette_rb_10.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-        if palettePhase >= 11 : 
-            RGB = palette[10]
-            addColorCheckerUI.palette_rb_11.setStyleSheet("QRadioButton::indicator{\n"
-                                                            "width : 46px;\n"
-                                                            "height : 21px;\n"
-                                                            f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
-                                                            "border-radius : 6px;\n"
-                                                        "}\n"
-                                                        "QRadioButton::indicator::checked{\n"
-                                                            "border : 2px solid #ffffff;\n"
-                                                        "}")
-
-        basicFn.setRGB()
-
-
-
-    ## << addColorChecker_part (3/3) >> --------------------
-    def addColorChecker(self) : 
-        if Load_status == True : 
-            if len(macroDATA) != 0 : 
-                if (addColorCheckerUI.X_le.text() != "") and (addColorCheckerUI.Y_le.text() != "") : 
-                    addObj = editUI.setMacro_cb.currentIndex()
-                    # Add the data of macro to deque
-                    macroDATA[addObj].append("<C>")
-                    coordinate = (int(addColorCheckerUI.X_le.text()), int(addColorCheckerUI.Y_le.text()))
-                    box = [coordinate, int(addColorCheckerUI.checkingDelay_le.text()), palette]
-                    macroDATA[addObj].append(box)
-                    # Save the data of macro to file
-                    with open(FILE_road, "wb") as file : 
-                        pickle.dump(macroDATA, file)
-                    # Notify addColorChecker event
-                    mainUI.noticeBoard.addItem("[system] 컬러체커가 저장되었습니다.")
-                    mainUI.noticeBoard.scrollToBottom()
-                    # Apply the update to editMacro_lw
-                    self.setMacro()
-
-
-                else : 
-                    mainUI.noticeBoard.addItem("[system] 설정된 좌표가 없어 컬러체커를 추가할 수 없습니다.")
-                    mainUI.noticeBoard.scrollToBottom()
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def detailDelete(self) : 
-        if Load_status == True : 
-            delObj = editUI.editMacro_lw.currentRow()
-            if delObj != -1 : 
-                mainObj = editUI.setMacro_cb.currentIndex()
-                # Delete the data of detail macro in deque
-                del macroDATA[mainObj][(delObj+1)*2 - 1 : (delObj+1)*2 + 1]
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-                # Notify detailDelete event
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-                # Apply the update to editMacro_lw
-                self.setMacro()
-            
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def checkNum(self) : 
-        mainObj = editUI.setMacro_cb.currentIndex()
-        checkObj = editUI.editMacro_lw.currentRow()
-
-        if checkObj == 0 : 
-            editUI.up_bt.setEnabled(False)
-            editUI.down_bt.setEnabled(True)
-
-        elif checkObj == int((len(macroDATA[mainObj])-3)/2) : 
-            editUI.up_bt.setEnabled(True)
-            editUI.down_bt.setEnabled(False)
-
-        else : 
-            editUI.up_bt.setEnabled(True)
-            editUI.down_bt.setEnabled(True)
-
-
-
-    def up(self) : 
-        if Load_status == True : 
-            moveObj = editUI.editMacro_lw.currentRow()
-            mainObj = editUI.setMacro_cb.currentIndex()
-
-            if moveObj == -1 : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-            else : 
-                # Type swap
-                macroDATA[mainObj][moveObj*2 + 1], macroDATA[mainObj][moveObj*2 - 1] = macroDATA[mainObj][moveObj*2 - 1], macroDATA[mainObj][moveObj*2 + 1]
-                # Skill swap
-                macroDATA[mainObj][moveObj*2 + 2], macroDATA[mainObj][moveObj * 2] = macroDATA[mainObj][moveObj * 2], macroDATA[mainObj][moveObj*2 + 2]
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-                # Apply the update to editMacro_lw
-                self.setMacro()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
+    def toggleEditUI(self) : 
+        global is_edit_ui_opened
+        editUI.show() if not is_edit_ui_opened else editUI.close()
+        is_edit_ui_opened = not is_edit_ui_opened
     
 
-    def down(self) : 
-        if Load_status == True : 
-            mainObj = editUI.setMacro_cb.currentIndex()
-            moveObj = editUI.editMacro_lw.currentRow()
-            
-            if moveObj == -1 : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
 
-            else : 
-                # Type swap
-                macroDATA[mainObj][(moveObj+1)*2 - 1], macroDATA[mainObj][(moveObj+1)*2 + 1] = macroDATA[mainObj][(moveObj+1)*2 + 1], macroDATA[mainObj][(moveObj+1)*2 - 1]
-                # Skill swap
-                macroDATA[mainObj][(moveObj+1) * 2], macroDATA[mainObj][(moveObj+2) * 2] = macroDATA[mainObj][(moveObj+2) * 2], macroDATA[mainObj][(moveObj+1) * 2]
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-                # Apply the update to editMacro_lw
-                self.setMacro()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def delete(self) : 
-        if Load_status == True : 
-            if len(macroDATA) != 0 : 
-                delObj = mainUI.delete_cb.currentIndex()
-                # Remove the data of macro in comboBoxes
-                mainUI.delete_cb.removeItem(delObj)
-                mainUI.start_cb.removeItem(delObj)
-                editUI.setMacro_cb.removeItem(delObj)
-                # Delete the data of macro in deque
-                del macroDATA[delObj]
-                # Save the data of macro to file
-                with open(FILE_road, "wb") as file : 
-                    pickle.dump(macroDATA, file)
-
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로를 삭제했습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
-
-
-
-    def startMacro(self) : 
-        if Load_status == True : 
-            from KOM_mainUI import startType
-
-            global power
-            power = True
-            
-            if len(macroDATA) != 0 : 
-                if startType == "typeNum" : 
-                    mainUI.start_bt_typeNum_active()
-                elif startType == "typeTime" : 
-                    mainUI.start_bt_typeTime_active()
-
-                startObj = mainUI.start_cb.currentIndex()
-                
-                global runTime
-                runTime = int(mainUI.start_le.text())
-
-                macroNum = int((len(macroDATA[startObj])-1) / 2)
-
-                while power == True and runTime != 0 : 
-                    for i in range(macroNum) : 
-                        if power == False : 
-                            break
-
-                        # << Left Click (1/5) >> --------------------
-                        if macroDATA[startObj][(i+1)*2 - 1] == "<L>" : 
-                            pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
-                            time.sleep(0.05)
-                            pyautogui.click(macroDATA[startObj][(i+1) * 2])
-                        
-
-                        # << Right Click (2/5) >> --------------------
-                        elif macroDATA[startObj][(i+1)*2 - 1] == "<R>" : 
-                            pyautogui.moveTo(macroDATA[startObj][(i+1) * 2])
-                            time.sleep(0.05)
-                            pyautogui.rightClick(macroDATA[startObj][(i+1) * 2])
-
-                        
-                        # << Keyboard input (3/5) >> --------------------
-                        elif macroDATA[startObj][(i+1)*2 - 1] == "<K>" : 
-                            key = macroDATA[startObj][(i+1) * 2].split("+")
-                            if len(key) == 1 : 
-                                pyautogui.hotkey(key[0])
-                            elif len(key) == 2 : 
-                                pyautogui.hotkey(key[0], key[1])
-                            elif len(key) == 3 : 
-                                pyautogui.hotkey(key[0], key[1], key[2])
-
-
-                        # << Delay (4/5) >> --------------------
-                        elif macroDATA[startObj][(i+1)*2 - 1] == "<D>" : 
-                            delay = float(macroDATA[startObj][(i+1) * 2])
-                            for _ in range(int(delay)) : 
-                                if power == False : 
-                                    break
-                                time.sleep(1)
-                            time.sleep(float(delay) - int(delay))
-
-
-                        # << ColorCheck (5/5) >> --------------------
-                        elif macroDATA[startObj][(i+1)*2 - 1] == "<C>" : 
-                            checkStatus = False
-                            while (power == True) and (checkStatus == False) : 
-                                coordinate = macroDATA[startObj][(i+1) * 2][0]
-                                pyautogui.moveTo(coordinate)
-                                for palette in macroDATA[startObj][(i+1) * 2][2] : 
-                                    RGB = pyautogui.screenshot().getpixel(coordinate)
-                                    if RGB == palette : checkStatus = True ; break
-                                if checkStatus == True : break
-                                time.sleep(macroDATA[startObj][(i+1) * 2][1])
-
-
-                    if startType == "typeNum" : 
-                        runTime -= 1
-                        mainUI.start_le.setText(str(runTime))
-
-                mainUI.noticeBoard.addItem("[system] 매크로 작업이 완료되었습니다.")
-                mainUI.noticeBoard.scrollToBottom()
-
-                power = False
-
-                if startType == "typeNum" : 
-                    mainUI.start_bt_typeNum_inactive()
-                elif startType == "typeTime" : 
-                    mainUI.start_bt_typeTime_inactive()
-
-
-            else : 
-                mainUI.noticeBoard.addItem("[system] 선택한 매크로가 없습니다.")
-                mainUI.noticeBoard.scrollToBottom()
+    def deleteMacro(self) : 
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
         
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
 
-        else : 
-            mainUI.noticeBoard.addItem("[system] 아직 매크로 데이터를 불러오지 않았습니다.")
-            mainUI.noticeBoard.scrollToBottom()
+        target = mainUI.delete_cb.currentIndex()
+        
+        mainUI.delete_cb.removeItem(target)
+        mainUI.start_cb.removeItem(target)
+        editUI.setMacro_cb.removeItem(target)
 
+        del data[target]
 
-            
-
-# Additional functions for Macro working.
-class AdditionalFn_1(QObject) : 
-    def stopKeyDetector(self) : 
-        global power
-
-        while power == True : 
-            if keyboard.is_pressed(stopKey) : 
-                power = False
-                break
-
+        with open(file_path, "wb") as file : 
+            pickleDump(data, file)
+        
+        self.logging("선택한 매크로를 삭제했습니다.")
 
 
 
-class AdditionalFn_2(QObject) : 
-    def timer(self) : 
-        global runTime
-        global power
 
-        while (runTime > 0) and (power == True) : 
-            time.sleep(1)
-            runTime -= 1
-            mainUI.start_le.setText(str(runTime))
+class MacroThread(QObject) : 
+    def startMacro(self) : 
+        if mainUI.start_typeNum_rb.isChecked() : 
+            pass                # Test code / please delete the contents of this line.
 
-        power = False
+        elif mainUI.start_typeTime_rb.isChecked() : 
+            pass                # Test code / please delete the contents of this line.
+
+
+
+
+class StopKeyListenerThread(QObject) : 
+    def detectStopKey(self) : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+
+class TimerThread(QObject) : 
+    def startTimer(self) : 
+        if mainUI.start_typeTime_rb.isChecked() : 
+            pass                # Test code / please delete the contents of this line.
 
 
 
