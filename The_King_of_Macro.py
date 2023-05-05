@@ -94,9 +94,9 @@ class Main(QObject) :
 
 
         # < EditUI (3 / 6) > --------------------
-        editUI.exit_bt.clicked.connect(self.closeEdit)
+        editUI.exit_bt.clicked.connect(self.toggleEditUI)
 
-        editUI.setMacro_cb.currentIndexChanged.connecgt(self.setMacro)
+        editUI.setMacro_cb.currentIndexChanged.connect(self.setMacro)
 
         editUI.addClick_bt.clicked.connect(self.addClick)
         editUI.addClick_bt.clicked.connect(self.addKeyboard)
@@ -197,7 +197,26 @@ class Main(QObject) :
         global is_edit_ui_opened
         editUI.show() if not is_edit_ui_opened else editUI.close()
         is_edit_ui_opened = not is_edit_ui_opened
-    
+
+
+
+    def setMacro(self) : 
+        editUI.editMacro_lw.clear()
+        
+        target = editUI.setMacro_cb.currentText()
+        for i in range(0, len(data[target]), 2) : 
+            key, action = data[target][i], data[target][i+1]
+            if key == "<L>" : 
+                editUI.editMacro_lw.addItem(f"마우스 {action} 좌클릭")
+            elif key == "<R>" : 
+                editUI.editMacro_lw.addItem(f"마우스 {action} 우클릭")
+            elif key == "<K>" : 
+                editUI.editMacro_lw.addItem(f"키보드 < {action} > 입력")
+            elif key == "<D>" : 
+                editUI.editMacro_lw.addItem(f"딜레이 < {action} > 초")
+            elif key == "<C>" : 
+                editUI.editMacro_lw.addItem(f"컬러체커 {action[0]}에서 {action[1]}초마다 진행")
+
 
 
     def deleteMacro(self) : 
