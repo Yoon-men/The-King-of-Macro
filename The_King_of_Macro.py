@@ -12,12 +12,12 @@
 
 import sys
 from PySide2.QtWidgets import QApplication, QFileDialog
-from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt
+from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt, Signal
 
 from time import sleep as timeSleep, strftime
 from os import path
 from pickle import load as pickleLoad, dump as pickleDump
-from keyboard import read_hotkey, is_pressed
+from keyboard import read_hotkey, is_pressed as keyboard_is_pressed
 from pyautogui import position, screenshot, moveTo, click, rightClick, hotkey
 from webbrowser import open as openWebBrowser
 from collections import deque
@@ -79,6 +79,8 @@ class Main(QObject) :
         mainUI.delete_bt.clicked.connect(self.deleteMacro)
 
         mainUI.start_bt.clicked.connect(macroThread.startMacro)
+        macroThread.loggingSignal.connect(self.logging)
+        macroThread.startSignal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
 
@@ -182,7 +184,7 @@ class Main(QObject) :
         editUI.setMacro_cb.addItem(macro_name)
 
         global data
-        data.append({"name": macro_name, "data": []})
+        data[macro_name] = []
 
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
@@ -222,12 +224,35 @@ class Main(QObject) :
 
 
 
+    def joyGo(self) : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
 
 class MacroThread(QObject) : 
+    loggingSignal = Signal(str)
+    startSignal = Signal()
+
     def startMacro(self) : 
+        if not load_status : 
+            self.loggingSignal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+        
+        if not data : 
+            self.loggingSignal.emit("선택한 매크로가 없습니다.")
+            return
+
+        target = mainUI.start_cb.currentIndex()
+        # action_num = int(data)                # Test code / please modify the contents of this line.
+
+        global power, action_time_limit
+        power = True
+        action_time_limit = int(mainUI.start_le.text())
+
+
         if mainUI.start_typeNum_rb.isChecked() : 
             pass                # Test code / please delete the contents of this line.
-
         elif mainUI.start_typeTime_rb.isChecked() : 
             pass                # Test code / please delete the contents of this line.
 
@@ -236,7 +261,11 @@ class MacroThread(QObject) :
 
 class StopKeyListenerThread(QObject) : 
     def detectStopKey(self) : 
-        pass                # Test code / please delete the contents of this line.
+        global power
+        while power == True : 
+            if keyboard_is_pressed(stop_key) : 
+                power = False
+                break
 
 
 
@@ -244,7 +273,11 @@ class StopKeyListenerThread(QObject) :
 class TimerThread(QObject) : 
     def startTimer(self) : 
         if mainUI.start_typeTime_rb.isChecked() : 
-            pass                # Test code / please delete the contents of this line.
+            global action_time_limit, power
+            while (power == True) and (action_time_limit > 0) : 
+                timeSleep(1)
+                action_time_limit -= 1
+                pass                # Test code / please delete the contents of this line.
 
 
 
