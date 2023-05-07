@@ -2,7 +2,7 @@
 ======================================================================================
                               < The_King_of_Macro_v2.2 >
 
-                    귀찮은 반복 작업은 먹지 말고 프로그램에게 양보하세요.
+                     이제부터 귀찮은 일들은 모두 사라집니다. 3, 2, 1!
 
                                  * Made by Yoonmen *
 
@@ -18,7 +18,7 @@ from time import sleep as timeSleep, strftime
 from os import path
 from pickle import load as pickleLoad, dump as pickleDump
 from keyboard import read_hotkey as keyboard_read_hotkey, is_pressed as keyboard_is_pressed
-from pyautogui import position, screenshot, moveTo, click, rightClick, hotkey
+from pyautogui import position as getPosition, screenshot, moveTo, click, rightClick, hotkey
 from webbrowser import open as openWebBrowser
 from collections import deque
 
@@ -203,9 +203,9 @@ class Main(QObject) :
     def setMacro(self) : 
         editUI.editMacro_lw.clear()
         
-        target = editUI.setMacro_cb.currentText()
-        for i in range(0, len(data[target]), 2) : 
-            key, action = data[target][i], data[target][i+1]
+        target_name = editUI.setMacro_cb.currentText()
+        for i in range(0, len(data[target_name]), 2) : 
+            key, action = data[target_name][i], data[target_name][i+1]
             if key == "<L>" : 
                 editUI.editMacro_lw.addItem(f"마우스 {action} 좌클릭")
             elif key == "<R>" : 
@@ -216,6 +216,36 @@ class Main(QObject) :
                 editUI.editMacro_lw.addItem(f"딜레이 < {action} > 초")
             elif key == "<C>" : 
                 editUI.editMacro_lw.addItem(f"컬러체커 {action[0]}에서 {action[1]}초마다 진행")
+
+
+
+    def addClick(self) : 
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
+        
+        target_name = editUI.setMacro_cb.currentText()
+
+        def save_click_position(click_type) : 
+            x, y = getPosition()
+            data[target_name].append(click_type)
+            data[target_name].append((x, y))
+            with open(file_path, "wb") as file : 
+                pickleDump(data, file)
+            self.logging("클릭 좌표가 저장되었습니다.")
+            self.setMacro()
+
+        while True : 
+            if keyboard_is_pressed("F9") : 
+                save_click_position("<L>")
+                break
+            elif keyboard_is_pressed("F10") : 
+                save_click_position("<R>")
+                break
 
 
 
@@ -270,7 +300,7 @@ class MacroThread(QObject) :
             self.loggingSignal.emit("선택한 매크로가 없습니다.")
             return
 
-        target = mainUI.start_cb.currentIndex()
+        target = mainUI.start_cb.currentIndex()                 # Test code / please modify the contents of this line.
         # action_num = int(data)                # Test code / please modify the contents of this line.
 
         global power, action_time_limit
