@@ -101,16 +101,16 @@ class MainUI(QMainWindow) :
         self.line_3.setStyleSheet(line_styleSheet)
 
 
-        # addMacro_part
+        # addNewMacro_part
         lb_styleSheet = ("QLabel{\n"
                             "color : #b1b1b1;\n"
                         "}")
 
-        self.addMacro_lb = QLabel(self.body_frm)
-        self.addMacro_lb.setGeometry(20, 76, 151, 21)
-        self.addMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.addMacro_lb.setStyleSheet(lb_styleSheet)
-        self.addMacro_lb.setText("Add Macro's Name")
+        self.addNewMacro_lb = QLabel(self.body_frm)
+        self.addNewMacro_lb.setGeometry(20, 76, 151, 21)
+        self.addNewMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.addNewMacro_lb.setStyleSheet(lb_styleSheet)
+        self.addNewMacro_lb.setText("Add Macro's Name")
 
         le_styleSheet = ("QLineEdit{\n"
                             "background-color : #303030;\n"
@@ -124,10 +124,10 @@ class MainUI(QMainWindow) :
                             "border-color : #aaaaaa;\n"
                         "}")
 
-        self.addMacro_le = QLineEdit(self.body_frm)
-        self.addMacro_le.setGeometry(20, 107, 300, 24)
-        self.addMacro_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.addMacro_le.setStyleSheet(le_styleSheet)
+        self.addNewMacro_le = QLineEdit(self.body_frm)
+        self.addNewMacro_le.setGeometry(20, 107, 300, 24)
+        self.addNewMacro_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.addNewMacro_le.setStyleSheet(le_styleSheet)
         
         bt_styleSheet = ("QPushButton{\n"
                             "background-color : #202020;\n"
@@ -140,11 +140,11 @@ class MainUI(QMainWindow) :
                             "color : #222222;\n"
                         "}")
 
-        self.addMacro_bt = QPushButton(self.body_frm)
-        self.addMacro_bt.setGeometry(328, 107, 60, 24)
-        self.addMacro_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.addMacro_bt.setStyleSheet(bt_styleSheet)
-        self.addMacro_bt.setText("추가")
+        self.addNewMacro_bt = QPushButton(self.body_frm)
+        self.addNewMacro_bt.setGeometry(328, 107, 60, 24)
+        self.addNewMacro_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addNewMacro_bt.setStyleSheet(bt_styleSheet)
+        self.addNewMacro_bt.setText("추가")
 
 
         # edit_part
