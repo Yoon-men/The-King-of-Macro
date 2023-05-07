@@ -45,7 +45,7 @@ class MainUI(QMainWindow) :
         self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(112, 11, 185, 24)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_main.png);\n"
+                                        "image : url(:/img/title_main.png);\n"
                                     "}")
 
         title_bt_styleSheet = ("QPushButton{\n"
@@ -292,7 +292,8 @@ class MainUI(QMainWindow) :
                                     "}")
         self.log_lw.setFocusPolicy(Qt.NoFocus)
         self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] <The King of Macro v2.2> - Made by. Yoonmen")
-        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] 환영합니다. DATA.p 파일을 불러와주세요.")
+        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] 환영합니다. data.dat 파일을 불러와주세요.")
+        self.log_lw.setCurrentRow(self.log_lw.count()-1)
 
 
 
@@ -322,6 +323,8 @@ class MainUI(QMainWindow) :
                 self.start_le.setGeometry(210, 478, 60, 22)
                 self.start_lb_2.setGeometry(280, 478, 41, 21)
                 self.start_lb_2.setText("초 동안")
+
+        return False
 
 
 
