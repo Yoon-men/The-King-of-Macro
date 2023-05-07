@@ -17,7 +17,7 @@ from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt, Signa
 from time import sleep as timeSleep, strftime
 from os import path
 from pickle import load as pickleLoad, dump as pickleDump
-from keyboard import read_hotkey, is_pressed as keyboard_is_pressed
+from keyboard import read_hotkey as keyboard_read_hotkey, is_pressed as keyboard_is_pressed
 from pyautogui import position, screenshot, moveTo, click, rightClick, hotkey
 from webbrowser import open as openWebBrowser
 from collections import deque
@@ -90,7 +90,7 @@ class Main(QObject) :
 
         settingUI.load_bt.clicked.connect(self.loadData)
         settingUI.setStopKey_bt.clicked.connect(self.setStopKey)
-        settingUI.winToTop_ckb.stateChanged.connect(self.setWinToTop)
+        settingUI.winToTop_ckb.stateChanged.connect(self.winToTop)
 
 
         # < EditUI (3 / 6) > --------------------
@@ -228,18 +228,26 @@ class Main(QObject) :
             self.logging("선택한 매크로가 없습니다.")
             return
 
-        target = mainUI.delete_cb.currentIndex()
+        target_index = mainUI.delete_cb.currentIndex()
+        target_name = mainUI.delete_cb.currentText()
         
-        mainUI.delete_cb.removeItem(target)
-        mainUI.start_cb.removeItem(target)
-        editUI.setMacro_cb.removeItem(target)
+        mainUI.delete_cb.removeItem(target_index)
+        mainUI.start_cb.removeItem(target_index)
+        editUI.setMacro_cb.removeItem(target_index)
 
-        del data[target]
+        del data[target_name]
 
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
         
         self.logging("선택한 매크로를 삭제했습니다.")
+
+
+
+    def setStopKey(self) : 
+        global stop_key
+        stop_key = keyboard_read_hotkey(suppress=False)
+        settingUI.setStopKey_bt.setText(stop_key)
 
 
 
