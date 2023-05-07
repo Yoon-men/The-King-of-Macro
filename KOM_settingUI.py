@@ -46,7 +46,7 @@ class SettingUI(QDialog) :
         self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(137, 13, 81, 21)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_setting.png);\n"
+                                        "image : url(:/img/title_setting.png);\n"
                                     "}")
         
         self.exit_bt = QPushButton(self.body_frm)
