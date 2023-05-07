@@ -46,7 +46,7 @@ class EditUI(QDialog) :
         self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(200, 14, 51, 18)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_edit.png);\n"
+                                        "image : url(:/img/title_edit.png);\n"
                                     "}")
         
         self.exit_bt = QPushButton(self.title_frm)
@@ -229,7 +229,6 @@ class AddDelayUI(QDialog) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-        
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -247,7 +246,7 @@ class AddDelayUI(QDialog) :
         self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(97, 13, 101, 21)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_addDelay);\n"
+                                        "image : url(:/img/title_addDelay);\n"
                                     "}")
         
         self.exit_bt = QPushButton(self.body_frm)
@@ -354,7 +353,6 @@ class AddColorCheckerUI(QDialog) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-        
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -372,7 +370,7 @@ class AddColorCheckerUI(QDialog) :
         self.title_lb = QLabel(self.body_frm)
         self.title_lb.setGeometry(93, 13, 181, 16)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_addColorChecker);\n"
+                                        "image : url(:/img/title_addColorChecker);\n"
                                     "}")
         
         self.exit_bt = QPushButton(self.body_frm)
@@ -664,7 +662,6 @@ class DeletePaletteUI(QDialog) :
                                         "background-color : #202020;\n"
                                         "border-radius : 10px;\n"
                                     "}")
-        
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -682,7 +679,7 @@ class DeletePaletteUI(QDialog) :
         self.title_lb = QLabel(self.body_frm)
         self.title_lb.setGeometry(108, 12, 140, 19)
         self.title_lb.setStyleSheet("QLabel{\n"
-                                        "image : url(:/img/logo_deletePalette.png);\n"
+                                        "image : url(:/img/title_deletePalette.png);\n"
                                     "}")
         
         self.exit_bt = QPushButton(self.title_frm)
