@@ -249,6 +249,41 @@ class Main(QObject) :
 
 
 
+    def addKeyboard(self) : 
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+        
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
+
+        target_name = editUI.setMacro_cb.currentText()
+
+        key = keyboard_read_hotkey(suppress=False).split("+")
+        data[target_name].append("<K>")
+        data[target_name].append(key)
+        with open(file_path, "wb") as file : 
+            pickleDump(data, file)
+        self.logging("키보드 입력이 저장되었습니다.")
+        self.setMacro()
+
+
+
+    def addDelay(self) : 
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+        
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
+        
+        target_name = editUI.setMacro_cb.currentText()
+        pass                # Test code / please delete the contents of this line.
+
+
+
     def deleteMacro(self) : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
