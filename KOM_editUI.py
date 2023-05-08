@@ -667,17 +667,6 @@ class DeletePaletteUI(QDialog) :
         self.deletePalette_lb.setStyleSheet(StyleSheets.label.value)
         self.deletePalette_lb.setText("아래의 팔레트를 정말 삭제하시겠습니까?")
 
-        StyleSheets.push_button = ("QPushButton{\n.value"
-                            "background-color : #202020;\n"
-                            "border : 2px solid #aaaaaa;\n"
-                            "border-radius : 5px;\n"
-                            "color : #cccccc;\n"
-                        "}\n"
-                        "QPushButton:hover{\n"
-                            "background-color : #aaaaaa;\n"
-                            "color : #222222;\n"
-                        "}")
-
         self.delete_bt = QPushButton(self.body_frm)
         self.delete_bt.setGeometry(91, 133, 81, 24)
         self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
