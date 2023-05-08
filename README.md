@@ -2,7 +2,7 @@
 
 <a href = "https://github.com/Yoon-men/The_King_of_Macro/releases/tag/v2.0"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Yoon-men/The_King_of_Macro?color=b461f2&logo=github"></a>
 
-# "What the fuck is this?"
+# What is this?
 사용자 설정 매크로 프로그램입니다.
 
 이 프로그램을 사용하기 위해서는 매크로 데이터를 저장해두는 'DATA.p' 파일이 필요합니다.
