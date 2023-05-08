@@ -335,8 +335,8 @@ class MacroThread(QObject) :
             self.loggingSignal.emit("선택한 매크로가 없습니다.")
             return
 
-        target = mainUI.start_cb.currentIndex()                 # Test code / please modify the contents of this line.
-        # action_num = int(data)                # Test code / please modify the contents of this line.
+        target_name = mainUI.start_cb.currentText()
+        action_num = len(data[target_name])
 
         global power, action_time_limit
         power = True
