@@ -71,6 +71,8 @@ class Main(QObject) :
 
         mainUI.setting_bt.clicked.connect(settingUI.show)
 
+        macroThread.logging_singal.connect(self.logging)
+
         mainUI.addNewMacro_bt.clicked.connect(self.addNewMacro)
         mainUI.addNewMacro_le.returnPressed.connect(self.addNewMacro)
 
@@ -79,8 +81,7 @@ class Main(QObject) :
         mainUI.delete_bt.clicked.connect(self.deleteMacro)
 
         mainUI.start_bt.clicked.connect(macroThread.startMacro)
-        macroThread.loggingSignal.connect(self.logging)
-        macroThread.startSignal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
+        macroThread.start_signal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
 
@@ -100,8 +101,8 @@ class Main(QObject) :
 
         editUI.addClick_bt.clicked.connect(self.addClick)
         editUI.addClick_bt.clicked.connect(self.addKeyboard)
-        editUI.addDelay_bt.clicked.connect(self.openAddDelay)
-        editUI.addColorChecker_bt.clicked.connect(self.openAddColorChecker)
+        editUI.addDelay_bt.clicked.connect(lambda: addDelayUI.exec_())
+        editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
 
         editUI.delete_bt.clicked.connect(self.deleteMacro)
     
@@ -204,7 +205,7 @@ class Main(QObject) :
         editUI.editMacro_lw.clear()
         
         target_name = editUI.setMacro_cb.currentText()
-        
+
         for i in range(0, len(data[target_name]), 2) : 
             key, action = data[target_name][i], data[target_name][i+1]
             if key == "<L>" : 
@@ -328,31 +329,31 @@ class Main(QObject) :
 
 
     def joyGo(self) : 
+        # 이 함수에는 start_bt의 styleSheet 관련 내용이 들어갈 것만 같다.               # Test code / please delete the contents of this line.
         pass                # Test code / please delete the contents of this line.
 
 
 
 
 class MacroThread(QObject) : 
-    loggingSignal = Signal(str)
-    startSignal = Signal()
+    logging_singal = Signal(str)
+    start_signal = Signal()
 
     def startMacro(self) : 
         if not load_status : 
-            self.loggingSignal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
+            self.logging_singal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
             return
         
         if not data : 
-            self.loggingSignal.emit("선택한 매크로가 없습니다.")
+            self.logging_singal.emit("선택한 매크로가 없습니다.")
             return
 
         target_name = mainUI.start_cb.currentText()
-        action_num = len(data[target_name])
+        action_total_num = len(data[target_name])
 
         global power, action_time_limit
         power = True
         action_time_limit = int(mainUI.start_le.text())
-
 
         if mainUI.start_typeNum_rb.isChecked() : 
             pass                # Test code / please delete the contents of this line.
@@ -374,12 +375,15 @@ class StopKeyListenerThread(QObject) :
 
 
 class TimerThread(QObject) : 
+    # 이 라인에 '시간 수정 시그널'이 추가될 것 같다.                # Test code / please delete the contents of this line.
+
     def startTimer(self) : 
         if mainUI.start_typeTime_rb.isChecked() : 
-            global action_time_limit, power
+            global power, action_time_limit
             while (power == True) and (action_time_limit > 0) : 
                 timeSleep(1)
                 action_time_limit -= 1
+
                 pass                # Test code / please delete the contents of this line.
 
 
