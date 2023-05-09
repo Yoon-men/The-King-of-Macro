@@ -360,11 +360,6 @@ class MacroThread(QObject) :
         power = True
         macro_run_limit = int(mainUI.start_le.text())
 
-        if mainUI.start_typeNum_rb.isChecked() : 
-            pass                # Test code / please delete the contents of this line.
-        elif mainUI.start_typeTime_rb.isChecked() : 
-            pass                # Test code / please delete the contents of this line.
-
         while (power == True) and (macro_run_limit > 0) : 
             for i in range(0, len(data[target_name]), 2) : 
                 if power == False : break
