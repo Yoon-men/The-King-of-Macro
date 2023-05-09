@@ -355,7 +355,6 @@ class MacroThread(QObject) :
             return
 
         target_name = mainUI.start_cb.currentText()
-        action_total_num = len(data[target_name])
 
         global power, macro_run_limit
         power = True
@@ -365,6 +364,26 @@ class MacroThread(QObject) :
             pass                # Test code / please delete the contents of this line.
         elif mainUI.start_typeTime_rb.isChecked() : 
             pass                # Test code / please delete the contents of this line.
+
+        while (power == True) and (macro_run_limit > 0) : 
+            for i in range(0, len(data[target_name]), 2) : 
+                if power == False : break
+
+                key, action = data[target_name][i], data[target_name][i+1]
+                if (key == "<L>") or (key == "<R>") : 
+                    moveTo(action)
+                    timeSleep(0.05)
+                    click(action) if key == "<L>" else rightClick(action)
+                elif key == "<K>" : 
+                    keys = action.split("+")
+                    hotkey(*keys)
+                elif key == "<D>" : 
+                    for _ in range(int(action)) : 
+                        if power == False : break
+                        timeSleep(1)
+                    timeSleep(action - int(action))
+                elif key == "<C>" : 
+                    pass                # Test code / please delete the contents of this line.
 
 
 
