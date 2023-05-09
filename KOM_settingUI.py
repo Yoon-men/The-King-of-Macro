@@ -3,6 +3,24 @@ import sys
 from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QCheckBox
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
+from enum import Enum
+
+
+class StyleSheets(Enum) : 
+    push_button = ("QPushButton{\n"
+                        "background-color : #202020;\n"
+                        "border : 2px solid #aaaaaa;\n"
+                        "border-radius : 6px;\n"
+                        "color : #cccccc;\n"
+                    "}\n"
+                    "QPushButton:hover{\n"
+                        "background-color : #aaaaaa;\n"
+                        "color : #222222;\n"
+                    "}")
+    
+    label = ("QLabel{\n"
+                "color : #b1b1b1;\n"
+            "}")
 
 
 class SettingUI(QDialog) : 
@@ -71,39 +89,24 @@ class SettingUI(QDialog) :
         
 
         # load_part
-        bt_styleSheet = ("QPushButton{\n"
-                            "background-color : #202020;\n"
-                            "border : 2px solid #aaaaaa;\n"
-                            "border-radius : 6px;\n"
-                            "color : #cccccc;\n"
-                        "}\n"
-                        "QPushButton:hover{\n"
-                            "background-color : #aaaaaa;\n"
-                            "color : #222222;\n"
-                        "}")
-
         self.load_bt = QPushButton(self.body_frm)
         self.load_bt.setGeometry(20, 63, 311, 24)
         self.load_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.load_bt.setStyleSheet(bt_styleSheet)
+        self.load_bt.setStyleSheet(StyleSheets.push_button)
         self.load_bt.setText("불러오기")
 
 
         # setStopKey_part
-        lb_styleSheet = ("QLabel{\n"
-                            "color : #b1b1b1;\n"
-                        "}")
-
         self.setStopKey_lb = QLabel(self.body_frm)
         self.setStopKey_lb.setGeometry(70, 145, 111, 21)
         self.setStopKey_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.setStopKey_lb.setStyleSheet(lb_styleSheet)
+        self.setStopKey_lb.setStyleSheet(StyleSheets.label)
         self.setStopKey_lb.setText("매크로 중단 키 : ")
 
         self.setStopKey_bt = QPushButton(self.body_frm)
         self.setStopKey_bt.setGeometry(190, 146, 91, 21)
         self.setStopKey_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.setStopKey_bt.setStyleSheet(bt_styleSheet)
+        self.setStopKey_bt.setStyleSheet(StyleSheets.push_button)
         self.setStopKey_bt.setText("esc")
 
 
@@ -111,7 +114,7 @@ class SettingUI(QDialog) :
         self.winToTop_lb = QLabel(self.body_frm)
         self.winToTop_lb.setGeometry(110, 192, 81, 21)
         self.winToTop_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.winToTop_lb.setStyleSheet(lb_styleSheet)
+        self.winToTop_lb.setStyleSheet(StyleSheets.label)
         self.winToTop_lb.setText("가장 위로 : ")
 
         self.winToTop_ckb = QCheckBox(self.body_frm)
