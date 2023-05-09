@@ -204,6 +204,7 @@ class Main(QObject) :
         editUI.editMacro_lw.clear()
         
         target_name = editUI.setMacro_cb.currentText()
+        
         for i in range(0, len(data[target_name]), 2) : 
             key, action = data[target_name][i], data[target_name][i+1]
             if key == "<L>" : 
@@ -236,6 +237,7 @@ class Main(QObject) :
             data[target_name].append((x, y))
             with open(file_path, "wb") as file : 
                 pickleDump(data, file)
+
             self.logging("클릭 좌표가 저장되었습니다.")
             self.setMacro()
 
@@ -265,6 +267,7 @@ class Main(QObject) :
         data[target_name].append(key)
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
+
         self.logging("키보드 입력이 저장되었습니다.")
         self.setMacro()
 
@@ -280,7 +283,15 @@ class Main(QObject) :
             return
         
         target_name = editUI.setMacro_cb.currentText()
-        pass                # Test code / please delete the contents of this line.
+
+        delay = float(addDelayUI.addDelay_le.text())
+        data[target_name].append("<D>")
+        data[target_name].append(delay)
+        with open(file_path, "wb") as file : 
+            pickleDump(data, file)
+
+        self.logging("딜레이가 저장되었습니다.")
+        self.setMacro()
 
 
 
