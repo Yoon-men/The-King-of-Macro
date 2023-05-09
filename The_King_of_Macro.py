@@ -106,7 +106,46 @@ class Main(QObject) :
         editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
 
         editUI.delete_bt.clicked.connect(self.deleteMacro)
-    
+
+
+        # < addDelayUI (4 / 6) > --------------------
+        addDelayUI.exit_bt.clicked.connect(addDelayUI.close)
+
+        addDelayUI.add_bt.clicked.connect(self.addDelay)
+        addDelayUI.add_bt.clicked.connect(addDelayUI.close)
+
+        addDelayUI.cancel_bt.clicked.connect(addDelayUI.close)
+
+
+        # < addColorCheckerUI (5 / 6) --------------------
+        addColorCheckerUI.exit_bt.clicked.connect(addColorCheckerUI.close)
+
+        addColorCheckerUI.setCoordinate_bt.clicked.connect(self.setCoordinate)
+
+        addColorCheckerUI.addPalette_bt.clicked.connect(self.addNewPalette)
+
+        addColorCheckerUI.palette_rb_1.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_2.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_3.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_4.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_5.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_6.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_7.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_8.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_9.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_10.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_11.clicked.connect(self.setRGB)
+        addColorCheckerUI.palette_rb_12.clicked.connect(self.setRGB)
+
+        addColorCheckerUI.R_le.textChanged.connect(self.setColor)
+        addColorCheckerUI.G_le.textChanged.connect(self.setColor)
+        addColorCheckerUI.B_le.textChanged.connect(self.setColor)
+
+        addColorCheckerUI.copyColor_bt.clicked.connect(self.copyColor)
+
+        addColorCheckerUI.add_bt.clicked.connect(self.addColorChecker)
+        addColorCheckerUI.add_bt.clicked.connect(addColorCheckerUI.close)
+
 
 
     def exit(self) -> None : 
@@ -297,6 +336,36 @@ class Main(QObject) :
 
 
 
+    def setCoordinate(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+    def addColorChecker(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+    def addNewPalette(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+    def setRGB(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+    def setColor(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
+    def copyColor(self) -> None : 
+        pass                # Test code / please delete the contents of this line.
+
+
+
     def deleteMacro(self) -> None : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
@@ -378,7 +447,10 @@ class MacroThread(QObject) :
                         timeSleep(1)
                     timeSleep(action - int(action))
                 elif key == "<C>" : 
-                    pass                # Test code / please delete the contents of this line.
+                    is_found = False
+                    while (power == True) and (is_found == False) : 
+
+                        pass                # Test code / please delete the contents of this line.
 
 
 
