@@ -7,6 +7,24 @@ from enum import Enum
 
 
 class StyleSheets(Enum) : 
+    body_frame = ("QFrame{\n"
+                        "background-color : #202020;\n"
+                        "border-radius : 10px;\n"
+                    "}")
+    
+    title_frame = ("QFrame{\n"
+                        "background-color : #464646;\n"
+                        "border-radius : 10px;\n"
+                    "}")
+    
+    exit_button = ("QPushButton{\n"
+                        "background-color : #aaaaaa;\n"
+                        "border-radius : 10px;\n"
+                    "}\n"
+                    "QPushButton:hover{\n"
+                        "background-color : #666666;\n"
+                    "}")
+
     line_edit = ("QLineEdit{\n"
                         "background-color : #303030;\n"
                         "border : 2px solid #303030;\n"
@@ -48,6 +66,51 @@ class StyleSheets(Enum) :
                     "border : 2px solid #ffffff;\n"
                 "}")
     
+    combo_box = ("QComboBox{\n"
+                    "background-color : #303030;\n"
+                    "border-radius : 5px;\n"
+                    "color : #cccccc;\n"
+                "}\n"
+                "QComboBox QAbstractItemView{\n"
+                    "background-color : #303030;\n"
+                    "border : 2px solid #aaaaaa;\n"
+                    "border-radius : 0px;\n"
+                    "color : #cccccc;\n"
+                    "selection-background-color : #ffffff;\n"
+                    "selection-color : #000000;\n"
+                    "outline : 0px;\n"
+                "}\n"
+                "QComboBox::down-arrow{\n"
+                    "image : url(:/img/down.png);\n"
+                    "width : 18px;\n"
+                    "height : 18px;\n"
+                "}\n"
+                "QComboBox::drop-down{\n"
+                    "border-color : #b1b1b1;\n"
+                    "padding-right : 10px;\n"
+                "}")
+    
+    list_widget = ("QListWidget{\n"
+                        "background-color : #4d4d4d;\n"
+                        "border-radius : 8px;\n"
+                        "color : #dddddd;\n"
+                        "padding-left : 3px;\n"
+                        "padding-top : 3px;\n"
+                    "}\n"
+                    "QListWidget QScrollBar{\n"
+                        "background-color : #aaaaaa;\n"
+                    "}\n"
+                    "QListWidget::item{\n"
+                        "margin : 1.3px;\n"
+                    "}\n"
+                    "QListWidget::item::selected{\n"
+                        "background-color : #2b2b2b;\n"
+                        "color : #dddddd;\n"
+                    "}\n"
+                    "QListWidget::item::hover{\n"
+                        "background-color : #434343;\n"
+                    "}")
+    
 
 class EditUI(QDialog) : 
     def __init__(self) : 
@@ -68,10 +131,7 @@ class EditUI(QDialog) :
         # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(3, 2, 441, 591)
-        self.body_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #202020;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -79,10 +139,7 @@ class EditUI(QDialog) :
         
         self.title_frm = QFrame(self.body_frm)
         self.title_frm.setGeometry(0, 0, 441, 41)
-        self.title_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #464646;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
         
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
@@ -95,13 +152,7 @@ class EditUI(QDialog) :
         
         self.exit_bt = QPushButton(self.title_frm)
         self.exit_bt.setGeometry(410, 10, 22, 22)
-        self.exit_bt.setStyleSheet("QPushButton{\n"
-                                        "background-color : #aaaaaa;\n"
-                                        "border-radius : 10px;\n"
-                                    "}\n"
-                                    "QPushButton:hover{\n"
-                                        "background-color : #666666;\n"
-                                    "}")
+        self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -112,69 +163,24 @@ class EditUI(QDialog) :
         self.setMacro_lb = QLabel(self.body_frm)
         self.setMacro_lb.setGeometry(71, 70, 111, 21)
         self.setMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.setMacro_lb.setStyleSheet("QLabel{\n"
-                                            "color : #b1b1b1;\n"
-                                        "}")
+        self.setMacro_lb.setStyleSheet(StyleSheets.label.value)
         self.setMacro_lb.setText("편집할 매크로 : ")
 
         self.setMacro_cb = QComboBox(self.body_frm)
         self.setMacro_cb.setGeometry(191, 69, 191, 24)
         self.setMacro_cb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.setMacro_cb.setStyleSheet("QComboBox{\n"
-                                            "background-color : #303030;\n"
-                                            "border-radius : 5px;\n"
-                                            "color : #cccccc;\n"
-                                        "}\n"
-                                        "QComboBox QAbstractItemView{\n"
-                                            "background-color : #303030;\n"
-                                            "border : 2px solid #aaaaaa;\n"
-                                            "border-radius : 0px;\n"
-                                            "color : #cccccc;\n"
-                                            "selection-background-color : #ffffff;\n"
-                                            "selection-color : #000000;\n"
-                                            "outline : 0px;\n"
-                                        "}\n"
-                                        "QComboBox::down-arrow{\n"
-                                            "image : url(:/img/down.png);\n"
-                                            "width : 18px;\n"
-                                            "height : 18px;\n"
-                                        "}\n"
-                                        "QComboBox::drop-down{\n"
-                                            "border-color : #b1b1b1;\n"
-                                            "padding-right : 10px;\n"
-                                        "}")
+        self.setMacro_cb.setStyleSheet(StyleSheets.combo_box.value)
         
         self.line_1 = QLabel(self.body_frm)
         self.line_1.setGeometry(101, 114, 241, 16)
-        self.line_1.setStyleSheet("QLabel{\n"
-                                    "image : url(:/img/line.png);\n"
-                                "}")
+        self.line_1.setStyleSheet(StyleSheets.line.value)
         
 
         # editMacro_part
         self.editMacro_lw = QListWidget(self.body_frm)
         self.editMacro_lw.setGeometry(16, 159, 294, 416)
         self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.editMacro_lw.setStyleSheet("QListWidget{\n"
-                                            "background-color : #4d4d4d;\n"
-                                            "border-radius : 8px;\n"
-                                            "color : #dddddd;\n"
-                                            "padding-left : 3px;\n"
-                                            "padding-top : 3px;\n"
-                                        "}\n"
-                                        "QListWidget QScrollBar{\n"
-                                            "background-color : #aaaaaa;\n"
-                                        "}\n"
-                                        "QListWidget::item{\n"
-                                            "margin : 1.3px;\n"
-                                        "}\n"
-                                        "QListWidget::item::selected{\n"
-                                            "background-color : #2b2b2b;\n"
-                                            "color : #dddddd;\n"
-                                        "}\n"
-                                        "QListWidget::item::hover{\n"
-                                            "background-color : #434343;\n"
-                                        "}")
+        self.editMacro_lw.setStyleSheet(StyleSheets.list_widget.value)
         self.editMacro_lw.setFocusPolicy(Qt.NoFocus)
         
         self.addClick_bt = QPushButton(self.body_frm)
@@ -251,10 +257,7 @@ class AddDelayUI(QDialog) :
         # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(10, 10, 290, 173)
-        self.body_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #202020;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -262,10 +265,7 @@ class AddDelayUI(QDialog) :
         
         self.title_frm = QFrame(self.body_frm)
         self.title_frm.setGeometry(0, 0, 290, 41)
-        self.title_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #464646;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
 
@@ -277,13 +277,7 @@ class AddDelayUI(QDialog) :
         
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(260, 10, 22, 22)
-        self.exit_bt.setStyleSheet("QPushButton{\n"
-                                        "background-color : #aaaaaa;\n"
-                                        "border-radius : 10px;\n"
-                                    "}\n"
-                                    "QPushButton:hover{\n"
-                                        "background-color : #666666;\n"
-                                    "}")
+        self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -294,15 +288,13 @@ class AddDelayUI(QDialog) :
         self.addDelay_lb = QLabel(self.body_frm)
         self.addDelay_lb.setGeometry(18, 60, 61, 21)
         self.addDelay_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.addDelay_lb.setStyleSheet("QLabel{\n"
-                                            "color : #b1b1b1;\n"
-                                        "}")
+        self.addDelay_lb.setStyleSheet(StyleSheets.label.value)
         self.addDelay_lb.setText("딜레이 : ")
 
         self.addDelay_le = QLineEdit(self.body_frm)
         self.addDelay_le.setGeometry(19, 90, 251, 22)
         self.addDelay_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.addDelay_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.addDelay_le.setStyleSheet(StyleSheets.line.value)
 
         self.add_bt = QPushButton(self.body_frm)
         self.add_bt.setGeometry(58, 133, 81, 24)
@@ -353,10 +345,7 @@ class AddColorCheckerUI(QDialog) :
         # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(10, 5, 351, 601)
-        self.body_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #202020;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -364,10 +353,7 @@ class AddColorCheckerUI(QDialog) :
 
         self.title_frm = QFrame(self.body_frm)
         self.title_frm.setGeometry(0, 0, 351, 41)
-        self.title_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #464646;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
 
@@ -379,13 +365,7 @@ class AddColorCheckerUI(QDialog) :
         
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(320, 10, 22, 22)
-        self.exit_bt.setStyleSheet("QPushButton{\n"
-                                        "background-color : #aaaaaa;\n"
-                                        "border-radius : 10px;\n"
-                                    "}\n"
-                                    "QPushButton:hover{\n"
-                                        "background-color : #666666;\n"
-                                    "}")
+        self.exit_bt.setStyleSheet(StyleSheets.exit_button)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -396,16 +376,7 @@ class AddColorCheckerUI(QDialog) :
         self.setCoordinate_bt = QPushButton(self.body_frm)
         self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
         self.setCoordinate_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.setCoordinate_bt.setStyleSheet("QPushButton{\n"
-                                                "background-color : #202020;\n"
-                                                "border : 2px solid #aaaaaa;\n"
-                                                "border-radius : 5px;\n"
-                                                "color : #cccccc;\n"
-                                            "}\n"
-                                            "QPushButton:hover{\n"
-                                                "background-color : #aaaaaa;\n"
-                                                "color : #222222;\n"
-                                            "}")
+        self.setCoordinate_bt.setStyleSheet(StyleSheets.push_button)
         self.setCoordinate_bt.setText("좌표 설정")
 
         self.x_coordinate_lb = QLabel(self.body_frm)
@@ -417,7 +388,7 @@ class AddColorCheckerUI(QDialog) :
         self.x_coordinate_le = QLineEdit(self.body_frm)
         self.x_coordinate_le.setGeometry(95, 120, 67, 24)
         self.x_coordinate_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.x_coordinate_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.x_coordinate_le.setStyleSheet(StyleSheets.line.value)
         self.x_coordinate_le.setValidator(QIntValidator())
         self.x_coordinate_le.setAlignment(Qt.AlignCenter)
 
@@ -430,7 +401,7 @@ class AddColorCheckerUI(QDialog) :
         self.y_coordinate_le = QLineEdit(self.body_frm)
         self.y_coordinate_le.setGeometry(211, 120, 67, 24)
         self.y_coordinate_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.y_coordinate_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.y_coordinate_le.setStyleSheet(StyleSheets.line.value)
         self.y_coordinate_le.setValidator(QIntValidator())
         self.y_coordinate_le.setAlignment(Qt.AlignCenter)
         
@@ -519,7 +490,7 @@ class AddColorCheckerUI(QDialog) :
         self.R_le = QLineEdit(self.body_frm)
         self.R_le.setGeometry(92, 339, 50, 24)
         self.R_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.R_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.R_le.setStyleSheet(StyleSheets.line.value)
         self.R_le.setValidator(QIntValidator())
         self.R_le.setAlignment(Qt.AlignCenter)
         self.R_le.setText("255")
@@ -533,7 +504,7 @@ class AddColorCheckerUI(QDialog) :
         self.G_le = QLineEdit(self.body_frm)
         self.G_le.setGeometry(92, 372, 50, 24)
         self.G_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.G_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.G_le.setStyleSheet(StyleSheets.line.value)
         self.G_le.setValidator(QIntValidator())
         self.R_le.setAlignment(Qt.AlignCenter)
         self.R_le.setText("0")
@@ -547,7 +518,7 @@ class AddColorCheckerUI(QDialog) :
         self.B_le = QLineEdit(self.body_frm)
         self.B_le.setGeometry(92, 405, 50, 24)
         self.B_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.B_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.B_le.setStyleSheet(StyleSheets.line.value)
         self.B_le.setValidator(QIntValidator())
         self.B_le.setAlignment(Qt.AlignCenter)
         self.B_le.setText("255")
@@ -567,7 +538,7 @@ class AddColorCheckerUI(QDialog) :
         self.checkingDelay_le = QLineEdit(self.body_frm)
         self.checkingDelay_le.setGeometry(80, 504, 60, 22)
         self.checkingDelay_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.checkingDelay_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.checkingDelay_le.setStyleSheet(StyleSheets.line.value)
         self.checkingDelay_le.setValidator(QIntValidator())
         self.checkingDelay_le.setAlignment(Qt.AlignCenter)
         self.checkingDelay_le.setText("0")
@@ -621,10 +592,7 @@ class DeletePaletteUI(QDialog) :
         # body_part
         self.body_frm = QFrame(self)
         self.body_frm.setGeometry(10, 10, 346, 173)
-        self.body_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #202020;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
@@ -632,10 +600,7 @@ class DeletePaletteUI(QDialog) :
         
         self.title_frm = QFrame(self.body_frm)
         self.title_frm.setGeometry(0, 0, 346, 41)
-        self.title_frm.setStyleSheet("QFrame{\n"
-                                        "background-color : #464646;\n"
-                                        "border-radius : 10px;\n"
-                                    "}")
+        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
 
@@ -647,13 +612,7 @@ class DeletePaletteUI(QDialog) :
         
         self.exit_bt = QPushButton(self.title_frm)
         self.exit_bt.setGeometry(316, 10, 22, 22)
-        self.exit_bt.setStyleSheet("QPushButton{\n"
-                                        "background-color : #aaaaaa;\n"
-                                        "border-radius : 10px;\n"
-                                    "}\n"
-                                    "QPushButton:hover{\n"
-                                        "background-color : #666666;\n"
-                                    "}")
+        self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
