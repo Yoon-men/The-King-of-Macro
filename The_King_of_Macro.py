@@ -71,7 +71,7 @@ class Main(QObject) :
 
         mainUI.setting_bt.clicked.connect(settingUI.show)
 
-        macroThread.logging_singal.connect(self.logging)
+        macroThread.logging_signal.connect(self.logging)
 
         mainUI.addNewMacro_bt.clicked.connect(self.addNewMacro)
         mainUI.addNewMacro_le.returnPressed.connect(self.addNewMacro)
@@ -84,6 +84,7 @@ class Main(QObject) :
         macroThread.start_signal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
+        timerThread.time_modify_signal.connect(self.modifyTime)
 
 
         # < SettingUI (2 / 6) > --------------------
@@ -194,14 +195,14 @@ class Main(QObject) :
 
 
 
-    def toggleEditUI(self) : 
+    def toggleEditUI(self) -> None : 
         global is_edit_ui_opened
         editUI.show() if not is_edit_ui_opened else editUI.close()
         is_edit_ui_opened = not is_edit_ui_opened
 
 
 
-    def setMacro(self) : 
+    def setMacro(self) -> None : 
         editUI.editMacro_lw.clear()
         
         target_name = editUI.setMacro_cb.currentText()
@@ -221,7 +222,7 @@ class Main(QObject) :
 
 
 
-    def addClick(self) : 
+    def addClick(self) -> None : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
@@ -252,7 +253,7 @@ class Main(QObject) :
 
 
 
-    def addKeyboard(self) : 
+    def addKeyboard(self) -> None : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
@@ -274,7 +275,7 @@ class Main(QObject) :
 
 
 
-    def addDelay(self) : 
+    def addDelay(self) -> None : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
@@ -296,7 +297,7 @@ class Main(QObject) :
 
 
 
-    def deleteMacro(self) : 
+    def deleteMacro(self) -> None : 
         if not load_status : 
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
@@ -321,14 +322,19 @@ class Main(QObject) :
 
 
 
-    def setStopKey(self) : 
+    def setStopKey(self) -> None : 
         global stop_key
         stop_key = keyboard_read_hotkey(suppress=False)
         settingUI.setStopKey_bt.setText(stop_key)
 
 
 
-    def joyGo(self) : 
+    def modifyTime(self, num: int) -> None : 
+        mainUI.start_le.setText(str(num))
+
+
+
+    def joyGo(self) -> None : 
         # 이 함수에는 start_bt의 styleSheet 관련 내용이 들어갈 것만 같다.               # Test code / please delete the contents of this line.
         pass                # Test code / please delete the contents of this line.
 
@@ -336,24 +342,24 @@ class Main(QObject) :
 
 
 class MacroThread(QObject) : 
-    logging_singal = Signal(str)
+    logging_signal = Signal(str)
     start_signal = Signal()
 
     def startMacro(self) : 
         if not load_status : 
-            self.logging_singal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
+            self.logging_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
             return
         
         if not data : 
-            self.logging_singal.emit("선택한 매크로가 없습니다.")
+            self.logging_signal.emit("선택한 매크로가 없습니다.")
             return
 
         target_name = mainUI.start_cb.currentText()
         action_total_num = len(data[target_name])
 
-        global power, action_time_limit
+        global power, macro_run_limit
         power = True
-        action_time_limit = int(mainUI.start_le.text())
+        macro_run_limit = int(mainUI.start_le.text())
 
         if mainUI.start_typeNum_rb.isChecked() : 
             pass                # Test code / please delete the contents of this line.
@@ -375,16 +381,16 @@ class StopKeyListenerThread(QObject) :
 
 
 class TimerThread(QObject) : 
-    # 이 라인에 '시간 수정 시그널'이 추가될 것 같다.                # Test code / please delete the contents of this line.
+    time_modify_signal = Signal(int)
 
     def startTimer(self) : 
-        if mainUI.start_typeTime_rb.isChecked() : 
-            global power, action_time_limit
-            while (power == True) and (action_time_limit > 0) : 
-                timeSleep(1)
-                action_time_limit -= 1
+        global power, macro_run_limit
+        while (power == True) and (macro_run_limit > 0) : 
+            timeSleep(1)
+            macro_run_limit -= 1
+            self.time_modify_signal.emit(macro_run_limit)
 
-                pass                # Test code / please delete the contents of this line.
+        power = False
 
 
 
