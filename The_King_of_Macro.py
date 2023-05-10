@@ -429,9 +429,9 @@ class MacroThread(QObject) :
         power = True
         macro_run_limit = int(mainUI.start_le.text())
 
-        while (power == True) and (macro_run_limit > 0) : 
+        while (power) and (macro_run_limit > 0) : 
             for i in range(0, len(data[target_name]), 2) : 
-                if power == False : break
+                if not power : break
 
                 key, action = data[target_name][i], data[target_name][i+1]
                 if (key == "<L>") or (key == "<R>") : 
@@ -443,14 +443,23 @@ class MacroThread(QObject) :
                     hotkey(*keys)
                 elif key == "<D>" : 
                     for _ in range(int(action)) : 
-                        if power == False : break
+                        if not power : break
                         timeSleep(1)
-                    timeSleep(action - int(action))
+                    if power : timeSleep(action - int(action))
                 elif key == "<C>" : 
+                    coordinate, delay, palettes = action
                     is_found = False
-                    while (power == True) and (is_found == False) : 
-
-                        pass                # Test code / please delete the contents of this line.
+                    while (power) and (not is_found) : 
+                        moveTo(coordinate)
+                        for palette in palettes : 
+                            if screenshot().getpixel(coordinate) == palette : 
+                                is_found = True
+                                break
+                        if not is_found : 
+                            for _ in range(int(delay)) : 
+                                if not power : break
+                                timeSleep(1)
+                            if power : timeSleep(delay - int(delay))
 
 
 
@@ -458,7 +467,7 @@ class MacroThread(QObject) :
 class StopKeyListenerThread(QObject) : 
     def detectStopKey(self) : 
         global power
-        while power == True : 
+        while power : 
             if keyboard_is_pressed(stop_key) : 
                 power = False
                 break
@@ -471,7 +480,7 @@ class TimerThread(QObject) :
 
     def startTimer(self) : 
         global power, macro_run_limit
-        while (power == True) and (macro_run_limit > 0) : 
+        while (power) and (macro_run_limit > 0) : 
             timeSleep(1)
             macro_run_limit -= 1
             self.time_modify_signal.emit(macro_run_limit)
