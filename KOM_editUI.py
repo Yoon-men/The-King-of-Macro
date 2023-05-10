@@ -372,7 +372,7 @@ class AddColorCheckerUI(QDialog) :
         
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(320, 10, 22, 22)
-        self.exit_bt.setStyleSheet(StyleSheets.exit_button)
+        self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -383,7 +383,7 @@ class AddColorCheckerUI(QDialog) :
         self.setCoordinate_bt = QPushButton(self.body_frm)
         self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
         self.setCoordinate_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.setCoordinate_bt.setStyleSheet(StyleSheets.push_button)
+        self.setCoordinate_bt.setStyleSheet(StyleSheets.push_button.value)
         self.setCoordinate_bt.setText("좌표 설정")
 
         self.x_coordinate_lb = QLabel(self.body_frm)
