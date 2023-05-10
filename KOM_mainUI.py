@@ -57,6 +57,13 @@ class StyleSheets(Enum) :
                         "color : #222222;\n"
                     "}")
     
+    active_push_button = ("QPushButton{\n"
+                                "border : 2px solid #aaaaaa;\n"
+                                "border-radius : 5px;\n"
+                                "background-color : #aaaaaa;\n"
+                                "color : #222222;\n"
+                            "}")
+    
     combo_box = ("QComboBox{\n"
                     "background-color : #303030;\n"
                     "border-radius : 5px;\n"
