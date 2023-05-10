@@ -150,6 +150,7 @@ class Main(QObject) :
 
     def exit(self) -> None : 
         QMacroThread.quit()
+        QStopKeyListenerThread.quit()
         QTimerThread.quit()
         QCoreApplication.instance().quit()
 
