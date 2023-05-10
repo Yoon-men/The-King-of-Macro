@@ -48,6 +48,13 @@ class StyleSheets(Enum) :
                         "color : #222222;\n"
                     "}")
     
+    active_push_button = ("QPushButton{\n"
+                                "border : 2px solid #aaaaaa;\n"
+                                "border-radius : 5px;\n"
+                                "background-color : #aaaaaa;\n"
+                                "color : #222222;\n"
+                            "}")
+    
     label = ("QLabel{\n"
                 "color : #b1b1b1;\n"
             "}")
