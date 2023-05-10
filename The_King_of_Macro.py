@@ -24,7 +24,7 @@ from collections import deque
 
 from KOM_mainUI import MainUI
 from KOM_settingUI import SettingUI
-from KOM_editUI import EditUI, AddDelayUI, AddColorCheckerUI, DeletePaletteUI
+from KOM_editUI import EditUI, AddDelayUI, AddColorCheckerUI, DeletePaletteUI, StyleSheets
 
 class Main(QObject) : 
     def __init__(self) : 
@@ -156,7 +156,7 @@ class Main(QObject) :
 
 
     def logging(self, message: str) -> None : 
-        mainUI.log_lw.addItem(f"[{strftime('%Y-%m-%d')}] {message}")
+        mainUI.log_lw.addItem(f"[{strftime('%H:%M:%S')}] {message}")
         mainUI.log_lw.setCurrentRow(mainUI.log_lw.count()-1)
         mainUI.log_lw.scrollToBottom()
 
@@ -270,6 +270,8 @@ class Main(QObject) :
             self.logging("선택한 매크로가 없습니다.")
             return
         
+        editUI.addClick_bt.setStyleSheet(StyleSheets.active_push_button.value)
+
         target_name = editUI.setMacro_cb.currentText()
 
         def save_click_position(click_type) : 
@@ -289,6 +291,8 @@ class Main(QObject) :
             elif keyboard_is_pressed("F10") : 
                 save_click_position("<R>")
                 break
+        
+        editUI.addClick_bt.setStyleSheet(StyleSheets.push_button.value)
 
 
 
@@ -301,6 +305,8 @@ class Main(QObject) :
             self.logging("선택한 매크로가 없습니다.")
             return
 
+        editUI.addKeyboard_bt.setStyleSheet(StyleSheets.active_push_button.value)
+
         target_name = editUI.setMacro_cb.currentText()
 
         key = keyboard_read_hotkey(suppress=False).split("+")
@@ -311,6 +317,8 @@ class Main(QObject) :
 
         self.logging("키보드 입력이 저장되었습니다.")
         self.setMacro()
+
+        editUI.addKeyboard_bt.setStyleSheet(StyleSheets.push_button.value)
 
 
 
@@ -432,7 +440,6 @@ class MacroThread(QObject) :
         while (power) and (macro_run_limit > 0) : 
             for i in range(0, len(data[target_name]), 2) : 
                 if not power : break
-
                 key, action = data[target_name][i], data[target_name][i+1]
                 if (key == "<L>") or (key == "<R>") : 
                     moveTo(action)
