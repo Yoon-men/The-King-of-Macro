@@ -68,6 +68,9 @@ class StyleSheets(Enum) :
                     "background-color : #303030;\n"
                     "border-radius : 5px;\n"
                     "color : #cccccc;\n"
+                    "font-family : 나눔고딕OTF;\n"
+                    "font-weight : bold;\n"
+                    "font-size : 10pt;\n"
                 "}\n"
                 "QComboBox QAbstractItemView{\n"
                     "background-color : #303030;\n"
@@ -229,7 +232,6 @@ class MainUI(QMainWindow) :
 
         self.delete_cb = QComboBox(self.body_frm)
         self.delete_cb.setGeometry(20, 347, 300, 24)
-        self.delete_cb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.delete_cb.setStyleSheet(StyleSheets.combo_box.value)
         
         self.delete_bt = QPushButton(self.body_frm)
