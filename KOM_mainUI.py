@@ -152,6 +152,7 @@ class MainUI(QMainWindow) :
         self.keep_bt = QPushButton(self.title_frm)
         self.keep_bt.setGeometry(346, 10, 22, 22)
         self.keep_bt.setStyleSheet(StyleSheets.title_button.value)
+        self.keep_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/keep.png")
         self.keep_bt.setIcon(icon)
@@ -160,6 +161,7 @@ class MainUI(QMainWindow) :
         self.exit_bt = QPushButton(self.title_frm)
         self.exit_bt.setGeometry(377, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.title_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
         self.exit_bt.setIconSize(QSize(22, 11))
@@ -173,6 +175,7 @@ class MainUI(QMainWindow) :
                                         "QPushButton:hover{\n"
                                             "background-color : #666666;\n"
                                         "}")
+        self.setting_bt.setFocusPolicy(Qt.NoFocus)
         icon.addPixmap(":/img/setting.png")
         self.setting_bt.setIcon(icon)
         self.setting_bt.setIconSize(QSize(30, 30))
@@ -206,6 +209,7 @@ class MainUI(QMainWindow) :
         self.addNewMacro_bt.setGeometry(328, 107, 60, 24)
         self.addNewMacro_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.addNewMacro_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.addNewMacro_bt.setFocusPolicy(Qt.NoFocus)
         self.addNewMacro_bt.setText("추가")
 
 
@@ -220,6 +224,7 @@ class MainUI(QMainWindow) :
         self.edit_bt.setGeometry(20, 227, 369, 24)
         self.edit_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.edit_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.edit_bt.setFocusPolicy(Qt.NoFocus)
         self.edit_bt.setText("편집")
 
 
@@ -238,6 +243,7 @@ class MainUI(QMainWindow) :
         self.delete_bt.setGeometry(328, 347, 60, 24)
         self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.delete_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.delete_bt.setFocusPolicy(Qt.NoFocus)
         self.delete_bt.setText("삭제")
 
 
@@ -263,6 +269,7 @@ class MainUI(QMainWindow) :
         self.start_typeNum_rb.setGeometry(6, 0, 91, 21)
         self.start_typeNum_rb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.start_typeNum_rb.setStyleSheet(rb_styleSheet)
+        self.start_typeNum_rb.setFocusPolicy(Qt.NoFocus)
         self.start_typeNum_rb.setText("Num_type")
         self.start_typeNum_rb.setChecked(True)
         self.start_typeNum_rb.installEventFilter(self)
@@ -271,6 +278,7 @@ class MainUI(QMainWindow) :
         self.start_typeTime_rb.setGeometry(102, 0, 91, 21)
         self.start_typeTime_rb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.start_typeTime_rb.setStyleSheet(rb_styleSheet)
+        self.start_typeTime_rb.setFocusPolicy(Qt.NoFocus)
         self.start_typeTime_rb.setText("Time_type")
         self.start_typeTime_rb.installEventFilter(self)
 
@@ -302,6 +310,7 @@ class MainUI(QMainWindow) :
         self.start_bt.setGeometry(328, 477, 60, 24)
         self.start_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.start_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.start_bt.setFocusPolicy(Qt.NoFocus)
         self.start_bt.setText("실행")
 
         self.log_lw = QListWidget(self.body_frm)
