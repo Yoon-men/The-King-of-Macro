@@ -160,6 +160,7 @@ class EditUI(QDialog) :
         self.exit_bt = QPushButton(self.title_frm)
         self.exit_bt.setGeometry(410, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -194,24 +195,28 @@ class EditUI(QDialog) :
         self.addClick_bt.setGeometry(326, 159, 100, 24)
         self.addClick_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.addClick_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.addClick_bt.setFocusPolicy(Qt.NoFocus)
         self.addClick_bt.setText("클릭 추가")
 
         self.addKeyboard_bt = QPushButton(self.body_frm)
         self.addKeyboard_bt.setGeometry(326, 200, 100, 24)
         self.addKeyboard_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.addKeyboard_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.addKeyboard_bt.setFocusPolicy(Qt.NoFocus)
         self.addKeyboard_bt.setText("키보드 추가")
 
         self.addDelay_bt = QPushButton(self.body_frm)
         self.addDelay_bt.setGeometry(326, 241, 100, 24)
         self.addDelay_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.addDelay_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.addDelay_bt.setFocusPolicy(Qt.NoFocus)
         self.addDelay_bt.setText("딜레이 추가")
 
         self.addColorChecker_bt = QPushButton(self.body_frm)
         self.addColorChecker_bt.setGeometry(326, 282, 100, 24)
         self.addColorChecker_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.addColorChecker_bt.setFocusPolicy(Qt.NoFocus)
         self.addColorChecker_bt.setText("컬러체커 추가")
 
         self.frameLine = QFrame(self)
@@ -225,6 +230,7 @@ class EditUI(QDialog) :
         self.delete_bt.setGeometry(326, 367, 100, 24)
         self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.delete_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.delete_bt.setFocusPolicy(Qt.NoFocus)
         self.delete_bt.setText("삭제")
 
 
@@ -285,6 +291,7 @@ class AddDelayUI(QDialog) :
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(260, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -307,12 +314,14 @@ class AddDelayUI(QDialog) :
         self.add_bt.setGeometry(58, 133, 81, 24)
         self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.add_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.add_bt.setFocusPolicy(Qt.NoFocus)
         self.add_bt.setText("추가")
 
         self.cancel_bt = QPushButton(self.body_frm)
         self.cancel_bt.setGeometry(148, 133, 81, 24)
         self.cancel_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.cancel_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.cancel_bt.setFocusPolicy(Qt.NoFocus)
         self.cancel_bt.setText("취소")
 
 
@@ -364,7 +373,7 @@ class AddColorCheckerUI(QDialog) :
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
 
-        self.title_lb = QLabel(self.body_frm)
+        self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(93, 13, 181, 16)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_addColorChecker);\n"
@@ -373,6 +382,7 @@ class AddColorCheckerUI(QDialog) :
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(320, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -384,6 +394,7 @@ class AddColorCheckerUI(QDialog) :
         self.setCoordinate_bt.setGeometry(20, 63, 311, 24)
         self.setCoordinate_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.setCoordinate_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.setCoordinate_bt.setFocusPolicy(Qt.NoFocus)
         self.setCoordinate_bt.setText("좌표 설정")
 
         self.x_coordinate_lb = QLabel(self.body_frm)
@@ -421,61 +432,73 @@ class AddColorCheckerUI(QDialog) :
         self.palette_rb_1 = QRadioButton(self.body_frm)
         self.palette_rb_1.setGeometry(61, 214, 50, 25)
         self.palette_rb_1.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_1.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_1.setChecked(True)
 
         self.palette_rb_2 = QRadioButton(self.body_frm)
         self.palette_rb_2.setGeometry(120, 214, 50, 25)
         self.palette_rb_2.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_2.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_2.hide()
 
         self.palette_rb_3 = QRadioButton(self.body_frm)
         self.palette_rb_3.setGeometry(179, 214, 50, 25)
         self.palette_rb_3.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_3.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_3.hide()
 
         self.palette_rb_4 = QRadioButton(self.body_frm)
         self.palette_rb_4.setGeometry(238, 214, 50, 25)
         self.palette_rb_4.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_4.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_4.hide()
 
         self.palette_rb_5 = QRadioButton(self.body_frm)
         self.palette_rb_5.setGeometry(61, 248, 50, 25)
         self.palette_rb_5.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_5.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_5.hide()
 
         self.palette_rb_6 = QRadioButton(self.body_frm)
         self.palette_rb_6.setGeometry(120, 248, 50, 25)
         self.palette_rb_6.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_6.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_6.hide()
 
         self.palette_rb_7 = QRadioButton(self.body_frm)
         self.palette_rb_7.setGeometry(179, 248, 50, 25)
         self.palette_rb_7.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_7.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_7.hide()
 
         self.palette_rb_8 = QRadioButton(self.body_frm)
         self.palette_rb_8.setGeometry(238, 248, 50, 25)
         self.palette_rb_8.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_8.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_8.hide()
 
         self.palette_rb_9 = QRadioButton(self.body_frm)
         self.palette_rb_9.setGeometry(61, 282, 50, 25)
         self.palette_rb_9.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_9.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_9.hide()
 
         self.palette_rb_10 = QRadioButton(self.body_frm)
         self.palette_rb_10.setGeometry(120, 282, 50, 25)
         self.palette_rb_10.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_10.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_10.hide()
 
         self.palette_rb_11 = QRadioButton(self.body_frm)
         self.palette_rb_11.setGeometry(179, 282, 50, 25)
         self.palette_rb_11.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_11.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_11.hide()
 
         self.palette_rb_12 = QRadioButton(self.body_frm)
         self.palette_rb_12.setGeometry(238, 282, 50, 25)
         self.palette_rb_12.setStyleSheet(StyleSheets.palette.value)
+        self.palette_rb_12.setFocusPolicy(Qt.NoFocus)
         self.palette_rb_12.hide()
 
         self.addPalette_bt = QPushButton(self.body_frm)
@@ -487,6 +510,7 @@ class AddColorCheckerUI(QDialog) :
                                         "QPushButton:hover{\n"
                                             "image : url(:/img/bt_plus_hover.png);\n"
                                         "}")
+        self.addPalette_bt.setFocusPolicy(Qt.NoFocus)
         
         self.R_lb = QLabel(self.body_frm)
         self.R_lb.setGeometry(72, 341, 13, 21)
@@ -534,6 +558,7 @@ class AddColorCheckerUI(QDialog) :
         self.copyColor_bt.setGeometry(162, 339, 111, 91)
         self.copyColor_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.copyColor_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.copyColor_bt.setFocusPolicy(Qt.NoFocus)
         self.copyColor_bt.setText("좌표 컬러 복사")
 
         self.line_2 = QLabel(self.body_frm)
@@ -560,6 +585,7 @@ class AddColorCheckerUI(QDialog) :
         self.add_bt.setGeometry(130, 560, 91, 24)
         self.add_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.add_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.add_bt.setFocusPolicy(Qt.NoFocus)
         self.add_bt.setText("추가")
 
 
@@ -611,7 +637,7 @@ class DeletePaletteUI(QDialog) :
         self.title_frm.mousePressEvent = self.setCenterPoint
         self.title_frm.mouseMoveEvent = self.moveWindow
 
-        self.title_lb = QLabel(self.body_frm)
+        self.title_lb = QLabel(self.title_frm)
         self.title_lb.setGeometry(108, 12, 140, 19)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_deletePalette.png);\n"
@@ -620,6 +646,7 @@ class DeletePaletteUI(QDialog) :
         self.exit_bt = QPushButton(self.title_frm)
         self.exit_bt.setGeometry(316, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -633,16 +660,26 @@ class DeletePaletteUI(QDialog) :
         self.deletePalette_lb.setStyleSheet(StyleSheets.label.value)
         self.deletePalette_lb.setText("아래의 팔레트를 정말 삭제하시겠습니까?")
 
+        self.deletePalette_frm = QFrame(self.body_frm)
+        self.deletePalette_frm.setGeometry(151, 92, 50, 25)
+        self.deletePalette_frm.setStyleSheet("QFrame{\n"
+                                                "background-color : #ff00ff;\n"
+                                                "border-radius : 6px;\n"
+                                                "border : 2px solid #ffffff;\n"
+                                            "}")
+
         self.delete_bt = QPushButton(self.body_frm)
         self.delete_bt.setGeometry(91, 133, 81, 24)
         self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.delete_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.delete_bt.setFocusPolicy(Qt.NoFocus)
         self.delete_bt.setText("삭제")
 
         self.cancel_bt = QPushButton(self.body_frm)
         self.cancel_bt.setGeometry(181, 133, 81, 24)
         self.cancel_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.cancel_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.cancel_bt.setFocusPolicy(Qt.NoFocus)
         self.cancel_bt.setText("취소")
 
 
