@@ -46,7 +46,7 @@ class StyleSheets(Enum) :
     
     check_box = ("QCheckBox::indicator::unchecked{\n"
                     "image : url(:/img/ckb_unchecked_normal.png);\n"
-                    "width : 21;\n"
+                    "width : 21px;\n"
                     "height : 21px;\n"
                 "}\n"
                 "QCheckBox::indicator::unchecked::hover{\n"
@@ -104,6 +104,7 @@ class SettingUI(QDialog) :
         self.exit_bt = QPushButton(self.body_frm)
         self.exit_bt.setGeometry(321, 10, 22, 22)
         self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_bt.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
         self.exit_bt.setIcon(icon)
@@ -119,6 +120,7 @@ class SettingUI(QDialog) :
         self.load_bt.setGeometry(20, 63, 311, 24)
         self.load_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.load_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.load_bt.setFocusPolicy(Qt.NoFocus)
         self.load_bt.setText("불러오기")
 
 
@@ -133,6 +135,7 @@ class SettingUI(QDialog) :
         self.setStopKey_bt.setGeometry(190, 146, 91, 21)
         self.setStopKey_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.setStopKey_bt.setStyleSheet(StyleSheets.push_button.value)
+        self.setStopKey_bt.setFocusPolicy(Qt.NoFocus)
         self.setStopKey_bt.setText("esc")
 
 
@@ -146,6 +149,7 @@ class SettingUI(QDialog) :
         self.winToTop_ckb = QCheckBox(self.body_frm)
         self.winToTop_ckb.setGeometry(200, 192, 21, 21)
         self.winToTop_ckb.setStyleSheet(StyleSheets.check_box.value)
+        self.winToTop_ckb.setFocusPolicy(Qt.NoFocus)
         
 
         # github_part
@@ -158,6 +162,7 @@ class SettingUI(QDialog) :
                                     "QPushButton:hover{\n"
                                         "image : url(:/img/github_bt_hover.png);\n"
                                     "}")
+        self.github_bt.setFocusPolicy(Qt.NoFocus)
 
 
 
