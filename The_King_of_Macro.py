@@ -101,7 +101,7 @@ class Main(QObject) :
         editUI.setMacro_cb.currentIndexChanged.connect(self.setMacro)
 
         editUI.addClick_bt.clicked.connect(self.addClick)
-        editUI.addClick_bt.clicked.connect(self.addKeyboard)
+        editUI.addKeyboard_bt.clicked.connect(self.addKeyboard)
         editUI.addDelay_bt.clicked.connect(lambda: addDelayUI.exec_())
         editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
 
@@ -179,11 +179,11 @@ class Main(QObject) :
         with open(file_path, "rb") as file : 
             global data
             data = pickleLoad(file)
-        
-        for i in range(len(data)) : 
-            mainUI.delete_cb.addItem(data[i]["name"])
-            mainUI.start_cb.addItem(data[i]["name"])
-            editUI.setMacro_cb.addItem(data[i]["name"])
+
+        for macro_name in data.keys() : 
+            mainUI.delete_cb.addItem(macro_name)
+            mainUI.start_cb.addItem(macro_name)
+            editUI.setMacro_cb.addItem(macro_name)
 
         global load_status
         load_status = True
@@ -215,18 +215,18 @@ class Main(QObject) :
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
         
-        macro_name = mainUI.addMacro_le.text()
-        mainUI.addMacro_le.clear()
+        macro_name = mainUI.addNewMacro_le.text()
+        mainUI.addNewMacro_le.clear()
         if not macro_name : 
             self.logging("공백을 이름으로 사용할 수 없습니다.")
             return
+        
+        global data
+        data[macro_name] = []
 
         mainUI.delete_cb.addItem(macro_name)
         mainUI.start_cb.addItem(macro_name)
         editUI.setMacro_cb.addItem(macro_name)
-
-        global data
-        data[macro_name] = []
 
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
@@ -246,6 +246,7 @@ class Main(QObject) :
         editUI.editMacro_lw.clear()
         
         target_name = editUI.setMacro_cb.currentText()
+        if not target_name : return
 
         for i in range(0, len(data[target_name]), 2) : 
             key, action = data[target_name][i], data[target_name][i+1]
