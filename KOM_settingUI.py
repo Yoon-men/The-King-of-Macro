@@ -4,6 +4,7 @@ from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadow
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
 from enum import Enum
+from os import path
 
 
 class StyleSheets(Enum) : 
@@ -75,8 +76,12 @@ class SettingUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(370, 310)
         self.setWindowTitle("Setting")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
 
 
         # body_part
