@@ -5,6 +5,7 @@ from PySide2.QtCore import Qt, QSize, QEvent
 from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
 from time import strftime
 from enum import Enum
+from os import path
 
 
 class StyleSheets(Enum) : 
@@ -125,8 +126,13 @@ class MainUI(QMainWindow) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(414, 695)
         self.setWindowTitle("The_King_of_Macro")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
+
 
         # body_part
         self.body_frm = QFrame(self)
