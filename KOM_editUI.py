@@ -4,6 +4,7 @@ from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadow
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
 from enum import Enum
+from os import path
 
 
 class StyleSheets(Enum) : 
@@ -131,8 +132,12 @@ class EditUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(448, 598)
         self.setWindowTitle("Edit")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
         
 
         # body_part
@@ -263,8 +268,12 @@ class AddDelayUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(302, 201)
         self.setWindowTitle("Add Delay")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
         
 
         # body_part
@@ -354,8 +363,12 @@ class AddColorCheckerUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(369, 608)
         self.setWindowTitle("Add ColorChecker")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
 
 
         # body_part
@@ -618,8 +631,12 @@ class DeletePaletteUI(QDialog) :
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(361, 208)
         self.setWindowTitle("Delete Palette")
-        self.setWindowIcon(QIcon("KOM.ico"))
-        QFontDatabase.addApplicationFont("./NanumGothicBold.otf")
+        icon_path = path.join(path.dirname(__file__), "KOM.ico")
+        if path.isfile(icon_path) : 
+            self.setWindowIcon(icon_path)
+        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
+        if path.isfile(font_path) : 
+            QFontDatabase.addApplicationFont(font_path)
 
 
         # body_part
@@ -704,5 +721,6 @@ class DeletePaletteUI(QDialog) :
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
     editUI = EditUI()
+    editUI = AddDelayUI()
     editUI.show()
     sys.exit(app.exec_())
