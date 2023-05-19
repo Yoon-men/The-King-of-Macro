@@ -128,7 +128,7 @@ class MainUI(QMainWindow) :
         self.setWindowTitle("The_King_of_Macro")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
-            self.setWindowIcon(icon_path)
+            self.setWindowIcon(QIcon(icon_path))
         font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
         if path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
