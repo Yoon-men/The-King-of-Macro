@@ -134,7 +134,7 @@ class EditUI(QDialog) :
         self.setWindowTitle("Edit")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
-            self.setWindowIcon(icon_path)
+            self.setWindowIcon(QIcon(icon_path))
         font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
         if path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
@@ -270,7 +270,7 @@ class AddDelayUI(QDialog) :
         self.setWindowTitle("Add Delay")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
-            self.setWindowIcon(icon_path)
+            self.setWindowIcon(QIcon(icon_path))
         font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
         if path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
@@ -365,7 +365,7 @@ class AddColorCheckerUI(QDialog) :
         self.setWindowTitle("Add ColorChecker")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
-            self.setWindowIcon(icon_path)
+            self.setWindowIcon(QIcon(icon_path))
         font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
         if path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
@@ -633,7 +633,7 @@ class DeletePaletteUI(QDialog) :
         self.setWindowTitle("Delete Palette")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
-            self.setWindowIcon(icon_path)
+            self.setWindowIcon(QIcon(icon_path))
         font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
         if path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
