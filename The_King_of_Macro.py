@@ -2,7 +2,7 @@
 ======================================================================================
                               < The_King_of_Macro_v2.2 >
 
-                     이제부터 귀찮은 일들은 모두 사라집니다. 3, 2, 1!
+                         이제부터 귀찮은 일들은 모두 사라집니다.
 
                                  * Made by Yoonmen *
 
@@ -102,7 +102,7 @@ class Main(QObject) :
 
         editUI.addClick_bt.clicked.connect(self.addClick)
         editUI.addKeyboard_bt.clicked.connect(self.addKeyboard)
-        editUI.addDelay_bt.clicked.connect(lambda: addDelayUI.exec_())
+        editUI.addDelay_bt.clicked.connect(self.addDelay)
         editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
 
         editUI.delete_bt.clicked.connect(self.deleteMacro)
@@ -111,10 +111,8 @@ class Main(QObject) :
         # < addDelayUI (4 / 6) > --------------------
         addDelayUI.exit_bt.clicked.connect(addDelayUI.close)
 
-        addDelayUI.add_bt.clicked.connect(self.addDelay)
-        addDelayUI.add_bt.clicked.connect(addDelayUI.close)
-
-        addDelayUI.cancel_bt.clicked.connect(addDelayUI.close)
+        addDelayUI.add_bt.clicked.connect(addDelayUI.accept)
+        addDelayUI.cancel_bt.clicked.connect(addDelayUI.reject)
 
 
         # < addColorCheckerUI (5 / 6) --------------------
@@ -333,6 +331,9 @@ class Main(QObject) :
             self.logging("선택한 매크로가 없습니다.")
             return
         
+        if addDelayUI.exec_() == addDelayUI.Rejected : 
+            return
+        
         target_name = editUI.setMacro_cb.currentText()
 
         delay = float(addDelayUI.addDelay_le.text())
@@ -346,8 +347,17 @@ class Main(QObject) :
 
 
 
-    def setCoordinate(self) -> None : 
+    def removeMacroElement(self) -> None : 
         pass                # Test code / please delete the contents of this line.
+
+
+
+    def setCoordinate(self) -> None : 
+        addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.active_push_button.value)
+
+        
+
+        addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.push_button.value)
 
 
 
