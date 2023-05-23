@@ -105,7 +105,7 @@ class Main(QObject) :
         editUI.addDelay_bt.clicked.connect(self.addDelay)
         editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
 
-        editUI.delete_bt.clicked.connect(self.deleteMacro)
+        editUI.delete_bt.clicked.connect(self.removeMacroElement)
 
 
         # < addDelayUI (4 / 6) > --------------------
@@ -348,14 +348,23 @@ class Main(QObject) :
 
 
     def removeMacroElement(self) -> None : 
-        pass                # Test code / please delete the contents of this line.
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+        
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
+        
+        target_element = editUI.editMacro_lw.currentRow()
+        print(f"[system] target_element: {target_element}")                 # Test code / please delete the contents of this line.
 
 
 
     def setCoordinate(self) -> None : 
         addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.active_push_button.value)
 
-        
+        # 좌표 설정 코드 추가               # Test code / please delete the contents of this line.
 
         addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.push_button.value)
 
