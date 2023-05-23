@@ -220,7 +220,7 @@ class Main(QObject) :
             return
         
         global data
-        data[macro_name] = []
+        data[macro_name] = deque()
 
         mainUI.delete_cb.addItem(macro_name)
         mainUI.start_cb.addItem(macro_name)
@@ -352,12 +352,19 @@ class Main(QObject) :
             self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
             return
         
-        if not data : 
+        target_index = editUI.editMacro_lw.currentRow()
+        if target_index == -1 : 
             self.logging("선택한 매크로가 없습니다.")
             return
         
-        target_element = editUI.editMacro_lw.currentRow()
-        print(f"[system] target_element: {target_element}")                 # Test code / please delete the contents of this line.
+        macro_name = editUI.setMacro_cb.currentText()
+        del data[macro_name][target_index*2 : target_index*2+2]
+
+        self.setMacro()
+        with open(file_path, "wb") as file : 
+            pickleDump(data, file)
+
+        self.logging("선택한 매크로를 삭제했습니다.")
 
 
 
