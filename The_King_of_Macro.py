@@ -80,6 +80,7 @@ class Main(QObject) :
 
         mainUI.delete_bt.clicked.connect(self.deleteMacro)
 
+        mainUI.start_le.returnPressed.connect(macroThread.startMacro)
         mainUI.start_bt.clicked.connect(macroThread.startMacro)
         macroThread.start_signal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
