@@ -2,7 +2,7 @@ from img.img import *
 import sys
 from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox, QLineEdit, QRadioButton
 from PySide2.QtCore import Qt, QSize
-from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
+from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator, QDoubleValidator
 from enum import Enum
 from os import path
 
@@ -261,6 +261,7 @@ class AddDelayUI(QDialog) :
         super().__init__()
 
         self.addDelayUI()
+        self.signal()
 
     def addDelayUI(self) : 
         # basic_part
@@ -318,6 +319,9 @@ class AddDelayUI(QDialog) :
         self.addDelay_le.setGeometry(19, 90, 251, 22)
         self.addDelay_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.addDelay_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.addDelay_le.setValidator(QDoubleValidator())
+        self.addDelay_le.setText("0.0")
+        self.addDelay_le.selectAll()
 
         self.add_bt = QPushButton(self.body_frm)
         self.add_bt.setGeometry(58, 133, 81, 24)
@@ -343,10 +347,20 @@ class AddDelayUI(QDialog) :
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
 
-
-
     def keyPressEvent(self, event) : 
         if event.key() == Qt.Key_Escape : pass
+    
+
+
+    def signal(self) : 
+        self.addDelay_le.textChanged.connect(self.setDelay)
+    
+
+
+    def setDelay(self) : 
+        if self.addDelay_le.text() == '' : 
+            self.addDelay_le.setText("0.0")
+            self.addDelay_le.selectAll()
 
 
 
@@ -721,6 +735,5 @@ class DeletePaletteUI(QDialog) :
 if __name__ == "__main__" : 
     app = QApplication(sys.argv)
     editUI = EditUI()
-    editUI = AddDelayUI()
     editUI.show()
     sys.exit(app.exec_())
