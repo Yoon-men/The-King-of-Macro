@@ -311,7 +311,7 @@ class Main(QObject) :
 
         target_name = editUI.setMacro_cb.currentText()
 
-        key = keyboard_read_hotkey(suppress=False).split("+")
+        key = keyboard_read_hotkey(suppress=False)
         data[target_name].append("<K>")
         data[target_name].append(key)
         with open(file_path, "wb") as file : 
