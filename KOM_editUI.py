@@ -347,9 +347,6 @@ class AddDelayUI(QDialog) :
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
 
-    def keyPressEvent(self, event) : 
-        if event.key() == Qt.Key_Escape : pass
-    
 
 
     def signal(self) : 
