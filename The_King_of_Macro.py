@@ -112,6 +112,7 @@ class Main(QObject) :
         addDelayUI.exit_bt.clicked.connect(addDelayUI.close)
 
         addDelayUI.add_bt.clicked.connect(addDelayUI.accept)
+        addDelayUI.addDelay_le.returnPressed.connect(addDelayUI.accept)
         addDelayUI.cancel_bt.clicked.connect(addDelayUI.reject)
 
 
