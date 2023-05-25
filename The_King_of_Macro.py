@@ -373,7 +373,14 @@ class Main(QObject) :
     def setCoordinate(self) -> None : 
         addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.active_push_button.value)
 
-        # 좌표 설정 코드 추가               # Test code / please delete the contents of this line.
+        while True : 
+            if keyboard_is_pressed("F9") or keyboard_is_pressed("F10") : 
+                x, y = getPosition()
+                addColorCheckerUI.x_coordinate_le.setText(str(x))
+                addColorCheckerUI.y_coordinate_le.setText(str(y))
+                break
+            elif keyboard_is_pressed("ESC") : 
+                break
 
         addColorCheckerUI.setCoordinate_bt.setStyleSheet(StyleSheets.push_button.value)
 
