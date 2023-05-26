@@ -104,7 +104,7 @@ class Main(QObject) :
         editUI.addClick_bt.clicked.connect(self.addClick)
         editUI.addKeyboard_bt.clicked.connect(self.addKeyboard)
         editUI.addDelay_bt.clicked.connect(self.addDelay)
-        editUI.addColorChecker_bt.clicked.connect(lambda: addColorCheckerUI.exec_())
+        editUI.addColorChecker_bt.clicked.connect(self.addColorChecker)
 
         editUI.delete_bt.clicked.connect(self.removeMacroElement)
 
@@ -143,8 +143,7 @@ class Main(QObject) :
 
         addColorCheckerUI.copyColor_bt.clicked.connect(self.copyColor)
 
-        addColorCheckerUI.add_bt.clicked.connect(self.addColorChecker)
-        addColorCheckerUI.add_bt.clicked.connect(addColorCheckerUI.close)
+        addColorCheckerUI.add_bt.clicked.connect(addColorCheckerUI.accept)
 
 
 
@@ -392,7 +391,21 @@ class Main(QObject) :
 
 
     def addColorChecker(self) -> None : 
-        pass                # Test code / please delete the contents of this line.
+        if not load_status : 
+            self.logging("아직 매크로 데이터를 불러오지 않았습니다.")
+            return
+        
+        if not data : 
+            self.logging("선택한 매크로가 없습니다.")
+            return
+
+        editUI.addColorChecker_bt.setStyleSheet(StyleSheets.active_push_button.value)
+
+        if addColorCheckerUI.exec_() == addColorCheckerUI.Rejected : 
+            editUI.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
+            return
+
+        editUI.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
 
 
 
