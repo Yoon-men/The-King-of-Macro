@@ -332,8 +332,11 @@ class Main(QObject) :
         if not data : 
             self.logging("선택한 매크로가 없습니다.")
             return
+
+        editUI.addDelay_bt.setStyleSheet(StyleSheets.active_push_button.value)
         
         if addDelayUI.exec_() == addDelayUI.Rejected : 
+            editUI.addDelay_bt.setStyleSheet(StyleSheets.push_button.value)
             return
         
         target_name = editUI.setMacro_cb.currentText()
@@ -346,6 +349,8 @@ class Main(QObject) :
 
         self.logging("딜레이가 저장되었습니다.")
         self.setMacro()
+
+        editUI.addDelay_bt.setStyleSheet(StyleSheets.push_button.value)
 
 
 
