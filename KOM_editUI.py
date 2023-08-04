@@ -104,6 +104,7 @@ class StyleSheets(Enum) :
                         "color : #dddddd;\n"
                         "padding-left : 3px;\n"
                         "padding-top : 3px;\n"
+                        "outline: none;\n"
                     "}\n"
                     "QListWidget QScrollBar{\n"
                         "background-color : #aaaaaa;\n"
@@ -196,7 +197,6 @@ class EditUI(QDialog) :
         self.editMacro_lw.setGeometry(16, 159, 294, 416)
         self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.editMacro_lw.setStyleSheet(StyleSheets.list_widget.value)
-        self.editMacro_lw.setFocusPolicy(Qt.NoFocus)
         
         self.addClick_bt = QPushButton(self.body_frm)
         self.addClick_bt.setGeometry(326, 159, 100, 24)
@@ -226,7 +226,7 @@ class EditUI(QDialog) :
         self.addColorChecker_bt.setFocusPolicy(Qt.NoFocus)
         self.addColorChecker_bt.setText("컬러체커 추가")
 
-        self.frameLine = QFrame(self)
+        self.frameLine = QFrame(self.body_frm)
         self.frameLine.setGeometry(343, 329, 71, 20)
         self.frameLine.setFrameShape(QFrame.HLine)
         self.frameLine.setStyleSheet("QFrame{\n"
