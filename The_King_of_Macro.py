@@ -107,6 +107,7 @@ class Main(QObject) :
         editUI.addColorChecker_bt.clicked.connect(self.addColorChecker)
 
         editUI.delete_bt.clicked.connect(self.removeMacroElement)
+        editUI.remove_item_signal.connect(self.removeMacroElement)
 
 
         # < addDelayUI (4 / 6) > --------------------
@@ -410,22 +411,310 @@ class Main(QObject) :
 
 
     def addNewPalette(self) -> None : 
-        pass                # Test code / please delete the contents of this line.
+        if palette_phase == 1 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
+            addColorCheckerUI.palette_rb_2.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 2 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
+            addColorCheckerUI.palette_rb_3.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 3 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
+            addColorCheckerUI.palette_rb_4.show()
+            palette.append((255, 0, 255))   
+            palette_phase += 1
+
+        elif palette_phase == 4 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
+            addColorCheckerUI.palette_rb_5.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+        
+        elif palette_phase == 5 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
+            addColorCheckerUI.palette_rb_6.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 6 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
+            addColorCheckerUI.palette_rb_7.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 7 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
+            addColorCheckerUI.palette_rb_8.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 8 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
+            addColorCheckerUI.palette_rb_9.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 9 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
+            addColorCheckerUI.palette_rb_10.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+
+        elif palette_phase == 10 : 
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
+            addColorCheckerUI.palette_rb_11.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
+        
+        elif palette_phase == 11 : 
+            addColorCheckerUI.addPalette_bt.hide()
+            addColorCheckerUI.palette_rb_12.show()
+            palette.append((255, 0, 255))
+            palette_phase += 1
 
 
 
-    def setRGB(self) -> None : 
-        pass                # Test code / please delete the contents of this line.
+    def setRGB(self) -> None :  
+        def displayRGB(RGB: tuple[int, int, int]) -> None : 
+            addColorCheckerUI.R_le.setText(str(RGB[0]))
+            addColorCheckerUI.G_le.setText(str(RGB[1]))
+            addColorCheckerUI.B_le.setText(str(RGB[2]))
+
+        if addColorCheckerUI.palette_rb_1.isChecked() : 
+            displayRGB(palette[0])
+
+        elif addColorCheckerUI.palette_rb_2.isChecked() : 
+            displayRGB(palette[1])
+        
+        elif addColorCheckerUI.palette_rb_3.isChecked() : 
+            displayRGB(palette[2])
+
+        elif addColorCheckerUI.palette_rb_4.isChecked() : 
+            displayRGB(palette[3])
+        
+        elif addColorCheckerUI.palette_rb_5.isChecked() : 
+            displayRGB(palette[4])
+        
+        elif addColorCheckerUI.palette_rb_6.isChecked() : 
+            displayRGB(palette[5])
+        
+        elif addColorCheckerUI.palette_rb_7.isChecked() : 
+            displayRGB(palette[6])
+        
+        elif addColorCheckerUI.palette_rb_8.isChecked() : 
+            displayRGB(palette[7])
+
+        elif addColorCheckerUI.palette_rb_9.isChecked() : 
+            displayRGB(palette[8])
+        
+        elif addColorCheckerUI.palette_rb_10.isChecked() : 
+            displayRGB(palette[9])
+
+        elif addColorCheckerUI.palette_rb_11.isChecked() : 
+            displayRGB(palette[10])
+
+        elif addColorCheckerUI.palette_rb_12.isChecked() : 
+            displayRGB(palette[11])
 
 
 
     def setColor(self) -> None : 
-        pass                # Test code / please delete the contents of this line.
+        if addColorCheckerUI.R_le.text() == "" : 
+            addColorCheckerUI.R_le.setText("0")
+            addColorCheckerUI.R_le.selectAll()
+        elif int(addColorCheckerUI.R_le.text()) > 255 : 
+            addColorCheckerUI.R_le.setText("255")
+        
+        if addColorCheckerUI.G_le.text() == "" : 
+            addColorCheckerUI.G_le.setText("0")
+            addColorCheckerUI.G_le.selectAll()
+        elif int(addColorCheckerUI.G_le.text()) > 255 : 
+            addColorCheckerUI.G_le.setText("255")
+        
+        if addColorCheckerUI.B_le.text() == "" : 
+            addColorCheckerUI.B_le.setText("0")
+            addColorCheckerUI.B_le.selectAll()
+        elif int(addColorCheckerUI.B_le.text()) > 255 : 
+            addColorCheckerUI.B_le.setText("255")
+
+        RGB = (int(addColorCheckerUI.R_le.text()), int(addColorCheckerUI.G_le.text()), int(addColorCheckerUI.B_le.text()))
+        background_styleSheet = ("QRadioButton::indicator{\n"
+                                    f"background-color: rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                                "}")
+
+        if addColorCheckerUI.palette_rb_1.isChecked() : 
+            palette[0] = RGB
+            addColorCheckerUI.palette_rb_1.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_2.isChecked() : 
+            palette[1] = RGB
+            addColorCheckerUI.palette_rb_2.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_3.isChecked() : 
+            palette[2] = RGB
+            addColorCheckerUI.palette_rb_3.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_4.isChecked() : 
+            palette[3] = RGB
+            addColorCheckerUI.palette_rb_4.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_5.isChecked() : 
+            palette[4] = RGB
+            addColorCheckerUI.palette_rb_5.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_6.isChecked() : 
+            palette[5] = RGB
+            addColorCheckerUI.palette_rb_6.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_7.isChecked() : 
+            palette[6] = RGB
+            addColorCheckerUI.palette_rb_7.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_8.isChecked() : 
+            palette[7] = RGB
+            addColorCheckerUI.palette_rb_8.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_9.isChecked() : 
+            palette[8] = RGB
+            addColorCheckerUI.palette_rb_9.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_10.isChecked() : 
+            palette[9] = RGB
+            addColorCheckerUI.palette_rb_10.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_11.isChecked() : 
+            palette[10] = RGB
+            addColorCheckerUI.palette_rb_11.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
+
+        if addColorCheckerUI.palette_rb_12.isChecked() : 
+            palette[11] = RGB
+            addColorCheckerUI.palette_rb_12.setStyleSheet(StyleSheets.palette.value + 
+                                                         background_styleSheet)
 
 
 
     def copyColor(self) -> None : 
         pass                # Test code / please delete the contents of this line.
+
+
+
+    def deletePalette(self) -> None : 
+        if addColorCheckerUI.palette_rb_1.isChecked() : del palette[0]
+        elif addColorCheckerUI.palette_rb_2.isChecked() : del palette[1]
+        elif addColorCheckerUI.palette_rb_3.isChecked() : del palette[2]
+        elif addColorCheckerUI.palette_rb_4.isChecked() : del palette[3]
+        elif addColorCheckerUI.palette_rb_5.isChecked() : del palette[4]
+        elif addColorCheckerUI.palette_rb_6.isChecked() : del palette[5]
+        elif addColorCheckerUI.palette_rb_7.isChecked() : del palette[6]
+        elif addColorCheckerUI.palette_rb_8.isChecked() : del palette[7]
+        elif addColorCheckerUI.palette_rb_9.isChecked() : del palette[8]
+        elif addColorCheckerUI.palette_rb_10.isChecked() : del palette[9]
+        elif addColorCheckerUI.palette_rb_11.isChecked() : del palette[10]
+        elif addColorCheckerUI.palette_rb_12.isChecked() : del palette[11]
+
+        global palette_phase
+        if palette_phase == 12 : 
+            addColorCheckerUI.palette_rb_12.hide()
+            addColorCheckerUI.palette_rb_12.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 284, 21, 21)
+            addColorCheckerUI.addPalette_bt.show()
+        elif palette_phase == 11 : 
+            addColorCheckerUI.palette_rb_11.hide()
+            addColorCheckerUI.palette_rb_11.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 284, 21, 21)
+        elif palette_phase == 10 : 
+            addColorCheckerUI.palette_rb_10.hide()
+            addColorCheckerUI.palette_rb_10.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(133, 284, 21, 21)
+        elif palette_phase == 9 : 
+            addColorCheckerUI.palette_rb_9.hide()
+            addColorCheckerUI.palette_rb_9.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(74, 284, 21, 21)
+        elif palette_phase == 8 : 
+            addColorCheckerUI.palette_rb_8.hide()
+            addColorCheckerUI.palette_rb_8.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 250, 21, 21)
+        elif palette_phase == 7 : 
+            addColorCheckerUI.palette_rb_7.hide()
+            addColorCheckerUI.palette_rb_7.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 250, 21, 21)
+        elif palette_phase == 6 : 
+            addColorCheckerUI.palette_rb_6.hide()
+            addColorCheckerUI.palette_rb_6.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(133, 250, 21, 21)
+        elif palette_phase == 5 : 
+            addColorCheckerUI.palette_rb_5.hide()
+            addColorCheckerUI.palette_rb_5.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(74, 250, 21, 21)
+        elif palette_phase == 4 : 
+            addColorCheckerUI.palette_rb_4.hide()
+            addColorCheckerUI.palette_rb_4.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(251, 216, 21, 21)
+        elif palette_phase == 3 : 
+            addColorCheckerUI.palette_rb_3.hide()
+            addColorCheckerUI.palette_rb_3.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(192, 216, 21, 21)
+        elif palette_phase == 2 : 
+            addColorCheckerUI.palette_rb_2.hide()
+            addColorCheckerUI.palette_rb_2.setStyleSheet(StyleSheets.palette.value)
+            addColorCheckerUI.addPalette_bt.setGeometry(133, 216, 21, 21)
+
+        palette_phase -= 1
+
+        def makeBackgroundStyleSheet(RGB: tuple[int, int, int]) -> str : 
+            return ("QRadioButton::indicator{\n"
+                        f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
+                    "}")
+        addColorCheckerUI.palette_rb_1.setStyleSheet(StyleSheets.palette.value + 
+                                                     makeBackgroundStyleSheet(palette[0]))
+        if palette_phase >= 2 : 
+            addColorCheckerUI.palette_rb_2.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[1]))
+        if palette_phase >= 3 : 
+            addColorCheckerUI.palette_rb_3.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[2]))
+        if palette_phase >= 4 : 
+            addColorCheckerUI.palette_rb_4.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[3]))
+        if palette_phase >= 5 : 
+            addColorCheckerUI.palette_rb_5.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[4]))
+        if palette_phase >= 6 : 
+            addColorCheckerUI.palette_rb_6.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[5]))
+        if palette_phase >= 7 : 
+            addColorCheckerUI.palette_rb_7.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[6]))
+        if palette_phase >= 8 : 
+            addColorCheckerUI.palette_rb_8.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[7]))
+        if palette_phase >= 9 : 
+            addColorCheckerUI.palette_rb_9.setStyleSheet(StyleSheets.palette.value + 
+                                                         makeBackgroundStyleSheet(palette[8]))
+        if palette_phase >= 10 : 
+            addColorCheckerUI.palette_rb_10.setStyleSheet(StyleSheets.palette.value + 
+                                                          makeBackgroundStyleSheet(palette[9]))
+        if palette_phase >= 11 : 
+            addColorCheckerUI.palette_rb_11.setStyleSheet(StyleSheets.palette.value + 
+                                                          makeBackgroundStyleSheet(palette[10]))
+        
+        self.setRGB()
 
 
 
