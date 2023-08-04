@@ -160,7 +160,7 @@ class EditUI(QDialog) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(200, 14, 51, 18)
+        self.title_lb.setGeometry(201, 13, 38, 16)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_edit.png);\n"
                                     "}")
@@ -416,7 +416,7 @@ class AddColorCheckerUI(QDialog) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(93, 13, 181, 16)
+        self.title_lb.setGeometry(97, 13, 157, 15)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_addColorChecker);\n"
                                     "}")
@@ -684,7 +684,7 @@ class DeletePaletteUI(QDialog) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(108, 12, 140, 19)
+        self.title_lb.setGeometry(116, 13, 115, 15)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_deletePalette.png);\n"
                                     "}")
