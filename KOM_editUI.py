@@ -1,7 +1,7 @@
 from img.img import *
 import sys
 from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox, QLineEdit, QRadioButton
-from PySide2.QtCore import Qt, QSize
+from PySide2.QtCore import Qt, QSize, Signal
 from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator, QDoubleValidator
 from enum import Enum
 from os import path
@@ -121,16 +121,18 @@ class StyleSheets(Enum) :
     
 
 class EditUI(QDialog) : 
+    remove_item_signal = Signal()
+
     def __init__(self) : 
         super().__init__()
         
-        self. editUI()
+        self.editUI()
     
     def editUI(self) : 
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(448, 598)
+        self.setFixedSize(461, 611)
         self.setWindowTitle("Edit")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
@@ -142,7 +144,7 @@ class EditUI(QDialog) :
 
         # body_part
         self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(3, 2, 441, 591)
+        self.body_frm.setGeometry(10, 10, 441, 591)
         self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
@@ -251,7 +253,23 @@ class EditUI(QDialog) :
 
 
     def keyPressEvent(self, event) : 
-        if event.key() == Qt.Key_Escape : pass
+        key = event.key()
+        if key == Qt.Key_Escape : 
+            pass
+        elif key == Qt.Key_Down : 
+            current_row = self.editMacro_lw.currentRow()
+            if current_row == self.editMacro_lw.count()-1 : 
+                self.editMacro_lw.setCurrentRow(0)
+            else : 
+                self.editMacro_lw.setCurrentRow(current_row+1)
+        elif key == Qt.Key_Up : 
+            current_row = self.editMacro_lw.currentRow()
+            if current_row == 0 : 
+                self.editMacro_lw.setCurrentRow(self.editMacro_lw.count()-1)
+            else : 
+                self.editMacro_lw.setCurrentRow(current_row-1)
+        elif key == Qt.Key_Delete : 
+            self.remove_item_signal.emit()
 
 
 
@@ -267,7 +285,7 @@ class AddDelayUI(QDialog) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(302, 201)
+        self.setFixedSize(310, 193)
         self.setWindowTitle("Add Delay")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
@@ -372,7 +390,7 @@ class AddColorCheckerUI(QDialog) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(369, 608)
+        self.setFixedSize(371, 621)
         self.setWindowTitle("Add ColorChecker")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
@@ -384,7 +402,7 @@ class AddColorCheckerUI(QDialog) :
 
         # body_part
         self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(10, 5, 351, 601)
+        self.body_frm.setGeometry(10, 10, 351, 601)
         self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
@@ -640,7 +658,7 @@ class DeletePaletteUI(QDialog) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(361, 208)
+        self.setFixedSize(366, 193)
         self.setWindowTitle("Delete Palette")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
