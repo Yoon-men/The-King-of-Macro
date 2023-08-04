@@ -74,7 +74,7 @@ class SettingUI(QDialog) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(370, 310)
+        self.setFixedSize(371, 300)
         self.setWindowTitle("Setting")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
