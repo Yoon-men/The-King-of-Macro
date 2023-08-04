@@ -101,7 +101,7 @@ class SettingUI(QDialog) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(137, 13, 81, 21)
+        self.title_lb.setGeometry(146, 13, 59, 18)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_setting.png);\n"
                                     "}")
