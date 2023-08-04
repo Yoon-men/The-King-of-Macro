@@ -150,7 +150,7 @@ class MainUI(QMainWindow) :
         self.title_frm.mouseMoveEvent = self.moveWindow
 
         self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(112, 11, 185, 24)
+        self.title_lb.setGeometry(126, 12, 154, 19)
         self.title_lb.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_main.png);\n"
                                     "}")
