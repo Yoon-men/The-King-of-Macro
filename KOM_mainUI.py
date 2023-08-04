@@ -124,7 +124,7 @@ class MainUI(QMainWindow) :
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(414, 695)
+        self.setFixedSize(426, 686)
         self.setWindowTitle("The_King_of_Macro")
         icon_path = path.join(path.dirname(__file__), "KOM.ico")
         if path.isfile(icon_path) : 
@@ -136,7 +136,7 @@ class MainUI(QMainWindow) :
 
         # body_part
         self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(4, 3, 406, 666)
+        self.body_frm.setGeometry(10, 10, 406, 666)
         self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
