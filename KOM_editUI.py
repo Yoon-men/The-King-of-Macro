@@ -75,6 +75,9 @@ class StyleSheets(Enum) :
                 "}")
     
     combo_box = ("QComboBox{\n"
+                    "font-family : 나눔고딕OTF;\n"
+                    "font-weight : bold;\n"
+                    "font-size : 10pt;\n"
                     "background-color : #303030;\n"
                     "border-radius : 5px;\n"
                     "color : #cccccc;\n"
@@ -184,7 +187,6 @@ class EditUI(QDialog) :
 
         self.setMacro_cb = QComboBox(self.body_frm)
         self.setMacro_cb.setGeometry(191, 69, 191, 24)
-        self.setMacro_cb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.setMacro_cb.setStyleSheet(StyleSheets.combo_box.value)
         
         self.line_1 = QLabel(self.body_frm)
