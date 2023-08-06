@@ -6,6 +6,7 @@ from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator, QDoubleVal
 from enum import Enum
 from os import path
 
+from CustomWidget import ItemListWidget
 
 class StyleSheets(Enum) : 
     body_frame = ("QFrame{\n"
@@ -122,7 +123,7 @@ class StyleSheets(Enum) :
                     "QListWidget::item::hover{\n"
                         "background-color : #434343;\n"
                     "}")
-    
+
 
 class EditUI(QDialog) : 
     remove_item_signal = Signal()
@@ -195,7 +196,7 @@ class EditUI(QDialog) :
         
 
         # editMacro_part
-        self.editMacro_lw = QListWidget(self.body_frm)
+        self.editMacro_lw = ItemListWidget(self.body_frm)
         self.editMacro_lw.setGeometry(16, 159, 294, 416)
         self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.editMacro_lw.setStyleSheet(StyleSheets.list_widget.value)
@@ -229,16 +230,16 @@ class EditUI(QDialog) :
         self.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
         self.addColorChecker_bt.setFocusPolicy(Qt.NoFocus)
         self.addColorChecker_bt.setText("컬러체커 추가")
-
-        self.frameLine = QFrame(self.body_frm)
-        self.frameLine.setGeometry(343, 329, 71, 20)
-        self.frameLine.setFrameShape(QFrame.HLine)
-        self.frameLine.setStyleSheet("QFrame{\n"
-                                            "color : #585858;\n"
-                                        "}")
+        
+        self.line_frm = QFrame(self)
+        self.line_frm.setGeometry(351, 336, 71, 20)
+        self.line_frm.setFrameShape(QFrame.HLine)
+        self.line_frm.setStyleSheet("QFrame{\n"
+                                        "color : #585858;\n"
+                                    "}")
         
         self.delete_bt = QPushButton(self.body_frm)
-        self.delete_bt.setGeometry(326, 367, 100, 24)
+        self.delete_bt.setGeometry(325, 367, 100, 24)
         self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.delete_bt.setStyleSheet(StyleSheets.push_button.value)
         self.delete_bt.setFocusPolicy(Qt.NoFocus)
