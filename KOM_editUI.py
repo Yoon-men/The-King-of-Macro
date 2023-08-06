@@ -1,6 +1,6 @@
 from img.img import *
 import sys
-from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QDoubleSpinBox, QLineEdit, QRadioButton
+from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QComboBox, QListWidget, QLineEdit, QRadioButton, QAbstractItemView
 from PySide2.QtCore import Qt, QSize, Signal
 from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator, QDoubleValidator
 from enum import Enum
@@ -199,6 +199,8 @@ class EditUI(QDialog) :
         self.editMacro_lw.setGeometry(16, 159, 294, 416)
         self.editMacro_lw.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
         self.editMacro_lw.setStyleSheet(StyleSheets.list_widget.value)
+        self.editMacro_lw.setDragDropMode(QAbstractItemView.DragDrop)
+        self.editMacro_lw.setDefaultDropAction(Qt.MoveAction)
         
         self.addClick_bt = QPushButton(self.body_frm)
         self.addClick_bt.setGeometry(326, 159, 100, 24)
