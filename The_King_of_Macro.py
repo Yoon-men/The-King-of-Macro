@@ -12,13 +12,13 @@
 
 import sys
 import logging
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Dict
 
 from PySide2.QtWidgets import QApplication, QFileDialog
 from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt, Signal
 
 from time import sleep as timeSleep, strftime
-from os import path
+from os import path as osPath
 from pickle import load as pickleLoad, dump as pickleDump
 from keyboard import read_hotkey as keyboard_read_hotkey, is_pressed as keyboard_is_pressed
 from pyautogui import position as getPosition, screenshot, moveTo, click, rightClick, hotkey
@@ -176,14 +176,15 @@ class Main(QObject) :
             self.logging("데이터 불러오기를 취소했습니다.")
             return
 
-        file_name = path.basename(file_path)
+        file_name = osPath.basename(file_path)
         if file_name != "data.dat" : 
             self.logging("데이터를 불러오는데 실패했습니다.")
             return
 
         with open(file_path, "rb") as file : 
             global data
-            data: List[Tuple[str, Union[str, Tuple, List]]] = pickleLoad(file)
+            # data: Dict[str, List[Tuple[str, Union[str, Tuple[int, int], float]]]]
+            data = pickleLoad(file)
 
         for macro_name in data.keys() : 
             mainUI.delete_cb.addItem(macro_name)
@@ -254,18 +255,18 @@ class Main(QObject) :
         
         target_name = editUI.setMacro_cb.currentText()
         if not target_name : return
-
-        for i in range(0, len(data[target_name]), 2) : 
-            key, action = data[target_name][i], data[target_name][i+1]
-            if key == "<L>" : 
+        
+        for i in range(len(data[target_name])) : 
+            key, action = data[target_name][i]
+            if key == 'L' : 
                 editUI.editMacro_lw.addItem(f"마우스 {action} 좌클릭")
-            elif key == "<R>" : 
+            elif key == 'R' : 
                 editUI.editMacro_lw.addItem(f"마우스 {action} 우클릭")
-            elif key == "<K>" : 
+            elif key == 'K' : 
                 editUI.editMacro_lw.addItem(f"키보드 < {action} > 입력")
-            elif key == "<D>" : 
+            elif key == 'D' : 
                 editUI.editMacro_lw.addItem(f"딜레이 < {action} > 초")
-            elif key == "<C>" : 
+            elif key == 'C' : 
                 editUI.editMacro_lw.addItem(f"컬러체커 {action[0]}에서 {action[1]}초마다 진행")
 
 
