@@ -11,6 +11,9 @@
 '''
 
 import sys
+import logging
+from typing import List, Tuple, Union
+
 from PySide2.QtWidgets import QApplication, QFileDialog
 from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt, Signal
 
@@ -82,7 +85,7 @@ class Main(QObject) :
 
         mainUI.start_le.returnPressed.connect(macroThread.startMacro)
         mainUI.start_bt.clicked.connect(macroThread.startMacro)
-        macroThread.start_signal.connect(self.joyGo)                 # Test code / please modify the contents of this line.
+        macroThread.start_signal.connect(self.joyGo)
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
         timerThread.time_modify_signal.connect(self.modifyTime)
@@ -100,6 +103,8 @@ class Main(QObject) :
         editUI.exit_bt.clicked.connect(self.toggleEditUI)
 
         editUI.setMacro_cb.currentIndexChanged.connect(self.setMacro)
+
+        editUI.editMacro_lw.itemMoved.connect(lambda: logger.info("오우아아아아!"))                 # Test code / please modify the contents of this line.
 
         editUI.addClick_bt.clicked.connect(self.addClick)
         editUI.addKeyboard_bt.clicked.connect(self.addKeyboard)
@@ -178,7 +183,7 @@ class Main(QObject) :
 
         with open(file_path, "rb") as file : 
             global data
-            data = pickleLoad(file)
+            data: List[Tuple[str, Union[str, Tuple, List]]] = pickleLoad(file)
 
         for macro_name in data.keys() : 
             mainUI.delete_cb.addItem(macro_name)
@@ -187,6 +192,8 @@ class Main(QObject) :
 
         global load_status
         load_status = True
+
+        logger.info(f"data: {data}")                # Test code / please delete the contents of this line.
 
         self.logging("데이터를 불러오는데 성공했습니다.")
 
@@ -276,10 +283,9 @@ class Main(QObject) :
 
         target_name = editUI.setMacro_cb.currentText()
 
-        def save_click_position(click_type) : 
+        def save_click_position(click_type: str) -> None : 
             x, y = getPosition()
-            data[target_name].append(click_type)
-            data[target_name].append((x, y))
+            data[target_name].append((click_type, (x, y)))
             with open(file_path, "wb") as file : 
                 pickleDump(data, file)
 
@@ -288,10 +294,10 @@ class Main(QObject) :
 
         while True : 
             if keyboard_is_pressed("F9") : 
-                save_click_position("<L>")
+                save_click_position('L')
                 break
             elif keyboard_is_pressed("F10") : 
-                save_click_position("<R>")
+                save_click_position('R')
                 break
         
         editUI.addClick_bt.setStyleSheet(StyleSheets.push_button.value)
@@ -312,8 +318,7 @@ class Main(QObject) :
         target_name = editUI.setMacro_cb.currentText()
 
         key = keyboard_read_hotkey(suppress=False)
-        data[target_name].append("<K>")
-        data[target_name].append(key)
+        data[target_name].append(('K', key))
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
 
@@ -342,8 +347,7 @@ class Main(QObject) :
         target_name = editUI.setMacro_cb.currentText()
 
         delay = float(addDelayUI.addDelay_le.text())
-        data[target_name].append("<D>")
-        data[target_name].append(delay)
+        data[target_name].append(('D', delay))
         with open(file_path, "wb") as file : 
             pickleDump(data, file)
 
@@ -365,7 +369,7 @@ class Main(QObject) :
             return
         
         macro_name = editUI.setMacro_cb.currentText()
-        del data[macro_name][target_index*2 : target_index*2+2]
+        del data[macro_name][target_index]
 
         self.setMacro()
         with open(file_path, "wb") as file : 
@@ -405,6 +409,11 @@ class Main(QObject) :
         if addColorCheckerUI.exec_() == addColorCheckerUI.Rejected : 
             editUI.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
             return
+        else : 
+            '''
+            이 안에 ColorChecker를 추가하는 코드가 들어가야 한다.
+            '''                 # Test code / please delete the contents of this lines.
+            pass                # Test code / please delete the contents of this line.
 
         editUI.addColorChecker_bt.setStyleSheet(StyleSheets.push_button.value)
 
@@ -480,7 +489,7 @@ class Main(QObject) :
 
 
     def setRGB(self) -> None :  
-        def displayRGB(RGB: tuple[int, int, int]) -> None : 
+        def displayRGB(RGB: Tuple[int, int, int]) -> None : 
             addColorCheckerUI.R_le.setText(str(RGB[0]))
             addColorCheckerUI.G_le.setText(str(RGB[1]))
             addColorCheckerUI.B_le.setText(str(RGB[2]))
@@ -610,6 +619,9 @@ class Main(QObject) :
 
 
     def copyColor(self) -> None : 
+        '''
+        이 함수에 copyColor 기능을 추가해야 한다.
+        '''                 # Test code / please delete the contents of this lines.
         pass                # Test code / please delete the contents of this line.
 
 
@@ -677,7 +689,7 @@ class Main(QObject) :
 
         palette_phase -= 1
 
-        def makeBackgroundStyleSheet(RGB: tuple[int, int, int]) -> str : 
+        def makeBackgroundStyleSheet(RGB: Tuple[int, int, int]) -> str : 
             return ("QRadioButton::indicator{\n"
                         f"background-color : rgb({RGB[0]}, {RGB[1]}, {RGB[2]});\n"
                     "}")
@@ -756,7 +768,11 @@ class Main(QObject) :
 
 
     def joyGo(self) -> None : 
-        # 이 함수에는 start_bt의 styleSheet 관련 내용이 들어갈 것만 같다.               # Test code / please delete the contents of this line.
+        '''
+        이 함수에는 start_bt의 styleSheet 관련 내용이 들어갈 것 같다.
+
+        시작 상태 변수를 사용해서 toggle 시킨다던지하는 그런 아이디어는 어떨까?
+        '''                 # Test code / please delete the contents of this lines.
         pass                # Test code / please delete the contents of this line.
 
 
@@ -766,7 +782,7 @@ class MacroThread(QObject) :
     logging_signal = Signal(str)
     start_signal = Signal()
 
-    def startMacro(self) : 
+    def startMacro(self) -> None : 
         if not load_status : 
             self.logging_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
             return
@@ -781,6 +797,10 @@ class MacroThread(QObject) :
         power = True
         macro_run_limit = int(mainUI.start_le.text())
 
+        '''
+        아래는 데이터 저장 방식을 변경함에 따라서, 전면적인 수정이 요구된다.
+        '''                 # Test code / please delete the contents of this lines.
+        # ㅠㅠㅠㅠㅠㅠ < Test code / please delete the contents of this lines. > ㅠㅠㅠㅠㅠㅠ
         while (power) and (macro_run_limit > 0) : 
             for i in range(0, len(data[target_name]), 2) : 
                 if not power : break
@@ -811,12 +831,21 @@ class MacroThread(QObject) :
                                 if not power : break
                                 timeSleep(1)
                             if power : timeSleep(delay - int(delay))
+        # ㅛㅛㅛㅛㅛㅛ < Test code / please delete the contents of this line. > ㅛㅛㅛㅛㅛㅛ
+        
+        while (power) and (macro_run_limit > 0) : 
+            for key, action in data[target_name] : 
+                if not power : break
+
+                if (key == 'L') or (key == 'R') : 
+                    pass                # Test code / please delete the contents of this line.
+                
 
 
 
 
 class StopKeyListenerThread(QObject) : 
-    def detectStopKey(self) : 
+    def detectStopKey(self) -> None : 
         global power
         while power : 
             if keyboard_is_pressed(stop_key) : 
@@ -829,7 +858,7 @@ class StopKeyListenerThread(QObject) :
 class TimerThread(QObject) : 
     time_modify_signal = Signal(int)
 
-    def startTimer(self) : 
+    def startTimer(self) -> None : 
         global power, macro_run_limit
         while (power) and (macro_run_limit > 0) : 
             timeSleep(1)
@@ -843,5 +872,23 @@ class TimerThread(QObject) :
 
 
 if __name__ == "__main__" : 
+    logger = logging.getLogger(name="The_King_of_Macro")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    c_handler = logging.StreamHandler()
+    c_handler.setLevel(logging.INFO)
+    f_handler = logging.FileHandler(filename="The_King_of_Macro.log", encoding="utf-8")
+    f_handler.setLevel(logging.WARNING)
+
+    c_format = logging.Formatter("[system] %(message)s")
+    f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s\n%(message)s\n")
+    c_handler.setFormatter(c_format)
+    f_handler.setFormatter(f_format)
+
+    logger.addHandler(c_handler)
+    logger.addHandler(f_handler)
+
+
     app = QApplication(sys.argv)
     Main()
