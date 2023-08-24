@@ -88,6 +88,7 @@ class Main(QObject) :
         macroThread.start_signal.connect(self.joyGo)
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
+        macroThread.num_modify_signal.connect(self.modifyTime)
         timerThread.time_modify_signal.connect(self.modifyTime)
 
 
@@ -256,8 +257,7 @@ class Main(QObject) :
         target_name = editUI.setMacro_cb.currentText()
         if not target_name : return
         
-        for i in range(len(data[target_name])) : 
-            key, action = data[target_name][i]
+        for key, action in data[target_name] : 
             if key == 'L' : 
                 editUI.editMacro_lw.addItem(f"마우스 {action} 좌클릭")
             elif key == 'R' : 
@@ -783,6 +783,9 @@ class MacroThread(QObject) :
     logging_signal = Signal(str)
     start_signal = Signal()
 
+    num_modify_signal = Signal(int)
+
+
     def startMacro(self) -> None : 
         if not load_status : 
             self.logging_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.")
@@ -797,28 +800,24 @@ class MacroThread(QObject) :
         global power, macro_run_limit
         power = True
         macro_run_limit = int(mainUI.start_le.text())
-
-        '''
-        아래는 데이터 저장 방식을 변경함에 따라서, 전면적인 수정이 요구된다.
-        '''                 # Test code / please delete the contents of this lines.
-        # ㅠㅠㅠㅠㅠㅠ < Test code / please delete the contents of this lines. > ㅠㅠㅠㅠㅠㅠ
+        
         while (power) and (macro_run_limit > 0) : 
-            for i in range(0, len(data[target_name]), 2) : 
+            for key, action in data[target_name] : 
                 if not power : break
-                key, action = data[target_name][i], data[target_name][i+1]
-                if (key == "<L>") or (key == "<R>") : 
+
+                if (key == 'L') or (key == 'R') : 
                     moveTo(action)
                     timeSleep(0.05)
-                    click(action) if key == "<L>" else rightClick(action)
-                elif key == "<K>" : 
-                    keys = action.split("+")
+                    click(action) if (key == 'L') else rightClick(action)
+                elif key == 'K' : 
+                    keys = action.split('+')
                     hotkey(*keys)
-                elif key == "<D>" : 
+                elif key == 'D' : 
                     for _ in range(int(action)) : 
                         if not power : break
                         timeSleep(1)
                     if power : timeSleep(action - int(action))
-                elif key == "<C>" : 
+                elif key == 'C' : 
                     coordinate, delay, palettes = action
                     is_found = False
                     while (power) and (not is_found) : 
@@ -832,15 +831,11 @@ class MacroThread(QObject) :
                                 if not power : break
                                 timeSleep(1)
                             if power : timeSleep(delay - int(delay))
-        # ㅛㅛㅛㅛㅛㅛ < Test code / please delete the contents of this line. > ㅛㅛㅛㅛㅛㅛ
-        
-        while (power) and (macro_run_limit > 0) : 
-            for key, action in data[target_name] : 
-                if not power : break
-
-                if (key == 'L') or (key == 'R') : 
-                    pass                # Test code / please delete the contents of this line.
-                
+            
+            if mainUI.start_typeNum_rb.isChecked() : 
+                macro_run_limit -= 1
+                self.num_modify_signal.emit(macro_run_limit)
+                pass                # Test code / please delete the contents of this line.
 
 
 
@@ -859,7 +854,10 @@ class StopKeyListenerThread(QObject) :
 class TimerThread(QObject) : 
     time_modify_signal = Signal(int)
 
+
     def startTimer(self) -> None : 
+        if mainUI.start_typeNum_rb.isChecked() : return
+
         global power, macro_run_limit
         while (power) and (macro_run_limit > 0) : 
             timeSleep(1)
@@ -872,7 +870,8 @@ class TimerThread(QObject) :
 
 
 
-if __name__ == "__main__" : 
+def launch() -> None : 
+    global logger
     logger = logging.getLogger(name="The_King_of_Macro")
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -891,5 +890,11 @@ if __name__ == "__main__" :
     logger.addHandler(f_handler)
 
 
+    global app
     app = QApplication(sys.argv)
     Main()
+
+
+
+if __name__ == "__main__" : 
+    launch()
