@@ -120,6 +120,9 @@ class MainUI(QMainWindow) :
 
         self.mainUI()
 
+        self.signal()
+
+
     def mainUI(self) : 
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -358,6 +361,20 @@ class MainUI(QMainWindow) :
                 self.start_lb_2.setText("초 동안")
 
         return False
+
+
+
+    def signal(self) : 
+        self.start_le.textChanged.connect(self.adjustInputNumber)
+
+
+
+    def adjustInputNumber(self) -> None : 
+        if self.start_le.text() == '' : 
+            self.start_le.setText('0')
+            self.start_le.selectAll()
+        elif int(self.start_le.text()) > 0 : 
+            self.start_le.setText(str(int(self.start_le.text())))
 
 
 
