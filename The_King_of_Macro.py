@@ -12,10 +12,10 @@
 
 import sys
 import logging
-from typing import List, Tuple, Union, Dict
+from typing import Tuple
 
 from PySide2.QtWidgets import QApplication, QFileDialog
-from PySide2.QtCore import QThread, QCoreApplication, QEvent, QObject, Qt, Signal
+from PySide2.QtCore import QThread, QCoreApplication, QObject, Qt, Signal
 
 from time import sleep as timeSleep, strftime
 from os import path as osPath
@@ -88,8 +88,8 @@ class Main(QObject) :
         macroThread.start_signal.connect(self.joyGo)
         mainUI.start_bt.clicked.connect(stopKeyListenerThread.detectStopKey)
         mainUI.start_bt.clicked.connect(timerThread.startTimer)
-        macroThread.num_modify_signal.connect(self.modifyTime)
-        timerThread.time_modify_signal.connect(self.modifyTime)
+        macroThread.num_modify_signal.connect(self.modifyRuntime)
+        timerThread.time_modify_signal.connect(self.modifyRuntime)
 
 
         # < SettingUI (2 / 6) > --------------------
@@ -98,6 +98,8 @@ class Main(QObject) :
         settingUI.load_bt.clicked.connect(self.loadData)
         settingUI.setStopKey_bt.clicked.connect(self.setStopKey)
         settingUI.winToTop_ckb.stateChanged.connect(self.winToTop)
+
+        settingUI.github_bt.clicked.connect(lambda: openWebBrowser("https://github.com/Yoon-men/The_King_of_Macro"))
 
 
         # < EditUI (3 / 6) > --------------------
@@ -158,6 +160,7 @@ class Main(QObject) :
         QMacroThread.quit()
         QStopKeyListenerThread.quit()
         QTimerThread.quit()
+
         QCoreApplication.instance().quit()
 
 
@@ -763,7 +766,7 @@ class Main(QObject) :
 
 
 
-    def modifyTime(self, num: int) -> None : 
+    def modifyRuntime(self, num: int) -> None : 
         mainUI.start_le.setText(str(num))
 
 
@@ -835,7 +838,8 @@ class MacroThread(QObject) :
             if mainUI.start_typeNum_rb.isChecked() : 
                 macro_run_limit -= 1
                 self.num_modify_signal.emit(macro_run_limit)
-                pass                # Test code / please delete the contents of this line.
+
+        self.logging_signal.emit("매크로 작업을 완료했습니다.")
 
 
 
@@ -856,7 +860,7 @@ class TimerThread(QObject) :
 
 
     def startTimer(self) -> None : 
-        if mainUI.start_typeNum_rb.isChecked() : return
+        if not mainUI.start_typeTime_rb.isChecked() : return
 
         global power, macro_run_limit
         while (power) and (macro_run_limit > 0) : 
