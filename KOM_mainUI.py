@@ -60,7 +60,7 @@ class StyleSheets(Enum) :
     
     active_push_button = ("QPushButton{\n"
                                 "border : 2px solid #aaaaaa;\n"
-                                "border-radius : 5px;\n"
+                                "border-radius : 6px;\n"
                                 "background-color : #aaaaaa;\n"
                                 "color : #222222;\n"
                             "}")
