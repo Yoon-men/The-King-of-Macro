@@ -39,9 +39,11 @@ from pyautogui import (
 from webbrowser import open as openWebBrowser
 from collections import deque
 
+
 ## PySide2 Moduels
-from PySide2.QtWidgets import QApplication, QFileDialog
+from PySide2.QtWidgets import QApplication, QFileDialog, QListWidgetItem
 from PySide2.QtCore import QThread, QCoreApplication, QObject, Qt, Signal
+from PySide2.QtGui import QColor
 
 
 ## User-defined Modules
@@ -109,9 +111,37 @@ class Main(QObject):
     
 
 
-    def signal(self): 
+    def signal(self) -> None: 
+        # Rudimentary exit
+        QCoreApplication.instance().aboutToQuit.connect(self.quit)
 
+        # Logging
+        macroThread.logging_signal.connect(self.logging)
+        stopKeyListenerThread.logging_signal.connect(self.logging)
         pass                # Test code / please delete this line.
+
+        ### ----- signal() end ----- ###
+
+
+
+    def quit(self) -> None: 
+        QMacroThread.quit()
+        QStopKeyListenerThread.quit()
+
+        QCoreApplication.instance().quit()
+    
+        ### ----- quit() end ----- ###
+    
+
+
+    def logging(self, _msg: str, _level: int, _color: str = "black") -> None: 
+        log = QListWidgetItem(f"[{time_strftime('%H:%M:%S')}] - {_msg}")
+        log.setTextColor(QColor(_color))
+
+        
+
+        ### ----- logging() end ----- ###
+
 
 
 
