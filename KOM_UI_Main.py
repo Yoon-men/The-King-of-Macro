@@ -1,12 +1,33 @@
-from img.img import *
+'''
+The King of Macro (UI_Main)
+
+"From now on, all the bothersome tasks will disappear."
+
+ver 2.2.0
+
+~ Tue, Jan 2, 2024 ~
+
+'''
+
+#* ------------------------------------------------------------ *#
+
+## Python Modules
 import sys
+from time import strftime as time_strftime
+from enum import Enum
+from os import path as os_path
+
+
+## PySide2 Moduels
 from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QLineEdit, QComboBox, QRadioButton, QListWidget
 from PySide2.QtCore import Qt, QSize, QEvent
 from PySide2.QtGui import QIcon, QFontDatabase, QFont, QIntValidator
-from time import strftime
-from enum import Enum
-from os import path
 
+
+## User-defined Modules
+from img.img import *
+
+#* ------------------------------------------------------------ *#
 
 class StyleSheets(Enum) : 
     body_frame = ("QFrame{\n"
@@ -115,155 +136,157 @@ class StyleSheets(Enum) :
 
 
 class MainUI(QMainWindow) : 
-    def __init__(self) : 
+    def __init__(self) -> None: 
         super().__init__()
 
         self.mainUI()
 
         self.signal()
 
+        ### ----- init() end ----- ###
 
-    def mainUI(self) : 
+
+    def mainUI(self) -> None: 
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(426, 686)
         self.setWindowTitle("The_King_of_Macro")
-        icon_path = path.join(path.dirname(__file__), "KOM.ico")
-        if path.isfile(icon_path) : 
+        icon_path = os_path.join(os_path.dirname(__file__), "KOM.ico")
+        if os_path.isfile(icon_path) : 
             self.setWindowIcon(QIcon(icon_path))
-        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
-        if path.isfile(font_path) : 
+        font_path = os_path.join(os_path.dirname(__file__), "NanumGothicBold.otf")
+        if os_path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
 
 
         # body_part
-        self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(10, 10, 406, 666)
-        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
+        self.body_FRM = QFrame(self)
+        self.body_FRM.setGeometry(10, 10, 406, 666)
+        self.body_FRM.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
-        self.body_frm.setGraphicsEffect(self.shadow)
+        self.body_FRM.setGraphicsEffect(self.shadow)
 
-        self.title_frm = QFrame(self.body_frm)
-        self.title_frm.setGeometry(0, 0, 406, 41)
-        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
-        self.title_frm.mousePressEvent = self.setCenterPoint
-        self.title_frm.mouseMoveEvent = self.moveWindow
+        self.title_FRM = QFrame(self.body_FRM)
+        self.title_FRM.setGeometry(0, 0, 406, 41)
+        self.title_FRM.setStyleSheet(StyleSheets.title_frame.value)
+        self.title_FRM.mousePressEvent = self.setCenterPoint
+        self.title_FRM.mouseMoveEvent = self.moveWindow
 
-        self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(126, 12, 154, 19)
-        self.title_lb.setStyleSheet("QLabel{\n"
+        self.title_LB = QLabel(self.title_FRM)
+        self.title_LB.setGeometry(126, 12, 154, 19)
+        self.title_LB.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_main.png);\n"
                                     "}")
 
-        self.keep_bt = QPushButton(self.title_frm)
-        self.keep_bt.setGeometry(346, 10, 22, 22)
-        self.keep_bt.setStyleSheet(StyleSheets.title_button.value)
-        self.keep_bt.setFocusPolicy(Qt.NoFocus)
+        self.keep_BT = QPushButton(self.title_FRM)
+        self.keep_BT.setGeometry(346, 10, 22, 22)
+        self.keep_BT.setStyleSheet(StyleSheets.title_button.value)
+        self.keep_BT.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/keep.png")
-        self.keep_bt.setIcon(icon)
-        self.keep_bt.setIconSize(QSize(12, 12))
+        self.keep_BT.setIcon(icon)
+        self.keep_BT.setIconSize(QSize(12, 12))
 
-        self.exit_bt = QPushButton(self.title_frm)
-        self.exit_bt.setGeometry(377, 10, 22, 22)
-        self.exit_bt.setStyleSheet(StyleSheets.title_button.value)
-        self.exit_bt.setFocusPolicy(Qt.NoFocus)
+        self.exit_BT = QPushButton(self.title_FRM)
+        self.exit_BT.setGeometry(377, 10, 22, 22)
+        self.exit_BT.setStyleSheet(StyleSheets.title_button.value)
+        self.exit_BT.setFocusPolicy(Qt.NoFocus)
         icon.addPixmap(":/img/exit.png")
-        self.exit_bt.setIcon(icon)
-        self.exit_bt.setIconSize(QSize(22, 11))
+        self.exit_BT.setIcon(icon)
+        self.exit_BT.setIconSize(QSize(22, 11))
 
-        self.setting_bt = QPushButton(self.body_frm)
-        self.setting_bt.setGeometry(374, 48, 24, 24)
-        self.setting_bt.setStyleSheet("QPushButton{\n"
+        self.setting_BT = QPushButton(self.body_FRM)
+        self.setting_BT.setGeometry(374, 48, 24, 24)
+        self.setting_BT.setStyleSheet("QPushButton{\n"
                                             "background-color : #aaaaaa;\n"
                                             "border-radius : 5px;\n"
                                         "}\n"
                                         "QPushButton:hover{\n"
                                             "background-color : #666666;\n"
                                         "}")
-        self.setting_bt.setFocusPolicy(Qt.NoFocus)
+        self.setting_BT.setFocusPolicy(Qt.NoFocus)
         icon.addPixmap(":/img/setting.png")
-        self.setting_bt.setIcon(icon)
-        self.setting_bt.setIconSize(QSize(30, 30))
+        self.setting_BT.setIcon(icon)
+        self.setting_BT.setIconSize(QSize(30, 30))
 
-        self.line_1 = QLabel(self.body_frm)
+        self.line_1 = QLabel(self.body_FRM)
         self.line_1.setGeometry(67, 160, 271, 16)
         self.line_1.setStyleSheet(StyleSheets.line.value)
 
-        self.line_2 = QLabel(self.body_frm)
+        self.line_2 = QLabel(self.body_FRM)
         self.line_2.setGeometry(67, 280, 271, 16)
         self.line_2.setStyleSheet(StyleSheets.line.value)
 
-        self.line_3 = QLabel(self.body_frm)
+        self.line_3 = QLabel(self.body_FRM)
         self.line_3.setGeometry(67, 407, 271, 16)
         self.line_3.setStyleSheet(StyleSheets.line.value)
 
 
         # addNewMacro_part
-        self.addNewMacro_lb = QLabel(self.body_frm)
-        self.addNewMacro_lb.setGeometry(20, 76, 151, 21)
-        self.addNewMacro_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.addNewMacro_lb.setStyleSheet(StyleSheets.label.value)
-        self.addNewMacro_lb.setText("Add Macro's Name")
+        self.addNewMacro_LB = QLabel(self.body_FRM)
+        self.addNewMacro_LB.setGeometry(20, 76, 151, 21)
+        self.addNewMacro_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.addNewMacro_LB.setStyleSheet(StyleSheets.label.value)
+        self.addNewMacro_LB.setText("Add Macro's Name")
 
-        self.addNewMacro_le = QLineEdit(self.body_frm)
-        self.addNewMacro_le.setGeometry(20, 107, 300, 24)
-        self.addNewMacro_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.addNewMacro_le.setStyleSheet(StyleSheets.line_edit.value)
+        self.addNewMacro_LE = QLineEdit(self.body_FRM)
+        self.addNewMacro_LE.setGeometry(20, 107, 300, 24)
+        self.addNewMacro_LE.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.addNewMacro_LE.setStyleSheet(StyleSheets.line_edit.value)
 
-        self.addNewMacro_bt = QPushButton(self.body_frm)
-        self.addNewMacro_bt.setGeometry(328, 107, 60, 24)
-        self.addNewMacro_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.addNewMacro_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.addNewMacro_bt.setFocusPolicy(Qt.NoFocus)
-        self.addNewMacro_bt.setText("추가")
+        self.addNewMacro_BT = QPushButton(self.body_FRM)
+        self.addNewMacro_BT.setGeometry(328, 107, 60, 24)
+        self.addNewMacro_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.addNewMacro_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.addNewMacro_BT.setFocusPolicy(Qt.NoFocus)
+        self.addNewMacro_BT.setText("추가")
 
 
         # edit_part
-        self.edit_lb = QLabel(self.body_frm)
-        self.edit_lb.setGeometry(20, 193, 81, 21)
-        self.edit_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.edit_lb.setStyleSheet(StyleSheets.label.value)
-        self.edit_lb.setText("Edit Macro")
+        self.edit_LB = QLabel(self.body_FRM)
+        self.edit_LB.setGeometry(20, 193, 81, 21)
+        self.edit_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.edit_LB.setStyleSheet(StyleSheets.label.value)
+        self.edit_LB.setText("Edit Macro")
 
-        self.edit_bt = QPushButton(self.body_frm)
-        self.edit_bt.setGeometry(20, 227, 369, 24)
-        self.edit_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.edit_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.edit_bt.setFocusPolicy(Qt.NoFocus)
-        self.edit_bt.setText("편집")
+        self.edit_BT = QPushButton(self.body_FRM)
+        self.edit_BT.setGeometry(20, 227, 369, 24)
+        self.edit_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.edit_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.edit_BT.setFocusPolicy(Qt.NoFocus)
+        self.edit_BT.setText("편집")
 
 
         # delete_part
-        self.delete_lb = QLabel(self.body_frm)
-        self.delete_lb.setGeometry(20, 313, 101, 21)
-        self.delete_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.delete_lb.setStyleSheet(StyleSheets.label.value)
-        self.delete_lb.setText("Delete Macro")
+        self.delete_LB = QLabel(self.body_FRM)
+        self.delete_LB.setGeometry(20, 313, 101, 21)
+        self.delete_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.delete_LB.setStyleSheet(StyleSheets.label.value)
+        self.delete_LB.setText("Delete Macro")
 
-        self.delete_cb = QComboBox(self.body_frm)
-        self.delete_cb.setGeometry(20, 347, 300, 24)
-        self.delete_cb.setStyleSheet(StyleSheets.combo_box.value)
+        self.delete_CB = QComboBox(self.body_FRM)
+        self.delete_CB.setGeometry(20, 347, 300, 24)
+        self.delete_CB.setStyleSheet(StyleSheets.combo_box.value)
         
-        self.delete_bt = QPushButton(self.body_frm)
-        self.delete_bt.setGeometry(328, 347, 60, 24)
-        self.delete_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.delete_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.delete_bt.setFocusPolicy(Qt.NoFocus)
-        self.delete_bt.setText("삭제")
+        self.delete_BT = QPushButton(self.body_FRM)
+        self.delete_BT.setGeometry(328, 347, 60, 24)
+        self.delete_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.delete_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.delete_BT.setFocusPolicy(Qt.NoFocus)
+        self.delete_BT.setText("삭제")
 
 
         # start_part
-        self.start_lb = QLabel(self.body_frm)
-        self.start_lb.setGeometry(20, 442, 101, 21)
-        self.start_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.start_lb.setStyleSheet(StyleSheets.label.value)
-        self.start_lb.setText("Start Macro")
+        self.start_LB = QLabel(self.body_FRM)
+        self.start_LB.setGeometry(20, 442, 101, 21)
+        self.start_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.start_LB.setStyleSheet(StyleSheets.label.value)
+        self.start_LB.setText("Start Macro")
 
-        self.start_type_frm = QFrame(self.body_frm)
+        self.start_type_frm = QFrame(self.body_FRM)
         self.start_type_frm.setGeometry(198, 443, 191, 21)
         self.start_type_frm.setStyleSheet("QFrame{\n"
                                                 "background-color : #4d4d4d;\n"
@@ -274,107 +297,120 @@ class MainUI(QMainWindow) :
                             "color : #dddddd;\n"
                         "}")
 
-        self.start_typeNum_rb = QRadioButton(self.start_type_frm)
-        self.start_typeNum_rb.setGeometry(6, 0, 91, 21)
-        self.start_typeNum_rb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.start_typeNum_rb.setStyleSheet(rb_styleSheet)
-        self.start_typeNum_rb.setFocusPolicy(Qt.NoFocus)
-        self.start_typeNum_rb.setText("Num_type")
-        self.start_typeNum_rb.setChecked(True)
-        self.start_typeNum_rb.installEventFilter(self)
+        self.start_typeNum_RB = QRadioButton(self.start_type_frm)
+        self.start_typeNum_RB.setGeometry(6, 0, 91, 21)
+        self.start_typeNum_RB.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.start_typeNum_RB.setStyleSheet(rb_styleSheet)
+        self.start_typeNum_RB.setFocusPolicy(Qt.NoFocus)
+        self.start_typeNum_RB.setText("Num_type")
+        self.start_typeNum_RB.setChecked(True)
+        self.start_typeNum_RB.installEventFilter(self)
 
-        self.start_typeTime_rb = QRadioButton(self.start_type_frm)
-        self.start_typeTime_rb.setGeometry(102, 0, 91, 21)
-        self.start_typeTime_rb.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.start_typeTime_rb.setStyleSheet(rb_styleSheet)
-        self.start_typeTime_rb.setFocusPolicy(Qt.NoFocus)
-        self.start_typeTime_rb.setText("Time_type")
-        self.start_typeTime_rb.installEventFilter(self)
+        self.start_typeTime_RB = QRadioButton(self.start_type_frm)
+        self.start_typeTime_RB.setGeometry(102, 0, 91, 21)
+        self.start_typeTime_RB.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.start_typeTime_RB.setStyleSheet(rb_styleSheet)
+        self.start_typeTime_RB.setFocusPolicy(Qt.NoFocus)
+        self.start_typeTime_RB.setText("Time_type")
+        self.start_typeTime_RB.installEventFilter(self)
 
-        self.start_cb = QComboBox(self.body_frm)
-        self.start_cb.setGeometry(20, 476, 163, 24)
-        self.start_cb.setStyleSheet(StyleSheets.combo_box.value)
+        self.start_CB = QComboBox(self.body_FRM)
+        self.start_CB.setGeometry(20, 476, 163, 24)
+        self.start_CB.setStyleSheet(StyleSheets.combo_box.value)
 
-        self.start_lb_1 = QLabel(self.body_frm)
-        self.start_lb_1.setGeometry(192, 478, 41, 21)
-        self.start_lb_1.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.start_lb_1.setStyleSheet(StyleSheets.label.value)
-        self.start_lb_1.setText("을(를)")
+        self.start_1_LB = QLabel(self.body_FRM)
+        self.start_1_LB.setGeometry(192, 478, 41, 21)
+        self.start_1_LB.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.start_1_LB.setStyleSheet(StyleSheets.label.value)
+        self.start_1_LB.setText("을(를)")
 
-        self.start_le = QLineEdit(self.body_frm)
-        self.start_le.setGeometry(235, 478, 60, 22)
-        self.start_le.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.start_le.setStyleSheet(StyleSheets.line_edit.value)
-        self.start_le.setValidator(QIntValidator())
-        self.start_le.setAlignment(Qt.AlignCenter)
-        self.start_le.setText("0")
+        self.start_LE = QLineEdit(self.body_FRM)
+        self.start_LE.setGeometry(235, 478, 60, 22)
+        self.start_LE.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.start_LE.setStyleSheet(StyleSheets.line_edit.value)
+        self.start_LE.setValidator(QIntValidator())
+        self.start_LE.setAlignment(Qt.AlignCenter)
+        self.start_LE.setText("0")
 
-        self.start_lb_2 = QLabel(self.body_frm)
-        self.start_lb_2.setGeometry(304, 478, 16, 21)
-        self.start_lb_2.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
-        self.start_lb_2.setStyleSheet(StyleSheets.label.value)
-        self.start_lb_2.setText("번")
+        self.start_2_LB = QLabel(self.body_FRM)
+        self.start_2_LB.setGeometry(304, 478, 16, 21)
+        self.start_2_LB.setFont(QFont("나눔고딕OTF", 10, QFont.Bold))
+        self.start_2_LB.setStyleSheet(StyleSheets.label.value)
+        self.start_2_LB.setText("번")
 
-        self.start_bt = QPushButton(self.body_frm)
-        self.start_bt.setGeometry(328, 477, 60, 24)
-        self.start_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.start_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.start_bt.setFocusPolicy(Qt.NoFocus)
-        self.start_bt.setText("실행")
+        self.start_BT = QPushButton(self.body_FRM)
+        self.start_BT.setGeometry(328, 477, 60, 24)
+        self.start_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.start_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.start_BT.setFocusPolicy(Qt.NoFocus)
+        self.start_BT.setText("실행")
 
-        self.log_lw = QListWidget(self.body_frm)
-        self.log_lw.setGeometry(18, 529, 370, 118)
-        self.log_lw.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.log_lw.setStyleSheet(StyleSheets.list_widget.value)
-        self.log_lw.setFocusPolicy(Qt.NoFocus)
-        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] <The King of Macro v2.2> - Made by. Yoonmen")
-        self.log_lw.addItem(f"[{strftime('%H:%M:%S')}] 환영합니다. data.dat 파일을 불러와주세요.")
-        self.log_lw.setCurrentRow(self.log_lw.count()-1)
+        self.log_LW = QListWidget(self.body_FRM)
+        self.log_LW.setGeometry(18, 529, 370, 118)
+        self.log_LW.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.log_LW.setStyleSheet(StyleSheets.list_widget.value)
+        self.log_LW.setFocusPolicy(Qt.NoFocus)
+        self.log_LW.addItem(f"[{time_strftime('%H:%M:%S')}] <The King of Macro v2.2> - Made by. Yoonmen")
+        self.log_LW.addItem(f"[{time_strftime('%H:%M:%S')}] 환영합니다. data.dat 파일을 불러와주세요.")
+        self.log_LW.setCurrentRow(self.log_LW.count()-1)
+
+        ### ----- mainUI() end ----- ###
 
 
 
-    def setCenterPoint(self, event) : 
+    def setCenterPoint(self, event) -> None: 
         self.centerPoint = event.globalPos()
-    
-    def moveWindow(self, event) : 
+
+        ### ----- setCenterPoint() end ----- ###
+
+
+    def moveWindow(self, event) -> None: 
         if event.buttons() == Qt.LeftButton : 
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
+        
+        ### ----- moveWindow() end ----- ###
     
 
 
-    def eventFilter(self, object, event) : 
-        if object == self.start_typeNum_rb : 
+    def eventFilter(self, object, event) -> bool: 
+        if object == self.start_typeNum_RB : 
             if event.type() == QEvent.MouseButtonPress : 
-                self.start_cb.setGeometry(20, 476, 163, 24)
-                self.start_lb_1.setGeometry(192, 478, 41, 21)
-                self.start_le.setGeometry(235, 478, 60, 22)
-                self.start_lb_2.setGeometry(304, 478, 16, 21)
-                self.start_lb_2.setText("번")
+                self.start_CB.setGeometry(20, 476, 163, 24)
+                self.start_1_LB.setGeometry(192, 478, 41, 21)
+                self.start_LE.setGeometry(235, 478, 60, 22)
+                self.start_2_LB.setGeometry(304, 478, 16, 21)
+                self.start_2_LB.setText("번")
 
-        elif object == self.start_typeTime_rb : 
+        elif object == self.start_typeTime_RB : 
             if event.type() == QEvent.MouseButtonPress : 
-                self.start_cb.setGeometry(20, 476, 137, 24)
-                self.start_lb_1.setGeometry(166, 478, 41, 21)
-                self.start_le.setGeometry(210, 478, 60, 22)
-                self.start_lb_2.setGeometry(280, 478, 41, 21)
-                self.start_lb_2.setText("초 동안")
+                self.start_CB.setGeometry(20, 476, 137, 24)
+                self.start_1_LB.setGeometry(166, 478, 41, 21)
+                self.start_LE.setGeometry(210, 478, 60, 22)
+                self.start_2_LB.setGeometry(280, 478, 41, 21)
+                self.start_2_LB.setText("초 동안")
 
         return False
+    
+        ### ----- eventFilter() end ----- ###
 
 
 
-    def signal(self) : 
-        self.start_le.textChanged.connect(self.adjustInputNumber)
+    def signal(self) -> None: 
+        self.start_LE.textChanged.connect(self.adjustInputNumber)
+
+        ### ----- signal() end ----- ###
 
 
 
-    def adjustInputNumber(self) -> None : 
-        if self.start_le.text() == '' : 
-            self.start_le.setText('0')
-            self.start_le.selectAll()
-        elif int(self.start_le.text()) > 0 : 
-            self.start_le.setText(str(int(self.start_le.text())))
+    def adjustInputNumber(self) -> None: 
+        if self.start_LE.text() == '' : 
+            self.start_LE.setText('0')
+            self.start_LE.selectAll()
+        elif int(self.start_LE.text()) > 0 : 
+            self.start_LE.setText(str(int(self.start_LE.text())))
+        
+        ### ----- adjustInputNumber() end ----- ###
 
 
 

@@ -1,11 +1,32 @@
-from img.img import *
+'''
+The King of Macro (UI_Setting)
+
+"From now on, all the bothersome tasks will disappear."
+
+ver 2.2.0
+
+~ Tue, Jan 2, 2024 ~
+
+'''
+
+#* ------------------------------------------------------------ *#
+
+## Python Modules
 import sys
+from enum import Enum
+from os import path as os_path
+
+
+## PySide2 Moduels
 from PySide2.QtWidgets import QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QLabel, QPushButton, QCheckBox
 from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon, QFontDatabase, QFont
-from enum import Enum
-from os import path
 
+
+## User-defined Modules
+from img.img import *
+
+#* ------------------------------------------------------------ *#
 
 class StyleSheets(Enum) : 
     body_frame = ("QFrame{\n"
@@ -65,124 +86,136 @@ class StyleSheets(Enum) :
 
 
 class SettingUI(QDialog) : 
-    def __init__(self) : 
+    def __init__(self) -> None: 
         super().__init__()
 
         self.settingUI()
 
-    def settingUI(self) : 
+        ### ----- init() end ----- ###
+
+
+    def settingUI(self) -> None: 
         # basic_part
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(371, 300)
         self.setWindowTitle("Setting")
-        icon_path = path.join(path.dirname(__file__), "KOM.ico")
-        if path.isfile(icon_path) : 
+        icon_path = os_path.join(os_path.dirname(__file__), "KOM.ico")
+        if os_path.isfile(icon_path) : 
             self.setWindowIcon(QIcon(icon_path))
-        font_path = path.join(path.dirname(__file__), "NanumGothicBold.otf")
-        if path.isfile(font_path) : 
+        font_path = os_path.join(os_path.dirname(__file__), "NanumGothicBold.otf")
+        if os_path.isfile(font_path) : 
             QFontDatabase.addApplicationFont(font_path)
 
 
         # body_part
-        self.body_frm = QFrame(self)
-        self.body_frm.setGeometry(10, 10, 351, 280)
-        self.body_frm.setStyleSheet(StyleSheets.body_frame.value)
+        self.body_FRM = QFrame(self)
+        self.body_FRM.setGeometry(10, 10, 351, 280)
+        self.body_FRM.setStyleSheet(StyleSheets.body_frame.value)
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(18)
         self.shadow.setOffset(0, 0)
-        self.body_frm.setGraphicsEffect(self.shadow)
+        self.body_FRM.setGraphicsEffect(self.shadow)
         
-        self.title_frm = QFrame(self.body_frm)
-        self.title_frm.setGeometry(0, 0, 351, 41)
-        self.title_frm.setStyleSheet(StyleSheets.title_frame.value)
+        self.title_FRM = QFrame(self.body_FRM)
+        self.title_FRM.setGeometry(0, 0, 351, 41)
+        self.title_FRM.setStyleSheet(StyleSheets.title_frame.value)
         
-        self.title_frm.mousePressEvent = self.setCenterPoint
-        self.title_frm.mouseMoveEvent = self.moveWindow
+        self.title_FRM.mousePressEvent = self.setCenterPoint
+        self.title_FRM.mouseMoveEvent = self.moveWindow
 
-        self.title_lb = QLabel(self.title_frm)
-        self.title_lb.setGeometry(146, 13, 59, 18)
-        self.title_lb.setStyleSheet("QLabel{\n"
+        self.title_LB = QLabel(self.title_FRM)
+        self.title_LB.setGeometry(146, 13, 59, 18)
+        self.title_LB.setStyleSheet("QLabel{\n"
                                         "image : url(:/img/title_setting.png);\n"
                                     "}")
         
-        self.exit_bt = QPushButton(self.body_frm)
-        self.exit_bt.setGeometry(321, 10, 22, 22)
-        self.exit_bt.setStyleSheet(StyleSheets.exit_button.value)
-        self.exit_bt.setFocusPolicy(Qt.NoFocus)
+        self.exit_BT = QPushButton(self.body_FRM)
+        self.exit_BT.setGeometry(321, 10, 22, 22)
+        self.exit_BT.setStyleSheet(StyleSheets.exit_button.value)
+        self.exit_BT.setFocusPolicy(Qt.NoFocus)
         icon = QIcon()
         icon.addPixmap(":/img/exit.png")
-        self.exit_bt.setIcon(icon)
-        self.exit_bt.setIconSize(QSize(22, 11))
+        self.exit_BT.setIcon(icon)
+        self.exit_BT.setIconSize(QSize(22, 11))
 
-        self.line = QLabel(self.body_frm)
+        self.line = QLabel(self.body_FRM)
         self.line.setGeometry(52, 105, 241, 16)
         self.line.setStyleSheet(StyleSheets.line.value)
         
 
         # load_part
-        self.load_bt = QPushButton(self.body_frm)
-        self.load_bt.setGeometry(20, 63, 311, 24)
-        self.load_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.load_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.load_bt.setFocusPolicy(Qt.NoFocus)
-        self.load_bt.setText("불러오기")
+        self.load_BT = QPushButton(self.body_FRM)
+        self.load_BT.setGeometry(20, 63, 311, 24)
+        self.load_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.load_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.load_BT.setFocusPolicy(Qt.NoFocus)
+        self.load_BT.setText("불러오기")
 
 
         # setStopKey_part
-        self.setStopKey_lb = QLabel(self.body_frm)
-        self.setStopKey_lb.setGeometry(70, 145, 111, 21)
-        self.setStopKey_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.setStopKey_lb.setStyleSheet(StyleSheets.label.value)
-        self.setStopKey_lb.setText("매크로 중단 키 : ")
+        self.setStopKey_LB = QLabel(self.body_FRM)
+        self.setStopKey_LB.setGeometry(70, 145, 111, 21)
+        self.setStopKey_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.setStopKey_LB.setStyleSheet(StyleSheets.label.value)
+        self.setStopKey_LB.setText("매크로 중단 키 : ")
 
-        self.setStopKey_bt = QPushButton(self.body_frm)
-        self.setStopKey_bt.setGeometry(190, 146, 91, 21)
-        self.setStopKey_bt.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
-        self.setStopKey_bt.setStyleSheet(StyleSheets.push_button.value)
-        self.setStopKey_bt.setFocusPolicy(Qt.NoFocus)
-        self.setStopKey_bt.setText("esc")
+        self.setStopKey_BT = QPushButton(self.body_FRM)
+        self.setStopKey_BT.setGeometry(190, 146, 91, 21)
+        self.setStopKey_BT.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
+        self.setStopKey_BT.setStyleSheet(StyleSheets.push_button.value)
+        self.setStopKey_BT.setFocusPolicy(Qt.NoFocus)
+        self.setStopKey_BT.setText("esc")
 
 
         # winToTop_part
-        self.winToTop_lb = QLabel(self.body_frm)
-        self.winToTop_lb.setGeometry(110, 192, 81, 21)
-        self.winToTop_lb.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
-        self.winToTop_lb.setStyleSheet(StyleSheets.label.value)
-        self.winToTop_lb.setText("가장 위로 : ")
+        self.winToTop_LB = QLabel(self.body_FRM)
+        self.winToTop_LB.setGeometry(110, 192, 81, 21)
+        self.winToTop_LB.setFont(QFont("나눔고딕OTF", 12, QFont.Bold))
+        self.winToTop_LB.setStyleSheet(StyleSheets.label.value)
+        self.winToTop_LB.setText("가장 위로 : ")
 
-        self.winToTop_ckb = QCheckBox(self.body_frm)
-        self.winToTop_ckb.setGeometry(200, 192, 21, 21)
-        self.winToTop_ckb.setStyleSheet(StyleSheets.check_box.value)
-        self.winToTop_ckb.setFocusPolicy(Qt.NoFocus)
+        self.winToTop_CKB = QCheckBox(self.body_FRM)
+        self.winToTop_CKB.setGeometry(200, 192, 21, 21)
+        self.winToTop_CKB.setStyleSheet(StyleSheets.check_box.value)
+        self.winToTop_CKB.setFocusPolicy(Qt.NoFocus)
         
 
         # github_part
-        self.github_bt = QPushButton(self.body_frm)
-        self.github_bt.setGeometry(163, 234, 30, 30)
-        self.github_bt.setStyleSheet("QPushButton{\n"
+        self.github_BT = QPushButton(self.body_FRM)
+        self.github_BT.setGeometry(163, 234, 30, 30)
+        self.github_BT.setStyleSheet("QPushButton{\n"
                                         "border-radius : 10px;\n"
                                         "image : url(:/img/github_bt_normal.png);\n"
                                     "}\n"
                                     "QPushButton:hover{\n"
                                         "image : url(:/img/github_bt_hover.png);\n"
                                     "}")
-        self.github_bt.setFocusPolicy(Qt.NoFocus)
+        self.github_BT.setFocusPolicy(Qt.NoFocus)
+
+        ### ----- settingUI() end ----- ###
 
 
 
-    def setCenterPoint(self, event) : 
+    def setCenterPoint(self, event) -> None: 
         self.centerPoint = event.globalPos()
 
-    def moveWindow(self, event) : 
+        ### ----- setCenterPoint() end ----- ###
+
+
+    def moveWindow(self, event) -> None: 
         if event.buttons() == Qt.LeftButton : 
             self.move(self.pos() + event.globalPos() - self.centerPoint)
             self.centerPoint = event.globalPos()
+        
+        ### ----- moveWindow() end ----- ###
 
 
 
-    def keyPressEvent(self, event) : 
+    def keyPressEvent(self, event) -> None: 
         if event.key() == Qt.Key_Escape : pass
+
+        ### ----- keyPressEvent() end ----- ###
 
 
 
