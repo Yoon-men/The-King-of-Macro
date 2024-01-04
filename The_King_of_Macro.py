@@ -82,18 +82,32 @@ class Main(QObject):
         global mainUI, settingUI, editUI, addDelayUI, addColorCheckerUI, deletePaletteUI
         mainUI, settingUI, editUI, addDelayUI, addColorCheckerUI, deletePaletteUI = MainUI(), SettingUI(), EditUI(), AddDelayUI(), AddColorCheckerUI(), DeletePaletteUI()
 
+        # UI Processor Thread
+        global QUiProcessorThread, uiProcessorThread
+        QUiProcessorThread = QThread()
+        QUiProcessorThread.start()
+        uiProcessorThread = UiProcessor()
+        uiProcessorThread.moveToThread(QUiProcessorThread)
+
+        # Data Processor Thread
+        global QDataProcessorThread, dataProcessorThread
+        QDataProcessorThread = QThread()
+        QDataProcessorThread.start()
+        dataProcessorThread = DataProcessor()
+        dataProcessorThread.moveToThread(QDataProcessorThread)
+
         # Macro Thread
         global QMacroThread, macroThread
         QMacroThread = QThread()
         QMacroThread.start()
-        macroThread = MacroThread()
+        macroThread = Macro()
         macroThread.moveToThread(QMacroThread)
 
         # StopKey Listener Thread
         global QStopKeyListenerThread, stopKeyListenerThread
         QStopKeyListenerThread = QThread()
         QStopKeyListenerThread.start()
-        stopKeyListenerThread = StopKeyListenerThread()
+        stopKeyListenerThread = StopKeyListener()
         stopKeyListenerThread.moveToThread(QStopKeyListenerThread)
 
         global load_status, stop_key, is_edit_ui_opened, palette_phase, palette
@@ -138,21 +152,38 @@ class Main(QObject):
         log = QListWidgetItem(f"[{time_strftime('%H:%M:%S')}] - {_msg}")
         log.setTextColor(QColor(_color))
 
-        
+        mainUI.log_LW.addItem(log)
+        mainUI.log_LW.setCurrentRow(mainUI.log_LW.count() - 1)
+        mainUI.log_LW.scrollToBottom()
+
+        logger.log(_level, _msg)
 
         ### ----- logging() end ----- ###
 
+    ### ----- Main() end ----- ###
 
 
 
 
-class MacroThread(QObject): 
+class UiProcessor(QObject): 
     pass                # Test code / please delete this line.
 
 
 
 
-class StopKeyListenerThread(QObject): 
+class DataProcessor(QObject): 
+    pass                # Test code / please delete this line.
+
+
+
+
+class Macro(QObject): 
+    pass                # Test code / please delete this line.
+
+
+
+
+class StopKeyListener(QObject): 
     pass                # Test code / please delete this line.
         
 
