@@ -100,7 +100,7 @@ class Main(QObject):
         global QMacroThread, macroThread
         QMacroThread = QThread()
         QMacroThread.start()
-        macroThread = Macro()
+        macroThread = MacroProcessor()
         macroThread.moveToThread(QMacroThread)
 
         # StopKey Listener Thread
@@ -166,7 +166,23 @@ class Main(QObject):
 
 
 class UiProcessor(QObject): 
-    pass                # Test code / please delete this line.
+    def winToTop(self) -> None: 
+        flags = Qt.FramelessWindowHint
+        if settingUI.winToTop_CKB.isChecked(): 
+            flags |= Qt.WindowStaysOnTopHint
+        
+        mainUI.setWindowFlags(flags)
+        settingUI.setWindowFlags(flags)
+        editUI.setWindowFlags(flags)
+        addDelayUI.setWindowFlags(flags)
+        addColorCheckerUI.setWindowFlags(flags)
+        deletePaletteUI.setWindowFlags(flags)
+
+        mainUI.show()
+        settingUI.show()
+        if is_edit_ui_opened: editUI.show()
+
+        ### ----- winToTop() end ----- ###
 
 
 
@@ -174,17 +190,23 @@ class UiProcessor(QObject):
 class DataProcessor(QObject): 
     pass                # Test code / please delete this line.
 
+    ### ----- DataProcessor() end ----- ###
 
 
 
-class Macro(QObject): 
+
+class MacroProcessor(QObject): 
     pass                # Test code / please delete this line.
+
+    ### ----- MacroProcessor() end ----- ###
 
 
 
 
 class StopKeyListener(QObject): 
     pass                # Test code / please delete this line.
+
+    ### ----- StopKeyListener() end ----- ###
         
 
 
