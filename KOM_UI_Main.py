@@ -350,6 +350,7 @@ class MainUI(QMainWindow) :
         self.log_LW.setFont(QFont("나눔고딕OTF", 9, QFont.Bold))
         self.log_LW.setStyleSheet(StyleSheets.list_widget.value)
         self.log_LW.setFocusPolicy(Qt.NoFocus)
+        self.log_LW.setWordWrap(True)
         self.log_LW.addItem(f"[{time_strftime('%H:%M:%S')}] <The King of Macro v2.2> - Made by. Yoonmen")
         self.log_LW.addItem(f"[{time_strftime('%H:%M:%S')}] 환영합니다. data.dat 파일을 불러와주세요.")
         self.log_LW.setCurrentRow(self.log_LW.count()-1)
