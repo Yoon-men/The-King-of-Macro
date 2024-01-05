@@ -140,6 +140,10 @@ class Main(QObject):
         macroProcessorThread.logging_signal.connect(self.logging)
         stopKeyListenerThread.logging_signal.connect(self.logging)
 
+        dataProcessorThread.logging_with_color_signal.connect(self.logging)
+        macroProcessorThread.logging_with_color_signal.connect(self.logging)
+        stopKeyListenerThread.logging_with_color_signal.connect(self.logging)
+
 
         ## Main UI
         mainUI.keep_BT.clicked.connect(mainUI.showMinimized)
@@ -236,7 +240,7 @@ class Main(QObject):
     
 
 
-    def logging(self, _msg: str, _level: int, _color: str = "white") -> None: 
+    def logging(self, _msg: str, _level: int, _color: str = "#dddddd") -> None: 
         log = QListWidgetItem(f"[{time_strftime('%H:%M:%S')}] - {_msg}")
         log.setTextColor(QColor(_color))
 
@@ -289,7 +293,8 @@ class UiProcessor(QObject):
 
 
 class DataProcessor(QObject): 
-    logging_signal = Signal(str, int, str)
+    logging_signal = Signal(str, int)
+    logging_with_color_signal = Signal(str, int, str)
 
     data_path = None
 
@@ -299,12 +304,12 @@ class DataProcessor(QObject):
             self.file_path, _ = QFileDialog.getOpenFileName()
 
             if not self.file_path: 
-                self.logging_signal.emit("데이터 불러오기를 취소했습니다.", INFO, "#f55b5b")
+                self.logging_with_color_signal.emit("데이터 불러오기를 취소했습니다.", INFO, "#f55b5b")
                 return
             
             file_name = os_path.basename(self.file_path)
             if file_name != "data.dat": 
-                self.logging_signal.emit("데이터를 불러오는데 실패했습니다.", WARNING, "#f55b5b")
+                self.logging_with_color_signal.emit("데이터를 불러오는데 실패했습니다.", WARNING, "#f55b5b")
                 return
             
             with open(self.file_path, "rb") as file: 
@@ -319,13 +324,13 @@ class DataProcessor(QObject):
             global load_status
             load_status = True
 
-            self.logging_signal.emit(f"data: \n{data}", DEBUG, "white")                # Test code / please delete this line.
+            self.logging_signal.emit(f"data: \n{data}", DEBUG)                # Test code / please delete this line.
 
-            self.logging_signal.emit("데이터를 불러오는데 성공했습니다.", INFO, "#4491fa")
+            self.logging_with_color_signal.emit("데이터를 불러오는데 성공했습니다.", INFO, "#4491fa")
         except: 
             exc_type, exc_value, exc_traceback = sys.exc_info()
             formatted_traceback = traceback.format_exception(exc_type, exc_value, exc_traceback)
-            self.logging_signal.emit(f"아래의 오류가 발생했습니다.\n{''.join(formatted_traceback)}", ERROR, "#f55b5b")
+            self.logging_with_color_signal.emit(f"아래의 오류가 발생했습니다.\n{''.join(formatted_traceback)}", ERROR, "#f55b5b")
 
         ### ----- loadData() end ----- ###
 
@@ -333,18 +338,18 @@ class DataProcessor(QObject):
 
     def addNewMacro(self) -> None: 
         if load_status == False: 
-            self.logging_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.", WARNING, "#f55b5b")
+            self.logging_with_color_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.", WARNING, "#f55b5b")
             return
 
         macro_name = mainUI.addNewMacro_LE.text()
         mainUI.addNewMacro_LE.clear()
 
         if macro_name == '': 
-            self.logging_signal.emit("공백은 매크로 이름으로 사용할 수 없습니다.", WARNING, "#f55b5b")
+            self.logging_with_color_signal.emit("공백은 매크로 이름으로 사용할 수 없습니다.", WARNING, "#f55b5b")
             return
 
         if macro_name in data.keys(): 
-            self.logging_signal.emit("이미 존재하는 매크로 이름입니다.", WARNING, "#f55b5b")
+            self.logging_with_color_signal.emit("이미 존재하는 매크로 이름입니다.", WARNING, "#f55b5b")
             return
 
         data[macro_name] = deque()
@@ -356,7 +361,7 @@ class DataProcessor(QObject):
         with open(self.file_path, 'wb') as file: 
             pickle_dump(data, file)
         
-        self.logging_signal.emit("새로운 매크로를 추가했습니다.", INFO, "#4491fa")
+        self.logging_with_color_signal.emit("새로운 매크로를 추가했습니다.", INFO, "#4491fa")
 
         ### ----- addNewMacro() end ----- ###
     
@@ -371,7 +376,8 @@ class DataProcessor(QObject):
 
 
 class MacroProcessor(QObject): 
-    logging_signal = Signal(str, int, str)
+    logging_signal = Signal(str, int)
+    logging_with_color_signal = Signal(str, int, str)
 
     pass                # Test code / please delete this line.
 
@@ -381,7 +387,8 @@ class MacroProcessor(QObject):
 
 
 class StopKeyListener(QObject): 
-    logging_signal = Signal(str, int, str)
+    logging_signal = Signal(str, int)
+    logging_with_color_signal = Signal(str, int, str)
     
     pass                # Test code / please delete this line.
 
