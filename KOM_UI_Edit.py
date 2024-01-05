@@ -226,6 +226,7 @@ class EditUI(QDialog) :
         self.editMacro_LW.setStyleSheet(StyleSheets.list_widget.value)
         self.editMacro_LW.setDragDropMode(QAbstractItemView.DragDrop)
         self.editMacro_LW.setDefaultDropAction(Qt.MoveAction)
+        self.editMacro_LW.setWordWrap(True)
         
         self.addClick_BT = QPushButton(self.body_FRM)
         self.addClick_BT.setGeometry(326, 159, 100, 24)
