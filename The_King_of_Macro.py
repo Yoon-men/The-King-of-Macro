@@ -136,10 +136,12 @@ class Main(QObject):
 
 
         ## Logging
+        uiProcessorThread.logging_signal.connect(self.logging)
         dataProcessorThread.logging_signal.connect(self.logging)
         macroProcessorThread.logging_signal.connect(self.logging)
         stopKeyListenerThread.logging_signal.connect(self.logging)
 
+        uiProcessorThread.logging_with_color_signal.connect(self.logging)
         dataProcessorThread.logging_with_color_signal.connect(self.logging)
         macroProcessorThread.logging_with_color_signal.connect(self.logging)
         stopKeyListenerThread.logging_with_color_signal.connect(self.logging)
@@ -167,7 +169,7 @@ class Main(QObject):
 
         settingUI.load_BT.clicked.connect(dataProcessorThread.loadData)
         settingUI.setStopKey_BT.clicked.connect(dataProcessorThread.setStopKey)
-        settingUI.winToTop_CKB.clicked.connect(uiProcessorThread.winToTop)
+        settingUI.winToTop_CKB.clicked.connect(UiProcessor.winToTop)
 
         settingUI.github_BT.clicked.connect(lambda: openWebBrowser("https://github.com/Yoon-men/The_King_of_Macro"))
 
@@ -258,6 +260,9 @@ class Main(QObject):
 
 
 class UiProcessor(QObject): 
+    logging_signal = Signal(str, int)
+    logging_with_color_signal = Signal(str, int, str)
+
     is_edit_ui_opened = False
 
 
@@ -275,9 +280,9 @@ class UiProcessor(QObject):
 
         mainUI.show()
         settingUI.show()
-        if self.is_edit_ui_opened: editUI.show()
+        if UiProcessor.is_edit_ui_opened: editUI.show()
 
-        ### ----- winToTop() end ----- ###
+        ### ----- winToTop() end ----- ### 
 
 
 
