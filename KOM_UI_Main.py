@@ -125,13 +125,6 @@ class StyleSheets(Enum) :
                     "}\n"
                     "QListWidget::item{\n"
                         "margin : 1.3px;\n"
-                    "}\n"
-                    "QListWidget::item::selected{\n"
-                        "background-color : #2b2b2b;\n"
-                        "color : #dddddd;\n"
-                    "}\n"
-                    "QListWidget::item::hover{\n"
-                        "background-color : #434343;\n"
                     "}")
 
 
