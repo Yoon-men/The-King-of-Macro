@@ -147,6 +147,10 @@ class Main(QObject):
         stopKeyListenerThread.logging_with_color_signal.connect(self.logging)
 
 
+        ## Macro Processor
+        macroProcessorThread.modify_num_signal.connect(mainUI.start_LE.setText)
+
+
         ## Main UI
         mainUI.keep_BT.clicked.connect(mainUI.showMinimized)
         mainUI.exit_BT.clicked.connect(self.quit)
@@ -160,8 +164,8 @@ class Main(QObject):
 
         mainUI.delete_BT.clicked.connect(dataProcessorThread.deleteMacro)
 
-        # mainUI.start_BT.clicked.connect(macroProcessorThread.startMacro)
-        # mainUI.start_LE.returnPressed.connect(macroProcessorThread.startMacro)
+        mainUI.start_BT.clicked.connect(macroProcessorThread.startMacro)
+        mainUI.start_LE.returnPressed.connect(macroProcessorThread.startMacro)
 
 
         ## Setting UI
@@ -395,7 +399,9 @@ class DataProcessor(QObject):
 
         self.logging_with_color_signal.emit("매크로를 삭제했습니다.", INFO, "#4491fa")
 
-        ### ----- DataProcessor() end ----- ###
+        ### ----- deleteMacro() end ----- ###
+
+    ### ----- DataProcessor() end ----- ###
 
 
 
@@ -404,7 +410,61 @@ class MacroProcessor(QObject):
     logging_signal = Signal(str, int)
     logging_with_color_signal = Signal(str, int, str)
 
-    pass                # Test code / please delete this line.
+    modify_num_signal = Signal(str)
+
+
+    def startMacro(self) -> None: 
+        if load_status == False: 
+            self.logging_with_color_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.", WARNING, "#f55b5b")
+            return
+        
+        if not data: 
+            self.logging_with_color_signal.emit("실행할 매크로가 없습니다.", WARNING, "#f55b5b")
+            return
+        
+        target_name = mainUI.start_CB.currentText()
+
+        global power, macro_run_limit
+        power = True
+        macro_run_limit = int(mainUI.start_LE.text())
+
+        self.logging_signal.emit(f"'{target_name}' 매크로를 실행합니다.", INFO)
+        while (power) and (macro_run_limit > 0): 
+            for key, action in data[target_name]: 
+                if power == False: break
+
+                if (key == 'L') or (key == 'R'): 
+                    moveTo(action)
+                    click(action) if (key == 'L') else rightClick(action)
+                elif key == 'K': 
+                    keys = action.split('+')
+                    hotkey(*keys)
+                elif key == 'D': 
+                    for _ in range(int(action)): 
+                        if not power: break
+                        time_sleep(1)
+                    if power: time_sleep(action - int(action))
+                elif key == 'C': 
+                    coordinate, delay, palettes = action
+                    is_found = False
+                    while (power) and (not is_found): 
+                        moveTo(coordinate)
+                        for paltte in palettes: 
+                            if screenshot().getpixel(coordinate) == palette: 
+                                is_found = True
+                                break
+                            for _ in range(int(delay)): 
+                                if not power: break
+                                time_sleep(1)
+                            if power: time_sleep(delay - int(delay))
+            
+            if mainUI.start_typeNum_RB.isChecked(): 
+                macro_run_limit -= 1
+                self.modify_num_signal.emit(str(macro_run_limit))
+
+        self.logging_with_color_signal.emit(f"'{target_name}' 매크로 작업을 완료했습니다.", INFO, "#4491fa")
+
+        ### ----- startMacro() end ----- ###
 
     ### ----- MacroProcessor() end ----- ###
 
