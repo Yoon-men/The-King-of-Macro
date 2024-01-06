@@ -160,15 +160,15 @@ class Main(QObject):
 
         mainUI.delete_BT.clicked.connect(dataProcessorThread.deleteMacro)
 
-        mainUI.start_BT.clicked.connect(macroProcessorThread.startMacro)
-        mainUI.start_LE.returnPressed.connect(macroProcessorThread.startMacro)
+        # mainUI.start_BT.clicked.connect(macroProcessorThread.startMacro)
+        # mainUI.start_LE.returnPressed.connect(macroProcessorThread.startMacro)
 
 
         ## Setting UI
         settingUI.exit_BT.clicked.connect(settingUI.close)
 
         settingUI.load_BT.clicked.connect(dataProcessorThread.loadData)
-        settingUI.setStopKey_BT.clicked.connect(dataProcessorThread.setStopKey)
+        # settingUI.setStopKey_BT.clicked.connect(dataProcessorThread.setStopKey)
         settingUI.winToTop_CKB.clicked.connect(UiProcessor.winToTop)
 
         settingUI.github_BT.clicked.connect(lambda: openWebBrowser("https://github.com/Yoon-men/The_King_of_Macro"))
@@ -177,17 +177,17 @@ class Main(QObject):
         ## Edit UI
         editUI.exit_BT.clicked.connect(uiProcessorThread.toggleEditUI)
 
-        editUI.setMacro_CB.currentIndexChanged.connect(uiProcessorThread.setMacro)
+        # editUI.setMacro_CB.currentIndexChanged.connect(uiProcessorThread.setMacro)
 
         editUI.editMacro_LW.itemMoved.connect(lambda: logger.info("아이템의 이동이 감지되었습니다."))               # Test code / please delete this line.
 
-        editUI.addClick_BT.clicked.connect(dataProcessorThread.addClick)
-        editUI.addKeyboard_BT.clicked.connect(dataProcessorThread.addKeyboard)
-        editUI.addDelay_BT.clicked.connect(dataProcessorThread.addDelay)
-        editUI.addColorChecker_BT.clicked.connect(dataProcessorThread.addColorChecker)
+        # editUI.addClick_BT.clicked.connect(dataProcessorThread.addClick)
+        # editUI.addKeyboard_BT.clicked.connect(dataProcessorThread.addKeyboard)
+        # editUI.addDelay_BT.clicked.connect(dataProcessorThread.addDelay)
+        # editUI.addColorChecker_BT.clicked.connect(dataProcessorThread.addColorChecker)
 
-        editUI.delete_BT.clicked.connect(dataProcessorThread.removeMacroElement)
-        editUI.remove_item_signal.connect(dataProcessorThread.removeMacroElement)
+        # editUI.delete_BT.clicked.connect(dataProcessorThread.removeMacroElement)
+        # editUI.remove_item_signal.connect(dataProcessorThread.removeMacroElement)
 
 
         ## AddDelay UI
@@ -201,30 +201,30 @@ class Main(QObject):
         ## AddColorChecker UI
         addColorCheckerUI.exit_BT.clicked.connect(addColorCheckerUI.close)
 
-        addColorCheckerUI.setCoordinate_BT.clicked.connect(uiProcessorThread.setCoordinate)
+        # addColorCheckerUI.setCoordinate_BT.clicked.connect(uiProcessorThread.setCoordinate)
 
-        addColorCheckerUI.addPalette_BT.clicked.connect(uiProcessorThread.addPalette)
+        # addColorCheckerUI.addPalette_BT.clicked.connect(uiProcessorThread.addPalette)
 
-        addColorCheckerUI.palette_1_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_2_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_3_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_4_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_5_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_6_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_7_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_8_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_9_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_10_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_11_RB.clicked.connect(uiProcessorThread.setRGB)
-        addColorCheckerUI.palette_12_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_1_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_2_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_3_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_4_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_5_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_6_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_7_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_8_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_9_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_10_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_11_RB.clicked.connect(uiProcessorThread.setRGB)
+        # addColorCheckerUI.palette_12_RB.clicked.connect(uiProcessorThread.setRGB)
 
-        addColorCheckerUI.R_LE.textChanged.connect(uiProcessorThread.setColor)
-        addColorCheckerUI.G_LE.textChanged.connect(uiProcessorThread.setColor)
-        addColorCheckerUI.B_LE.textChanged.connect(uiProcessorThread.setColor)
+        # addColorCheckerUI.R_LE.textChanged.connect(uiProcessorThread.setColor)
+        # addColorCheckerUI.G_LE.textChanged.connect(uiProcessorThread.setColor)
+        # addColorCheckerUI.B_LE.textChanged.connect(uiProcessorThread.setColor)
 
-        addColorCheckerUI.copyColor_BT.clicked.connect(uiProcessorThread.copyColor)
+        # addColorCheckerUI.copyColor_BT.clicked.connect(uiProcessorThread.copyColor)
 
-        addColorCheckerUI.add_BT.clicked.connect(addColorCheckerUI.accept)
+        # addColorCheckerUI.add_BT.clicked.connect(addColorCheckerUI.accept)
 
         ### ----- signal() end ----- ###
 
@@ -373,9 +373,29 @@ class DataProcessor(QObject):
 
 
     def deleteMacro(self) -> None: 
-        pass                # Test code / please delete this line.
+        if load_status == False: 
+            self.logging_with_color_signal.emit("아직 매크로 데이터를 불러오지 않았습니다.", WARNING, "#f55b5b")
+            return
+        
+        if not data: 
+            self.logging_with_color_signal.emit("삭제할 매크로가 없습니다.", WARNING, "#f55b5b")
+            return
+        
+        target_index = mainUI.delete_CB.currentIndex()
+        target_name = mainUI.delete_CB.currentText()
 
-    ### ----- DataProcessor() end ----- ###
+        mainUI.delete_CB.removeItem(target_index)
+        mainUI.start_CB.removeItem(target_index)
+        editUI.setMacro_CB.removeItem(target_index)
+
+        del data[target_name]
+
+        with open(self.file_path, 'wb') as file: 
+            pickle_dump(data, file)
+
+        self.logging_with_color_signal.emit("매크로를 삭제했습니다.", INFO, "#4491fa")
+
+        ### ----- DataProcessor() end ----- ###
 
 
 
